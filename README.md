@@ -27,6 +27,7 @@ auditáveis, segurança, privacidade, supervisão humana e fontes rastreáveis.
 ## Organização
 
 - [Visão do produto](docs/visao-do-produto.md)
+- [Direção visual](docs/identidade-visual.md)
 - [Como começar](docs/inicio-do-curso.md)
 - [Currículo e mapa de aprendizagem](docs/curriculo.md)
 - [Mapa visual](docs/mapa-do-curso.mmd)
