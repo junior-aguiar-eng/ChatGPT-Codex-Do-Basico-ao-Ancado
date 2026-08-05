@@ -25,3 +25,7 @@ jobs:
 
       - name: Syntax check
         run: uv run --with-requirements requirements-dev.txt python -m compileall app scripts
+
+      - name: Lint
+        run: uv run --with-requirements requirements-dev.txt ruff check app scripts
+
