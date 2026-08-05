@@ -1,6 +1,7 @@
 import json
+from html import escape
 from pathlib import Path
-from typing import Dict
+from typing import Any
 
 import streamlit as st
 
@@ -10,45 +11,103 @@ MODULE1_LAB_PATH = BASE_DIR / "data" / "labs" / "modulo1.json"
 
 
 @st.cache_data
-def load_outline() -> list[dict[str, object]]:
-    payload = json.loads(OUTLINE_PATH.read_text(encoding="utf-8"))
-    return payload.get("modules", [])
+def load_course() -> dict[str, Any]:
+    return json.loads(OUTLINE_PATH.read_text(encoding="utf-8"))
 
 
 @st.cache_data
-def load_module1_lab() -> dict[str, object]:
+def load_b1_lab() -> dict[str, Any]:
     return json.loads(MODULE1_LAB_PATH.read_text(encoding="utf-8"))
 
 
-def load_progress() -> Dict[str, str]:
-    if "module_progress" not in st.session_state:
-        st.session_state["module_progress"] = {}
-    return st.session_state["module_progress"]
+def progress_state(modules: list[dict[str, Any]]) -> dict[str, str]:
+    progress = st.session_state.setdefault("module_progress", {})
+    for module in modules:
+        progress.setdefault(module["id"], "pending")
+    return progress
 
 
 def log_event(message: str) -> None:
-    history = st.session_state.setdefault("course_events", [])
-    history.append(message)
-    st.session_state["course_events"] = history[-30:]
+    events = st.session_state.setdefault("course_events", [])
+    events.append(message)
+    st.session_state["course_events"] = events[-24:]
 
 
-def status_text(status: str) -> str:
-    if status == "done":
-        return "concluido"
-    if status == "active":
-        return "em andamento"
-    return "pendente"
+def set_focus(module_id: str) -> None:
+    st.session_state["focused_module"] = module_id
 
 
-def status_badge(status: str) -> str:
-    if status == "done":
-        return "[OK]"
-    if status == "active":
-        return "[RUN]"
-    return "[ ]"
+def status_label(status: str) -> str:
+    return {"done": "concluída", "active": "em curso"}.get(status, "planejada")
 
 
-def build_module1_delivery(answers: list[dict[str, str]]) -> str:
+def status_tone(status: str) -> str:
+    return {"done": "is-done", "active": "is-active"}.get(status, "is-pending")
+
+
+def build_pet_svg(pet: str, color: str, glow: str, index: int) -> str:
+    return f"""
+    <svg class="pet-svg" viewBox="0 0 120 120" aria-label="Mini pet {escape(pet)}" role="img">
+      <defs>
+        <radialGradient id="halo-{index}" cx="50%" cy="48%" r="58%">
+          <stop offset="0%" stop-color="{escape(glow)}" stop-opacity=".52" />
+          <stop offset="100%" stop-color="{escape(glow)}" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+      <circle cx="60" cy="60" r="58" fill="url(#halo-{index})" />
+      <rect x="22" y="27" width="76" height="68" rx="22" fill="#09152d" stroke="#67d8ff" stroke-width="2" />
+      <rect x="29" y="35" width="62" height="48" rx="14" fill="#0d2344" />
+      <rect x="46" y="17" width="28" height="13" rx="6.5" fill="#136da0" />
+      <circle cx="47" cy="57" r="7" fill="{escape(color)}" />
+      <circle cx="73" cy="57" r="7" fill="{escape(color)}" />
+      <circle cx="47" cy="57" r="2.5" fill="#031022" />
+      <circle cx="73" cy="57" r="2.5" fill="#031022" />
+      <path d="M48 70 Q60 79 72 70" fill="none" stroke="#dff7ff" stroke-width="3" stroke-linecap="round" />
+      <path d="M22 79 h-12 M98 79 h12" stroke="#67d8ff" stroke-width="3" stroke-linecap="round" />
+      <text x="60" y="110" text-anchor="middle" fill="#bceeff" font-size="11" font-family="ui-monospace, monospace">{escape(pet)}</text>
+    </svg>
+    """
+
+
+def build_terminal_preview() -> str:
+    return """
+    <div class="terminal-shell">
+      <div class="terminal-bar"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span><code>course@codex:~/trilha</code></div>
+      <div class="terminal-body">
+        <p><span class="prompt">~ $</span> iniciar percurso --objetivo="autonomia"</p>
+        <p class="terminal-title">◈ COURSE SYSTEM</p>
+        <p>01. mapear ponto de partida</p>
+        <p>02. preparar ambiente seguro</p>
+        <p>03. explorar o ecossistema</p>
+        <p>04. construir com evidência</p>
+        <p class="terminal-ok">✓ mapa canônico carregado</p>
+        <p class="terminal-ok">✓ 33 unidades disponíveis</p>
+        <p><span class="prompt">~ $</span><span class="cursor">_</span></p>
+      </div>
+    </div>
+    """
+
+
+def build_syllabus_cards(modules: list[dict[str, Any]], progress: dict[str, str]) -> str:
+    cards = []
+    for position, module in enumerate(modules, start=1):
+        status = progress[module["id"]]
+        cards.append(
+            f"""
+            <article class="syllabus-card {status_tone(status)}">
+              <div class="syllabus-number">{position:02d}</div>
+              <div>
+                <span class="syllabus-stage">{escape(module["stage"])}</span>
+                <h4>{escape(module["title"])}</h4>
+                <p>{escape(module["deliverable"])}</p>
+              </div>
+            </article>
+            """
+        )
+    return "<div class='syllabus-grid'>" + "".join(cards) + "</div>"
+
+
+def build_b1_delivery(answers: list[dict[str, str]]) -> str:
     rows = "\n".join(
         "| {title} | {task_type} | {tool} | {reason} | {risk} | {review} |".format(
             **answer
@@ -59,9 +118,9 @@ def build_module1_delivery(answers: list[dict[str, str]]) -> str:
 
 > Gerado no laboratório interativo. Revise com a rubrica antes de enviar.
 
-## Decisão de ferramenta por cenário
+## Decisão de superfície por cenário
 
-| Cenário | Tipo de tarefa | Ferramenta escolhida | Justificativa | Risco principal | Revisão humana |
+| Cenário | Tipo de tarefa | Superfície escolhida | Justificativa | Risco principal | Revisão humana |
 | --- | --- | --- | --- | --- | --- |
 {rows}
 
@@ -73,15 +132,11 @@ def build_module1_delivery(answers: list[dict[str, str]]) -> str:
 """
 
 
-def render_module1_lab() -> None:
-    lab = load_module1_lab()
-    st.divider()
+def render_b1_lab() -> None:
+    lab = load_b1_lab()
+    st.markdown("<div class='section-kicker'>LABORATÓRIO ATIVO // B1</div>", unsafe_allow_html=True)
     st.subheader(str(lab["title"]))
     st.caption(str(lab["instructions"]))
-    st.info(
-        "Checkpoint Atlas: complete a decisão, o risco e a revisão humana. "
-        "A rubrica avalia a qualidade; este painel apenas organiza a missão."
-    )
 
     answers: list[dict[str, str]] = []
     scenarios = lab["scenarios"]
@@ -90,33 +145,33 @@ def render_module1_lab() -> None:
 
     for position, scenario in enumerate(scenarios, start=1):
         scenario_id = scenario["id"]
-        with st.expander(f"{position}. {scenario['title']}", expanded=position == 1):
-            st.markdown(f"**Contexto:** {scenario['context']}")
+        with st.expander(f"{position:02d} · {scenario['title']}", expanded=position == 1):
+            st.markdown(f"**Contexto** — {scenario['context']}")
             st.caption(f"Radar de risco: {scenario['risk_hint']}")
             task_type = st.selectbox(
                 "Tipo de tarefa",
                 options=["Selecione..."] + task_types,
-                key=f"m1-type-{scenario_id}",
+                key=f"b1-type-{scenario_id}",
             )
             tool = st.selectbox(
-                "Ferramenta escolhida",
+                "Superfície escolhida",
                 options=["Selecione..."] + tool_options,
-                key=f"m1-tool-{scenario_id}",
+                key=f"b1-tool-{scenario_id}",
             )
             reason = st.text_area(
-                "Justificativa (até 2 frases)",
-                key=f"m1-reason-{scenario_id}",
-                placeholder="Explique a escolha com base no objetivo e no contexto.",
+                "Justificativa",
+                key=f"b1-reason-{scenario_id}",
+                placeholder="Explique a escolha pelo objetivo e pelo contexto.",
             ).strip()
             risk = st.text_input(
                 "Risco principal",
-                key=f"m1-risk-{scenario_id}",
+                key=f"b1-risk-{scenario_id}",
                 placeholder="Qual erro ou impacto precisa ser evitado?",
             ).strip()
             review = st.text_input(
-                "Como será feita a revisão humana?",
-                key=f"m1-review-{scenario_id}",
-                placeholder="Descreva a checagem antes de considerar a tarefa concluída.",
+                "Revisão humana",
+                key=f"b1-review-{scenario_id}",
+                placeholder="Descreva a checagem antes da conclusão.",
             ).strip()
             answers.append(
                 {
@@ -129,230 +184,224 @@ def render_module1_lab() -> None:
                 }
             )
 
-    completed = sum(all(answer[key] for key in ("task_type", "tool", "reason", "risk", "review")) for answer in answers)
+    completed = sum(
+        all(answer[key] for key in ("task_type", "tool", "reason", "risk", "review"))
+        for answer in answers
+    )
     st.progress(completed / len(answers))
-    st.caption(f"{completed}/{len(answers)} cenários completos")
+    st.caption(f"{completed}/{len(answers)} cenários concluídos")
 
     if completed == len(answers):
-        delivery = build_module1_delivery(answers)
-        st.success("Missão preenchida. Faça a leitura final com a rubrica antes de concluir o módulo.")
+        st.success("Checkpoint preenchido. Revise a rubrica antes de concluir B1.")
         st.download_button(
             "Baixar entrega em Markdown",
-            data=delivery,
-            file_name="entrega-modulo-1.md",
+            data=build_b1_delivery(answers),
+            file_name="entrega-b1-ecossistema-openai.md",
             mime="text/markdown",
         )
-    else:
-        st.warning("Complete todos os campos para liberar a entrega em Markdown.")
 
 
-def build_pet_svg(pet: str, color: str, glow: str, idx: int) -> str:
-    eye_offset = 32
-    blink = ""
-    if idx % 2 == 0:
-        blink = "0s"
-    return f"""
-    <svg width=\"92\" height=\"92\" viewBox=\"0 0 92 92\" aria-label=\"pet-{pet}\" role=\"img\">
-      <defs>
-        <radialGradient id=\"glow-{pet}\" cx=\"50%\" cy=\"50%\" r=\"50%\">
-          <stop offset=\"0%\" stop-color=\"{glow}\" stop-opacity=\"0.35\" />
-          <stop offset=\"70%\" stop-color=\"{glow}\" stop-opacity=\"0\" />
-        </radialGradient>
-      </defs>
-      <circle cx=\"46\" cy=\"46\" r=\"44\" fill=\"url(#glow-{pet})\" />
-      <rect x=\"11\" y=\"15\" width=\"70\" height=\"62\" rx=\"18\" fill=\"#0f2f52\" stroke=\"#7fd0ff\" stroke-width=\"2\" />
-      <rect x=\"16\" y=\"22\" width=\"60\" height=\"48\" rx=\"12\" fill=\"#102f55\" />
-      <rect x=\"26\" y=\"8\" width=\"40\" height=\"14\" rx=\"7\" fill=\"#0f4c8a\" />
-      <rect x=\"29\" y=\"11\" width=\"34\" height=\"8\" rx=\"4\" fill=\"#8ad4ff\" />
-      <circle cx=\"34\" cy=\"47\" r=\"5\" fill=\"{color}\" />
-      <circle cx=\"58\" cy=\"47\" r=\"5\" fill=\"{color}\" />
-      <circle cx=\"34\" cy=\"47\" r=\"2.3\" fill=\"#081a30\" />
-      <circle cx=\"58\" cy=\"47\" r=\"2.3\" fill=\"#081a30\" />
-      <rect x=\"38\" y=\"56\" width=\"16\" height=\"10\" rx=\"5\" fill=\"#d6ecff\" />
-      <rect x=\"22\" y=\"63\" width=\"48\" height=\"4\" rx=\"2\" fill=\"#7ec5f5\" />
-      <rect x=\"40\" y=\"66\" width=\"12\" height=\"8\" rx=\"2\" fill=\"#8ad4ff\" />
-      <line x1=\"28\" y1=\"24\" x2=\"36\" y2=\"24\" stroke=\"#d6ecff\" stroke-width=\"2\" />
-      <line x1=\"56\" y1=\"24\" x2=\"64\" y2=\"24\" stroke=\"#d6ecff\" stroke-width=\"2\" />
-      <rect x=\"12\" y=\"65\" width=\"24\" height=\"4\" rx=\"2\" fill=\"#7ec5f5\" opacity=\"0.6\" />
-      <rect x=\"56\" y=\"65\" width=\"24\" height=\"4\" rx=\"2\" fill=\"#7ec5f5\" opacity=\"0.6\" />
-      <text x=\"46\" y=\"86\" text-anchor=\"middle\" font-size=\"8\" fill=\"#b8e5ff\" font-family=\"Arial, sans-serif\">{pet}</text>
-    </svg>
-    """
-
-
-st.set_page_config(page_title="NEXUS Course Ops", page_icon="🛰️", layout="wide")
+st.set_page_config(
+    page_title="Codex // Curso Completo",
+    page_icon="◈",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+)
 
 st.markdown(
     """
     <style>
+      :root {
+        --ink: #f3f8ff;
+        --muted: #a9b7d2;
+        --surface: #0a1228;
+        --surface-2: #0e1934;
+        --line: rgba(103, 216, 255, .22);
+        --cyan: #67d8ff;
+        --blue: #4d80ff;
+        --violet: #9f8cff;
+        --green: #64e2a7;
+      }
       .stApp {
-        background: radial-gradient(circle at 20% 20%, #0f2f52 0%, #071a2f 35%, #040f1a 100%);
+        background:
+          radial-gradient(circle at 76% 13%, rgba(63, 123, 255, .23), transparent 27rem),
+          radial-gradient(circle at 17% 20%, rgba(56, 217, 255, .12), transparent 22rem),
+          #030817;
+        color: var(--ink);
       }
-      .hero {
-        border: 1px solid #2f6fa5;
-        background: linear-gradient(135deg, #0b2a4a, #143d66);
-        border-radius: 16px;
-        padding: 24px;
-        margin-bottom: 16px;
+      .stApp::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        opacity: .48;
+        background-image:
+          linear-gradient(rgba(119, 175, 255, .08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(119, 175, 255, .08) 1px, transparent 1px);
+        background-size: 58px 58px;
+        mask-image: linear-gradient(to bottom, black 0%, transparent 80%);
       }
-      .hero h1, .hero p {
-        color: #e3f4ff;
-      }
-      .hero span {
-        color: #9ee0ff;
-        font-size: 1rem;
-      }
-      .module-card {
-        border: 1px solid #2f6fa5;
-        border-radius: 14px;
-        padding: 14px;
-        margin-bottom: 12px;
-        background: linear-gradient(145deg, rgba(15, 67, 109, 0.78), rgba(14, 44, 77, 0.64));
-      }
-      .small-chip {
-        display: inline-block;
-        padding: 4px 10px;
-        margin: 2px 6px 2px 0;
-        border-radius: 999px;
-        border: 1px solid #2f6fa5;
-        color: #b8e5ff;
-        background: rgba(12, 62, 110, 0.55);
-        font-size: 0.8rem;
-      }
-      .status {
-        font-weight: 700;
-        color: #9ee0ff;
-      }
-      .section {
-        color: #cde9ff;
-      }
-      .pet-card {
-        border: 1px solid #2f6fa5;
-        border-radius: 12px;
-        padding: 8px;
-        margin-bottom: 10px;
-        display: inline-block;
-        background: linear-gradient(155deg, rgba(8, 36, 67, 0.85), rgba(15, 52, 88, 0.75));
-      }
+      .block-container { position: relative; z-index: 1; max-width: 1320px; padding-top: 2.2rem; padding-bottom: 5rem; }
+      header, [data-testid="stHeader"] { background: transparent; }
+      h1, h2, h3, h4, p, label, .stMarkdown { color: var(--ink); }
+      h1 { letter-spacing: -.055em; font-size: clamp(3.1rem, 6.1vw, 6.7rem) !important; line-height: .91; margin: .25rem 0 1.3rem; }
+      h2, h3 { letter-spacing: -.03em; }
+      .eyebrow, .section-kicker { color: var(--cyan); font: 700 .78rem/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .13em; }
+      .hero-copy { padding: 3rem 0 1.8rem; max-width: 670px; }
+      .hero-copy h1 .neon { color: var(--cyan); text-shadow: 0 0 32px rgba(103,216,255,.32); }
+      .hero-copy p { color: var(--muted); font-size: 1.22rem; line-height: 1.58; max-width: 620px; }
+      .route-line { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.5rem 0; }
+      .route-line span, .chip { border: 1px solid var(--line); background: rgba(13, 34, 68, .72); color: #c5efff; border-radius: 999px; padding: .36rem .72rem; font: 600 .75rem/1 ui-monospace, monospace; }
+      .terminal-shell { margin: 3.6rem 0 1.5rem; border: 1px solid rgba(103,216,255,.28); border-radius: 22px; overflow: hidden; background: linear-gradient(145deg, rgba(15,29,52,.96), rgba(4,10,22,.97)); box-shadow: 0 22px 70px rgba(0,0,0,.38), 0 0 42px rgba(71,125,255,.18); transform: perspective(1100px) rotateY(-3deg) rotateX(1deg); }
+      .terminal-bar { display:flex; gap:7px; align-items:center; padding: .85rem 1rem; background: rgba(1,5,12,.68); border-bottom: 1px solid var(--line); }
+      .terminal-bar code { color: #8294b6; margin-left: auto; margin-right: auto; font-size: .72rem; }
+      .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }.red { background:#ff6f91; }.amber { background:#ffca6a; }.green { background:#64e2a7; }
+      .terminal-body { padding: 1.55rem 1.65rem 1.2rem; font: .88rem/1.68 ui-monospace, SFMono-Regular, Menlo, monospace; color:#c4d7ed; min-height: 275px; }
+      .terminal-body p { margin:.18rem 0; color:#b7c5d8; }.terminal-title{ color:var(--cyan) !important; font-weight:700; margin-top:1rem !important; }.prompt { color:#7eabff; }.terminal-ok { color:var(--green) !important; }.cursor { color:var(--cyan); animation: blink 1s step-end infinite; }@keyframes blink{50%{opacity:0}}
+      .hero-note { color: var(--muted); font-size: .85rem; margin-top: .8rem; }
+      .stButton > button, .stDownloadButton > button { width:100%; min-height: 3.25rem; border: 1px solid rgba(132,224,255,.52); border-radius: 13px; background: linear-gradient(100deg, #4c83ff, #55d4f7); color: #03101f; font-weight: 800; box-shadow: 0 8px 28px rgba(65,146,255,.28); }
+      .stButton > button:hover, .stDownloadButton > button:hover { border-color:#e8fbff; background:linear-gradient(100deg,#79a7ff,#79ecff); color:#020914; }
+      .stat-card, .story-card, .focus-card { border: 1px solid var(--line); background: linear-gradient(145deg, rgba(13,28,56,.88), rgba(5,13,30,.82)); border-radius: 18px; }
+      .stat-card { padding: 1.15rem 1.2rem; min-height: 112px; }.stat-card span { color:var(--muted); font-size:.82rem; }.stat-card strong { display:block; color:var(--cyan); font-size:1.8rem; margin:.32rem 0; }.stat-card small{color:#cdd9ea;}
+      .story-card { padding: 1.65rem; min-height: 100%; }.story-card p { color:var(--muted); font-size:1.03rem; line-height:1.6; }.story-card strong { color:var(--ink); }
+      .mini-terminal { border:1px solid var(--line); border-radius:14px; background:#050b19; padding:1rem; font: .82rem/1.75 ui-monospace,monospace; color:#b5c8dc; margin-top:1.2rem; }.mini-terminal em{color:var(--green);font-style:normal;}.mini-terminal b{color:var(--cyan);}
+      .focus-card { padding:1.3rem; margin:.45rem 0 1.2rem; }.focus-card h4{margin:.7rem 0 .5rem;}.focus-card p{color:var(--muted); line-height:1.55;}.pet-wrap{max-width:112px;}
+      .syllabus-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; margin:1.2rem 0 2.6rem; }.syllabus-card{display:grid;grid-template-columns:52px 1fr;gap:1rem;align-items:start;padding:1.05rem 1.12rem;border:1px solid var(--line);background:rgba(8,18,41,.84);border-radius:14px;min-height:105px;}.syllabus-card:hover{border-color:rgba(103,216,255,.7);background:rgba(15,34,69,.9);}.syllabus-number{color:var(--cyan);font:800 1.05rem/1 ui-monospace,monospace;padding-top:.15rem;}.syllabus-stage{color:#93a7c8;font:600 .66rem/1 ui-monospace,monospace;text-transform:uppercase;letter-spacing:.08em;}.syllabus-card h4{font-size:1rem;margin:.4rem 0 .3rem;letter-spacing:-.01em;}.syllabus-card p{color:var(--muted);font-size:.82rem;line-height:1.35;margin:0;}.syllabus-card.is-active{border-color:rgba(103,216,255,.75);box-shadow:inset 3px 0 var(--cyan);}.syllabus-card.is-done{border-color:rgba(100,226,167,.55);}.syllabus-card.is-done .syllabus-number{color:var(--green);}
+      div[data-testid="stSelectbox"] label, div[data-testid="stTextInput"] label, div[data-testid="stTextArea"] label { color:#dceeff !important; font-weight:700; }.stSelectbox > div > div, .stTextInput input, .stTextArea textarea { background:rgba(5,14,32,.84) !important; border-color:rgba(103,216,255,.28) !important; color:#eff8ff !important; border-radius:11px !important; }.stExpander{border:1px solid var(--line) !important;background:rgba(9,21,46,.78) !important;border-radius:13px !important;}.stProgress > div > div > div{background:linear-gradient(90deg,var(--blue),var(--cyan)) !important;}.stAlert{background:rgba(15,35,68,.78) !important;border:1px solid var(--line) !important;color:var(--ink) !important;}.stDivider{border-color:var(--line) !important;}
+      @media (max-width: 800px) { .block-container{padding-left:1rem;padding-right:1rem;}.terminal-shell{transform:none;margin-top:1rem;}.syllabus-grid{grid-template-columns:1fr;}h1{font-size:3.2rem !important;}.hero-copy{padding-top:1.4rem;} }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-
-modules = load_outline()
+course = load_course()
+modules: list[dict[str, Any]] = course.get("modules", [])
 if not modules:
-    st.error("Modulo de dados vazio. Ajuste data/course_outline.json.")
+    st.error("O catálogo do curso está vazio.")
     st.stop()
 
-progress = load_progress()
-for module in modules:
-    progress.setdefault(module["id"], "pending")
+module_by_id = {module["id"]: module for module in modules}
+if "focused_module" not in st.session_state:
+    st.session_state["focused_module"] = "diagnostico"
+progress = progress_state(modules)
+done_count = sum(status == "done" for status in progress.values())
 
-done_count = sum(1 for state in progress.values() if state == "done")
-total_count = len(modules)
-progress_ratio = 0 if not total_count else done_count / total_count
+hero_left, hero_right = st.columns([1.03, 0.97], gap="large")
+with hero_left:
+    st.markdown(
+        """
+        <section class="hero-copy">
+          <div class="eyebrow">CODEX // CURSO COMPLETO</div>
+          <h1>Da primeira pergunta à <span class="neon">arquitetura</span> de sistemas com IA.</h1>
+          <p>Uma trilha prática, profunda e verificável para operar ChatGPT, Codex, APIs, agentes e integrações — com autonomia, método e segurança.</p>
+          <div class="route-line"><span>33 unidades</span><span>3 trilhas avançadas</span><span>projeto final integrado</span></div>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
+    if st.button("Iniciar pelo diagnóstico", key="hero-start"):
+        set_focus("diagnostico")
+        log_event("Diagnóstico inicial selecionado.")
+        st.rerun()
+    st.markdown("<div class='hero-note'>Comece pelo seu contexto. A tecnologia entra depois, com propósito.</div>", unsafe_allow_html=True)
+with hero_right:
+    st.markdown(build_terminal_preview(), unsafe_allow_html=True)
 
-st.markdown(
-    """
-    <div class="hero">
-      <span>NEXUS COURSE OPS</span>
-      <h1>Interface do curso ChatGPT e Codex</h1>
-      <p>Mapa canônico completo, navegação por unidades e mini pets por trilha.</p>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-
-left, right = st.columns([2, 1], gap="large")
-with left:
-    st.markdown("<span class='section'>Progresso da trilha</span>", unsafe_allow_html=True)
-    st.progress(progress_ratio)
-    st.caption(f"{done_count}/{total_count} modulos concluídos")
-with right:
-    st.markdown("<span class='section'>Terminal de start</span>", unsafe_allow_html=True)
-    st.code("python -m streamlit run app/main.py --server.port 8501 --server.address 0.0.0.0")
+stats = st.columns(3, gap="medium")
+stats_data = [
+    ("33", "unidades explícitas", "do diagnóstico ao projeto final"),
+    ("03", "trilhas avançadas", "ChatGPT, Codex e API Platform"),
+    ("06", "critérios de banca", "qualidade, risco, custo e manutenção"),
+]
+for column, (number, label, detail) in zip(stats, stats_data):
+    with column:
+        st.markdown(
+            f"<div class='stat-card'><span>{label}</span><strong>{number}</strong><small>{detail}</small></div>",
+            unsafe_allow_html=True,
+        )
 
 st.divider()
-st.subheader("Painel de modulos")
-
-title_to_module = {m["title"]: m for m in modules}
-titles = list(title_to_module.keys())
-selected_title = st.radio("Foco atual", options=titles, horizontal=False)
-selected = title_to_module[selected_title]
-
-selected_pet = selected.get("pet", "Nexus")
-selected_color = selected.get("accent", "#6ec5ff")
-selected_glow = selected.get("glow", "#2fb2ff")
-
-detail_col, action_col = st.columns([2, 1], gap="large")
-with detail_col:
+story_left, story_right = st.columns([0.92, 1.08], gap="large")
+with story_left:
     st.markdown(
-        f"""
-        <div class='module-card'>
-          <div class='pet-card'>{build_pet_svg(selected_pet, selected_color, selected_glow, done_count)}</div>
-          <div>
-            <span class='small-chip'>id: {selected.get('id')}</span>
-            <span class='small-chip'>etapa: {selected.get('stage')}</span>
-            <span class='small-chip'>trilha: {selected.get('track')}</span>
-            <span class='small-chip'>status: {status_text(progress[selected['id']])}</span>
-          </div>
-          <h4 style='color:#cde9ff;'>{selected.get('title')}</h4>
-          <p class='status'>{selected.get('outcomes', [''])[0]}</p>
+        """
+        <div class="story-card">
+          <div class="section-kicker">COMO O CURSO FUNCIONA</div>
+          <div class="mini-terminal"><b>~/curso</b><br>├── diagnóstico<br>├── fundamentos<br>├── workflows<br>├── especializações<br>└── <em>projeto-final</em></div>
         </div>
         """,
         unsafe_allow_html=True,
     )
-    st.markdown("**Resultados esperados**")
-    for outcome in selected["outcomes"]:
-        st.markdown(f"- {outcome}")
-    st.markdown("**Escopo canônico desta unidade**")
-    for topic in selected.get("topics", []):
-        st.markdown(f"- {topic}")
-    st.markdown("**Entrega principal**")
-    st.info(selected["deliverable"])
-
-with action_col:
-    st.markdown("<span class='section'>Controle de execucao</span>", unsafe_allow_html=True)
-    if st.button("Iniciar modulo", key=f"start-{selected['id']}"):
-        progress[selected["id"]] = "active"
-        log_event(f"{selected['id']} iniciado.")
-        st.rerun()
-    if st.button("Concluir modulo", key=f"done-{selected['id']}"):
-        progress[selected["id"]] = "done"
-        log_event(f"{selected['id']} concluido.")
-        st.rerun()
-    if st.button("Reset modulo", key=f"reset-{selected['id']}"):
-        progress[selected["id"]] = "pending"
-        log_event(f"{selected['id']} resetado.")
-        st.rerun()
-
-if selected["id"] == "basic-b1":
-    render_module1_lab()
-
-for idx, module in enumerate(modules, start=1):
-    state = progress.get(module["id"], "pending")
-    badge = status_badge(state)
+with story_right:
     st.markdown(
-        f"<span class='status'>{badge}</span> {idx}. {module.get('pet', 'Nexus')}  ·  "
-        f"{module['title']} <span class='small-chip'>{module.get('stage')}</span>",
+        """
+        <div class="story-card">
+          <div class="section-kicker">PROGRESSÃO REAL</div>
+          <h2>Você não recebe uma coleção de dicas.</h2>
+          <p>Cada unidade tem posição no mapa, pré-requisito, prática, evidência e critério de conclusão. O curso começa pelo seu objetivo, passa por fundamentos comuns e abre especializações sem esconder a complexidade.</p>
+          <p><strong>O mapa canônico é a fonte de verdade.</strong> A interface apenas torna essa trilha navegável, visual e interativa.</p>
+        </div>
+        """,
         unsafe_allow_html=True,
     )
-    with st.expander("Detalhes do modulo", expanded=False):
-        cols = st.columns([1, 3])
-        with cols[0]:
-            st.markdown(
-                f"<div class='pet-card'>{build_pet_svg(module.get('pet','Nexus'), module.get('accent','#6ec5ff'), module.get('glow','#2fb2ff'), idx)}</div>",
-                unsafe_allow_html=True,
-            )
-        with cols[1]:
-            st.markdown(f"**Status:** {status_text(state)}")
-            st.markdown(module["outcomes"][0])
-            for item in module["outcomes"]:
-                st.markdown(f"- {item}")
-            st.caption("Tópicos: " + " · ".join(module.get("topics", [])))
 
 st.divider()
-with st.expander("Nerd log", expanded=False):
-    log_lines = "\n".join(st.session_state.get("course_events", [])) or "Ainda sem eventos."
+st.markdown("<div class='section-kicker'>EMENTA CANÔNICA</div>", unsafe_allow_html=True)
+st.header("Toda a trilha, sem atalhos")
+st.caption("Cada card representa uma unidade explícita do mapa aprovado.")
+st.markdown(build_syllabus_cards(modules, progress), unsafe_allow_html=True)
+
+st.markdown("<div class='section-kicker'>SALA DE OPERAÇÕES</div>", unsafe_allow_html=True)
+st.header("Escolha a unidade em foco")
+selected_id = st.selectbox(
+    "Unidade",
+    options=list(module_by_id),
+    format_func=lambda module_id: f"{module_by_id[module_id]['stage']} · {module_by_id[module_id]['title']}",
+    key="focused_module",
+)
+selected = module_by_id[selected_id]
+selected_status = progress[selected_id]
+
+detail_col, control_col = st.columns([1.7, 0.85], gap="large")
+with detail_col:
+    st.markdown(
+        f"""
+        <section class="focus-card">
+          <div class="pet-wrap">{build_pet_svg(selected['pet'], selected['accent'], selected['glow'], modules.index(selected) + 1)}</div>
+          <div class="chip">{escape(selected['stage'])} // {escape(selected['track'])}</div>
+          <h4>{escape(selected['title'])}</h4>
+          <p>{escape(selected['outcomes'][0])}</p>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.markdown("**Escopo desta unidade**")
+    for topic in selected.get("topics", []):
+        st.markdown(f"- {topic}")
+    st.markdown("**Entrega verificável**")
+    st.info(selected["deliverable"])
+
+with control_col:
+    st.markdown("<div class='section-kicker'>CHECKPOINT</div>", unsafe_allow_html=True)
+    st.markdown(f"**Estado atual:** {status_label(selected_status)}")
+    if st.button("Marcar como em curso", key=f"start-{selected_id}"):
+        progress[selected_id] = "active"
+        log_event(f"{selected_id} iniciado.")
+        st.rerun()
+    if st.button("Marcar como concluída", key=f"done-{selected_id}"):
+        progress[selected_id] = "done"
+        log_event(f"{selected_id} concluído.")
+        st.rerun()
+    if st.button("Reiniciar checkpoint", key=f"reset-{selected_id}"):
+        progress[selected_id] = "pending"
+        log_event(f"{selected_id} reiniciado.")
+        st.rerun()
+
+if selected_id == "basic-b1":
+    st.divider()
+    render_b1_lab()
+
+with st.expander("Log de navegação", expanded=False):
+    log_lines = "\n".join(st.session_state.get("course_events", [])) or "Nenhum evento nesta sessão."
     st.code(log_lines, language="text")
