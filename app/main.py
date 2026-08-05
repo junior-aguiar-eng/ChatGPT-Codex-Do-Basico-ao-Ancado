@@ -8,6 +8,7 @@ import streamlit as st
 BASE_DIR = Path(__file__).resolve().parents[1]
 OUTLINE_PATH = BASE_DIR / "data" / "course_outline.json"
 MODULE1_LAB_PATH = BASE_DIR / "data" / "labs" / "modulo1.json"
+DIAGNOSTIC_PATH = BASE_DIR / "data" / "diagnostico-inicial.json"
 
 
 @st.cache_data
@@ -18,6 +19,11 @@ def load_course() -> dict[str, Any]:
 @st.cache_data
 def load_b1_lab() -> dict[str, Any]:
     return json.loads(MODULE1_LAB_PATH.read_text(encoding="utf-8"))
+
+
+@st.cache_data
+def load_diagnostic() -> dict[str, Any]:
+    return json.loads(DIAGNOSTIC_PATH.read_text(encoding="utf-8"))
 
 
 def progress_state(modules: list[dict[str, Any]]) -> dict[str, str]:
@@ -130,6 +136,141 @@ def build_b1_delivery(answers: list[dict[str, str]]) -> str:
 - Não decido com LLM quando:
 - Sempre reviso:
 """
+
+
+def build_diagnostic_delivery(answers: dict[str, Any]) -> str:
+    environments = ", ".join(answers["environments"])
+    care_points = ", ".join(answers["care_points"])
+    return f"""# Diagnóstico inicial
+
+> Registro gerado no curso. Revise antes de guardar ou compartilhar.
+
+## Objetivo
+
+{answers["goal"]}
+
+## Rota de entrada predominante
+
+{answers["entry_path"]}
+
+## Repertório atual
+
+{answers["experience"]}
+
+## Ambiente disponível
+
+{environments}
+
+## Projeto de referência
+
+{answers["project"]}
+
+## Cuidados desde o início
+
+Pontos de atenção: {care_points}
+
+Controle inicial: {answers["control"]}
+
+## Critério pessoal de sucesso
+
+{answers["success"]}
+
+## Próxima unidade
+
+Use este registro na Preparação do ambiente. Não inclua senhas, chaves de API,
+dados pessoais de terceiros ou conteúdo sigiloso ao compartilhá-lo.
+"""
+
+
+def render_diagnostic() -> None:
+    diagnostic = load_diagnostic()
+    st.markdown("<div class='section-kicker'>UNIDADE ATIVA // ENTRADA</div>", unsafe_allow_html=True)
+    st.subheader(str(diagnostic["title"]))
+    st.caption(str(diagnostic["purpose"]))
+    st.info(str(diagnostic["privacy_note"]))
+
+    goal = st.text_area(
+        "1. Qual resultado você quer alcançar com este curso?",
+        key="diagnostic-goal",
+        placeholder="Ex.: construir um fluxo confiável para revisar documentos antes de publicá-los.",
+    ).strip()
+    entry_path = st.selectbox(
+        "2. Qual rota descreve sua prioridade atual?",
+        options=["Selecione..."] + list(diagnostic["entry_paths"]),
+        key="diagnostic-entry-path",
+    )
+    experience = st.selectbox(
+        "3. Como você descreve seu repertório atual?",
+        options=["Selecione..."] + list(diagnostic["experience_levels"]),
+        key="diagnostic-experience",
+    )
+    environments = st.multiselect(
+        "4. Em quais ambientes você realmente consegue trabalhar hoje?",
+        options=list(diagnostic["environment_options"]),
+        key="diagnostic-environments",
+        placeholder="Selecione um ou mais ambientes.",
+    )
+    project = st.text_area(
+        "5. Que projeto, problema ou rotina você quer melhorar?",
+        key="diagnostic-project",
+        placeholder="Descreva sem incluir conteúdo confidencial ou dados de terceiros.",
+    ).strip()
+    care_points = st.multiselect(
+        "6. O que exige cuidado desde o início?",
+        options=list(diagnostic["care_options"]),
+        key="diagnostic-care-points",
+        placeholder="Selecione os pontos relevantes.",
+    )
+    control = st.text_area(
+        "Qual controle inicial você aplicará?",
+        key="diagnostic-control",
+        placeholder="Ex.: remover identificadores e revisar a saída antes de qualquer envio.",
+    ).strip()
+    success = st.text_area(
+        "7. Como você saberá que o curso foi útil para você?",
+        key="diagnostic-success",
+        placeholder="Defina uma evidência observável de progresso.",
+    ).strip()
+    safe_data_confirmed = st.checkbox(
+        "Confirmo que não registrei senhas, chaves de API, dados pessoais de terceiros ou conteúdo sigiloso.",
+        key="diagnostic-safe-data",
+    )
+
+    answers: dict[str, Any] = {
+        "goal": goal,
+        "entry_path": "" if entry_path == "Selecione..." else entry_path,
+        "experience": "" if experience == "Selecione..." else experience,
+        "environments": environments,
+        "project": project,
+        "care_points": care_points,
+        "control": control,
+        "success": success,
+    }
+    completed = sum(
+        (
+            bool(answers["goal"]),
+            bool(answers["entry_path"]),
+            bool(answers["experience"]),
+            bool(answers["environments"]),
+            bool(answers["project"]),
+            bool(answers["care_points"] and answers["control"]),
+            bool(answers["success"]),
+        )
+    )
+    st.progress(completed / len(diagnostic["completion_fields"]))
+    st.caption(f"{completed}/{len(diagnostic['completion_fields'])} critérios de conclusão preenchidos")
+
+    if completed == len(diagnostic["completion_fields"]):
+        if safe_data_confirmed:
+            st.success("Diagnóstico concluído. Use a entrega na Preparação do ambiente.")
+            st.download_button(
+                "Baixar diagnóstico em Markdown",
+                data=build_diagnostic_delivery(answers),
+                file_name="diagnostico-inicial.md",
+                mime="text/markdown",
+            )
+        else:
+            st.warning("Antes de gerar a entrega, confirme a proteção dos dados registrados.")
 
 
 def render_b1_lab() -> None:
@@ -398,6 +539,10 @@ with control_col:
         log_event(f"{selected_id} reiniciado.")
         st.rerun()
 
+if selected_id == "diagnostico":
+    st.divider()
+    render_diagnostic()
+
 if selected_id == "basic-b1":
     st.divider()
     render_b1_lab()
@@ -405,3 +550,4 @@ if selected_id == "basic-b1":
 with st.expander("Log de navegação", expanded=False):
     log_lines = "\n".join(st.session_state.get("course_events", [])) or "Nenhum evento nesta sessão."
     st.code(log_lines, language="text")
+
