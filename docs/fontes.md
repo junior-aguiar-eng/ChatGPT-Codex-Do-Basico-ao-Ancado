@@ -19,6 +19,9 @@ data de conferência.
 | B1 — API Platform | https://developers.openai.com/api/docs/quickstart.md — verificado em 05-08-2026. | Delimitar integração programável, chave protegida e ambiente como preocupações iniciais. |
 | B2 — Engenharia de prompts | https://developers.openai.com/api/docs/guides/prompt-engineering — verificado em 05-08-2026. | Instruções, exemplos e formatos de saída; referência de produto aplicada pedagogicamente a diferentes superfícies. |
 | B2 — Boas práticas de raciocínio | https://developers.openai.com/api/docs/guides/reasoning-best-practices — verificado em 05-08-2026. | Pedidos diretos, critérios específicos, delimitadores e exemplos coerentes quando necessários. |
+| B3 — Uso geral, arquivos e revisão | https://learn.chatgpt.com/docs/use-chatgpt e https://learn.chatgpt.com/docs/prompting — verificados em 05-08-2026. | Definir resultado, acrescentar contexto e revisar fontes, arquivos e resultados antes de usar ou compartilhar. |
+| B3 — Imagens e voz | https://learn.chatgpt.com/docs/image-generation e https://learn.chatgpt.com/docs/features/voice — verificados em 05-08-2026. | Geração/edição de imagens e interação por voz; plano, plataforma, rollout, permissões e configurações podem condicionar o acesso. |
+| B3 — Canvas e dados | https://help.openai.com/en/articles/9930697-what-is-the-canvas-feature-in-chatgpt-and-how-do-i-use-it e https://help.openai.com/pt-br/articles/8437071-an%C3%A1lise-de-dados-com-o-chatgpt — verificados em 05-08-2026. | Edição iterativa em Canvas, análise de arquivos e dados; revisar versões, valores e materiais de origem. |
 
 ## Regra de atualização
 

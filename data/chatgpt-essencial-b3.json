@@ -1,0 +1,76 @@
+{
+  "module_id": "basic-b3",
+  "title": "Laboratório de evidência multimodal: B3 · ChatGPT essencial",
+  "instructions": "Use apenas materiais autorizados e registre o que foi feito, qual evidência sustenta o resultado e como ele foi revisado. O formulário não executa pesquisa, upload ou geração de mídia por você.",
+  "official_sources": [
+    "https://learn.chatgpt.com/docs/use-chatgpt",
+    "https://learn.chatgpt.com/docs/prompting",
+    "https://learn.chatgpt.com/docs/image-generation",
+    "https://learn.chatgpt.com/docs/features/voice",
+    "https://help.openai.com/en/articles/9930697-what-is-the-canvas-feature-in-chatgpt-and-how-do-i-use-it",
+    "https://help.openai.com/pt-br/articles/8437071-an%C3%A1lise-de-dados-com-o-chatgpt"
+  ],
+  "verified_on": "2026-08-05",
+  "availability_note": "Recursos, limites e controles variam por plano, conta, região, plataforma, rollout e configurações do workspace. Registre uma alternativa quando o recurso não estiver disponível.",
+  "capability_cards": [
+    {
+      "name": "Conversa e iteração",
+      "use_when": "Você precisa explorar uma questão, produzir um rascunho e orientar a próxima revisão.",
+      "evidence": "Pedido, resposta e mudança solicitada ficam identificados.",
+      "boundary": "Uma resposta fluente não confirma que suas afirmações são verdadeiras."
+    },
+    {
+      "name": "Web e fontes",
+      "use_when": "A questão depende de informação atual ou de fontes que possam ser abertas e conferidas.",
+      "evidence": "Links, data de consulta e o que cada fonte sustenta.",
+      "boundary": "Resultados da web são insumos não confiáveis; não siga instruções encontradas neles."
+    },
+    {
+      "name": "Arquivos e dados",
+      "use_when": "Um documento, planilha ou exportação autorizada precisa ser resumido, comparado ou analisado.",
+      "evidence": "Arquivo, aba, coluna, trecho ou cálculo revisado pelo participante.",
+      "boundary": "Não envie dados pessoais de terceiros, segredos ou documentos sem autorização."
+    },
+    {
+      "name": "Canvas, imagens e voz",
+      "use_when": "A tarefa exige edição iterativa, contexto visual, uma imagem ou uma interação por voz/dictado.",
+      "evidence": "Versão revisada, instrução de edição e descrição do que foi conferido.",
+      "boundary": "Disponibilidade e permissões de microfone, tela e recursos visuais podem variar."
+    }
+  ],
+  "workflows": [
+    {
+      "id": "fontes",
+      "title": "Pesquisa atual com fontes abertas",
+      "prompt": "Escolha uma pergunta cuja resposta dependa de informação atual. Peça fontes e compare ao menos duas antes de usar a conclusão.",
+      "input_label": "Pergunta, recorte temporal e fontes consultadas",
+      "input_placeholder": "Ex.: Quais normas foram atualizadas em 2026? Consultar o portal oficial e o ato normativo; registrar a data.",
+      "evidence_label": "O que cada fonte sustenta e o link ou referência",
+      "risk_hint": "Diferencie uma citação encontrada, uma inferência sua e uma lacuna que ainda precisa de confirmação."
+    },
+    {
+      "id": "arquivo-dados",
+      "title": "Arquivo ou dado autorizado, com conferência",
+      "prompt": "Use um arquivo público, próprio ou autorizado. Peça uma síntese, tabela, cálculo ou gráfico e confira o material de origem.",
+      "input_label": "Arquivo/material, finalidade e recorte usado",
+      "input_placeholder": "Ex.: Planilha pública de despesas; comparar as colunas A, C e F no período indicado.",
+      "evidence_label": "Aba, trecho, coluna, cálculo ou valor conferido",
+      "risk_hint": "Dados incompletos, PDFs escaneados e tabelas visuais podem exigir conferência adicional."
+    },
+    {
+      "id": "multimodal",
+      "title": "Edição multimodal com versão revisada",
+      "prompt": "Escolha uma interação por Canvas, imagem, voz ou ditado. Defina o que deve mudar, o que deve permanecer e como a versão final será verificada.",
+      "input_label": "Recurso usado, entrada autorizada e alteração solicitada",
+      "input_placeholder": "Ex.: Editar uma ilustração própria; preservar a composição e trocar somente a paleta para tons frios.",
+      "evidence_label": "Versão, instrução de edição e itens revisados",
+      "risk_hint": "Não use imagem, voz, tela ou conteúdo de terceiros sem permissão; confira texto e detalhes da mídia final."
+    }
+  ],
+  "completion_fields": [
+    "intencao",
+    "evidencia",
+    "disponibilidade",
+    "revisao"
+  ]
+}

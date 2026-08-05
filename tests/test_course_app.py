@@ -1,7 +1,8 @@
+from pathlib import Path
+
 from streamlit.testing.v1 import AppTest
 
-
-APP_PATH = "app/main.py"
+APP_PATH = Path(__file__).resolve().parents[1] / "app" / "main.py"
 APP_TIMEOUT_SECONDS = 10
 
 
@@ -98,4 +99,19 @@ def test_b2_completion_exports_markdown() -> None:
     app.run()
 
     assert_download_available(app, "Briefings completos")
+
+
+def test_b3_completion_exports_markdown() -> None:
+    app = run_app("basic-b3")
+    assert len(app.text_area) == 9
+    assert len(app.text_input) == 3
+
+    for field in app.text_area:
+        field.set_value("Registro autorizado, rastreável e revisado.")
+    for field in app.text_input:
+        field.set_value("Disponível nesta plataforma; alternativa registrada.")
+    app.checkbox[0].set_value(True)
+    app.run(timeout=APP_TIMEOUT_SECONDS)
+
+    assert_download_available(app, "Entrega multimodal registrada")
 

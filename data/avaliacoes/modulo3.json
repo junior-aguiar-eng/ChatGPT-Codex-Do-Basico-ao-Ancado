@@ -1,0 +1,27 @@
+{
+  "module_id": "basic-b3",
+  "module_title": "B3 · ChatGPT essencial",
+  "status": "pronto_para_revisao",
+  "start_date": "2026-08-05",
+  "learning_outcomes": [
+    "Escolher um recurso do ChatGPT de acordo com a finalidade e as condições de disponibilidade",
+    "Registrar fontes, arquivo ou versão como evidência verificável",
+    "Distinguir fato documentado, inferência própria e ponto que exige revisão humana"
+  ],
+  "artifacts_expected": [
+    "docs/modulos/03-chatgpt-essencial/01-guia-b3.md",
+    "docs/modulos/03-chatgpt-essencial/02-laboratorio-b3.md",
+    "docs/modulos/03-chatgpt-essencial/03-rubrica-b3.md",
+    "docs/entregas/03-chatgpt-essencial/template-entrega-b3.md"
+  ],
+  "assessment_rules": {
+    "minimum_points": 18,
+    "max_points": 30,
+    "required_passports": [
+      "tres_interacoes_registradas",
+      "evidencia_rastreavel",
+      "revisao_humana_declarada"
+    ]
+  },
+  "created_at": "2026-08-05T00:00:00-03:00"
+}

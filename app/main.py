@@ -11,6 +11,7 @@ MODULE1_LAB_PATH = BASE_DIR / "data" / "labs" / "modulo1.json"
 DIAGNOSTIC_PATH = BASE_DIR / "data" / "diagnostico-inicial.json"
 PREPARATION_PATH = BASE_DIR / "data" / "preparacao-do-ambiente.json"
 B2_LAB_PATH = BASE_DIR / "data" / "fundamentos-interacao-b2.json"
+B3_LAB_PATH = BASE_DIR / "data" / "chatgpt-essencial-b3.json"
 
 
 @st.cache_data
@@ -36,6 +37,11 @@ def load_preparation() -> dict[str, Any]:
 @st.cache_data
 def load_b2_lab() -> dict[str, Any]:
     return json.loads(B2_LAB_PATH.read_text(encoding="utf-8"))
+
+
+@st.cache_data
+def load_b3_lab() -> dict[str, Any]:
+    return json.loads(B3_LAB_PATH.read_text(encoding="utf-8"))
 
 
 def progress_state(modules: list[dict[str, Any]]) -> dict[str, str]:
@@ -640,6 +646,95 @@ def render_b2_lab() -> None:
         )
 
 
+def build_b3_delivery(answers: list[dict[str, str]]) -> str:
+    sections = []
+    for answer in answers:
+        sections.append(
+            f"""## {answer['title']}
+
+- Intenção e material usado: {answer['intencao']}
+- Evidência rastreável: {answer['evidencia']}
+- Disponibilidade ou alternativa: {answer['disponibilidade']}
+- Revisão humana: {answer['revisao']}"""
+        )
+    return "# Entrega — B3: ChatGPT essencial\n\n" + "\n\n".join(sections)
+
+
+def render_b3_lab() -> None:
+    lab = load_b3_lab()
+    st.markdown("<div class='section-kicker'>LABORATÓRIO ATIVO // B3</div>", unsafe_allow_html=True)
+    st.subheader(str(lab["title"]))
+    st.caption(str(lab["instructions"]))
+    st.warning(str(lab["availability_note"]))
+
+    st.markdown("**Mapa de recursos e evidências**")
+    card_columns = st.columns(2, gap="small")
+    for column, capability in zip(card_columns * 2, lab["capability_cards"]):
+        with column:
+            st.markdown(
+                f"<div class='surface-card'><strong>{escape(capability['name'])}</strong>"
+                f"<p>{escape(capability['use_when'])}</p>"
+                f"<small>Evidência: {escape(capability['evidence'])}<br>Limite: {escape(capability['boundary'])}</small></div>",
+                unsafe_allow_html=True,
+            )
+
+    answers: list[dict[str, str]] = []
+    for position, workflow in enumerate(lab["workflows"], start=1):
+        workflow_id = workflow["id"]
+        with st.expander(f"{position:02d} · {workflow['title']}", expanded=position == 1):
+            st.markdown(f"**Roteiro** — {workflow['prompt']}")
+            st.caption(f"Ponto de atenção: {workflow['risk_hint']}")
+            intention = st.text_area(
+                str(workflow["input_label"]),
+                key=f"b3-intention-{workflow_id}",
+                placeholder=str(workflow["input_placeholder"]),
+            ).strip()
+            evidence = st.text_area(
+                str(workflow["evidence_label"]),
+                key=f"b3-evidence-{workflow_id}",
+                placeholder="Registre referências específicas, sem inserir material sensível.",
+            ).strip()
+            availability = st.text_input(
+                "Disponibilidade, permissão ou alternativa usada",
+                key=f"b3-availability-{workflow_id}",
+                placeholder="Ex.: disponível no navegador; microfone autorizado; ou alternativa manual adotada.",
+            ).strip()
+            review = st.text_area(
+                "Revisão humana antes de usar ou compartilhar",
+                key=f"b3-review-{workflow_id}",
+                placeholder="O que você conferiu no material, nas fontes ou na versão final?",
+            ).strip()
+            answers.append(
+                {
+                    "title": str(workflow["title"]),
+                    "intencao": intention,
+                    "evidencia": evidence,
+                    "disponibilidade": availability,
+                    "revisao": review,
+                }
+            )
+
+    required_keys = ("intencao", "evidencia", "disponibilidade", "revisao")
+    completed = sum(all(answer[key] for key in required_keys) for answer in answers)
+    st.progress(completed / len(answers))
+    st.caption(f"{completed}/{len(answers)} registros multimodais completos")
+    safe_data_confirmed = st.checkbox(
+        "Confirmo que usei apenas fontes e materiais autorizados e que revisei a entrega antes de compartilhá-la.",
+        key="b3-safe-data",
+    )
+    if completed == len(answers):
+        if safe_data_confirmed:
+            st.success("Entrega multimodal registrada. Revise a rubrica antes de concluir B3.")
+            st.download_button(
+                "Baixar entrega B3 em Markdown",
+                data=build_b3_delivery(answers),
+                file_name="entrega-b3-chatgpt-essencial.md",
+                mime="text/markdown",
+            )
+        else:
+            st.warning("Antes de gerar a entrega, confirme que os materiais e a revisão estão autorizados.")
+
+
 st.set_page_config(
     page_title="Codex // Curso Completo",
     page_icon="◈",
@@ -852,6 +947,10 @@ if selected_id == "basic-b1":
 if selected_id == "basic-b2":
     st.divider()
     render_b2_lab()
+
+if selected_id == "basic-b3":
+    st.divider()
+    render_b3_lab()
 
 with st.expander("Log de navegação", expanded=False):
     log_lines = "\n".join(st.session_state.get("course_events", [])) or "Nenhum evento nesta sessão."

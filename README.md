@@ -6,7 +6,7 @@ Repositório canônico de um curso prático para operar, supervisionar e constru
 com ChatGPT, Codex e a plataforma de APIs da OpenAI.
 
 > Status: arquitetura canônica versionada, Diagnóstico inicial e Preparação do
-> ambiente e B1 publicados; B2 está pronto para revisão. O curso seguirá por unidade, laboratório e trilha,
+> ambiente, B1, B2 e B3 publicados; B3 está pronto para revisão. O curso seguirá por unidade, laboratório e trilha,
 > preservando integralmente o mapa aprovado.
 
 ## Objetivo
