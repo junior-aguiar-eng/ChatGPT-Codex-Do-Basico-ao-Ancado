@@ -1,41 +1,57 @@
-# Plano de entrega
+# Plano de entrega por módulo
 
-## Fase 0 — Fundação
+## Fase 0 — Alinhamento de base
 
-- [x] Definir proposta, princípios editoriais e mapa de aprendizagem.
-- [x] Criar repositório canônico e documentação inicial.
-- [ ] Validar identidade visual, público prioritário e formato de publicação.
+- [x] Validar objetivo do curso, público e critérios pedagógicos.
+- [x] Definir fluxo de publicação GitHub-first e documentação canônica.
+- [x] Provisionar ambiente de desenvolvimento no Codespaces.
+- [ ] Consolidar identidade visual, tom lúdico e sistema de pet mascotes no curso.
 
-## Fase 1 — Núcleo mínimo publicável
+## Fase 1 — Fundamentos conectados (módulos 1 a 4)
 
-- [ ] Diagnóstico inicial.
-- [ ] Módulo 1 — Ecossistema OpenAI.
-- [ ] Módulo 2 — Fundamentos de interação.
-- [ ] Módulo 3 — ChatGPT essencial.
-- [ ] Módulo 4 — Qualidade e segurança.
-- [ ] Laboratório básico e rubrica de avaliação.
+- [ ] **Módulo diagnóstico**: diagnóstico inicial e plano pessoal de trilha.
+- [ ] **Módulo 1**: ecossistema, limites e escolha de estratégia de uso.
+  - [x] Estruturar trilha conceitual e critérios de decisão.
+  - [x] Publicar roteiro, cenários práticos e rubrica de avaliação.
+  - [x] Fechar template de entrega com evidência de conclusão.
+  - [x] Integrar laboratório interativo com exportação de entrega em Markdown.
+- [ ] **Módulo 2**: comunicação com ChatGPT, prompts e saída orientada.
+- [ ] **Módulo 3**: qualidade de resposta, fontes e revisão de consistência.
+- [ ] **Módulo 4**: segurança, privacidade, risco e limites de autonomia.
+- Critério de saída:
+  - cada módulo com entrega publicada em `docs/`, `app` e/ou `data`.
 
-## Fase 2 — Workflow profissional
+## Fase 2 — Trabalho profissional (módulos 5 e 6)
 
-- [ ] Organização persistente, pesquisa e produção de artefatos.
-- [ ] Fundamentos técnicos de Git e Codex.
-- [ ] Laboratório intermediário versionado.
+- [ ] **Módulo 5**: Git, commit estruturado, revisão e rastreabilidade.
+- [ ] **Módulo 6**: Codex como motor de tarefas técnicas.
+- Critério de saída:
+  - mini projeto versionado com evidência de decisão técnica e revisão de resultado.
 
-## Fase 3 — Especializações
+## Fase 3 — Especialização e integração (módulos 7 e 8)
 
-- [ ] Trilha ChatGPT e conhecimento conectado.
-- [ ] Trilha Codex e engenharia.
-- [ ] Trilha API, agentes e apps.
-- [ ] Projetos avançados por trilha.
+- [ ] **Módulo 7**: integração de ferramentas/fluxos e automações curtas.
+- [ ] **Módulo 8**: projeto final integrado com trilha de validação completa.
+- [ ] Rubrica final:
+  - coerência entre entrada, resultado e evidência;
+  - custos/limitações documentados;
+  - risco e pontos de falha identificados;
+  - plano de manutenção e melhoria.
 
-## Fase 4 — Integração e manutenção
+## Estrutura de produção contínua
 
-- [ ] Projeto final integrado e banca de validação.
-- [ ] Política de atualização e revisão periódica de fontes.
-- [ ] Critérios de contribuição e publicação.
+Cada publicação avança com este contrato:
 
-## Critério para avançar de fase
+1. objetivo do módulo fechado;
+2. material de estudo e laboratório carregado;
+3. entrega verificável no repositório;
+4. revisão de consistência contra módulos anteriores;
+5. atualização de fontes em `docs/fontes.md` quando necessário.
 
-Cada fase só avança quando seu conteúdo possui objetivo verificável,
-pré-requisitos explícitos, material rastreável, atividade prática, critérios de
-avaliação e revisão editorial.
+## Critério de continuidade
+
+- Um módulo só sobe de status quando possui:
+  - pré-requisito explícito cumprido;
+  - conteúdo original e não redundante;
+  - atividade prática com evidência;
+  - critérios de conclusão mensuráveis.

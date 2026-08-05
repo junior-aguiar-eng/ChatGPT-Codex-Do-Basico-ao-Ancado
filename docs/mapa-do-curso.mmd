@@ -1,32 +1,22 @@
-%% Mapa editorial resumido — escopo consolidado em 04-08-2026.
-%% Recursos variam por plano, workspace, sistema operacional, região e permissões.
+%% Mapa modular do curso — Progressão do básico ao avançado
+%% Cada módulo ativa o próximo e não repete escopo.
 flowchart TB
     START([Início]) --> DIAG[Diagnóstico inicial]
-    DIAG --> SETUP[Preparação do ambiente]
-    SETUP --> BASIC
+    DIAG --> M0[Missão e ambiente]
+    M0 --> M1[1 — Ecossistema e limites de LLM]
 
-    subgraph BASIC[Nível 1 — Fundamentos]
-      B1[Ecossistema OpenAI] --> B2[Fundamentos de interação]
-      B2 --> B3[ChatGPT essencial]
-      B3 --> B4[Qualidade e segurança]
-      B4 --> LB[Laboratório básico]
+    subgraph Fase1 [Nível 1 — Fundamentos]
+      M1 --> M2[2 — Comunicação eficiente com ChatGPT]
+      M2 --> M3[3 — Qualidade, evidência e validação]
+      M3 --> M4[4 — Segurança, privacidade e governança]
+      M4 --> LAB1[Laboratório 1: validação de resposta]
     end
 
-    LB --> INTER
-    subgraph INTER[Nível 2 — Workflows e Codex]
-      I1[Organização persistente] --> I2[Arquitetura de workflows]
-      I2 --> I3[Pesquisa e fontes]
-      I3 --> I4[Produção de artefatos]
-      I4 --> I5[Git e fundamentos técnicos]
-      I5 --> I6[Primeiros passos no Codex]
-      I6 --> LI[Laboratório intermediário]
-    end
+    LAB1 --> M5[5 — Git, rastreabilidade e evidência]
+    M5 --> M6[6 — Codex para engenharia de tarefas]
+    M6 --> LAB2[Laboratório 2: mudança orientada por evidência]
 
-    LI --> TRACKS{Especialização}
-    TRACKS --> A[3A — ChatGPT e conhecimento conectado]
-    TRACKS --> C[3B — Codex e engenharia]
-    TRACKS --> P[3C — API, agentes e apps]
-    A --> FINAL[Projeto final integrado]
-    C --> FINAL
-    P --> FINAL
-    FINAL --> REVIEW[Banca: qualidade, rastreabilidade, segurança, reprodutibilidade e manutenção]
+    LAB2 --> M7[7 — Integração de ferramentas e automações]
+    M7 --> M8[8 — Projeto final integrado]
+    M8 --> REVIEW[Banca: qualidade, custo, risco e manutenção]
+    REVIEW --> END([Condição de conclusão])

@@ -1,0 +1,38 @@
+{
+  "name": "codex-course-workspace",
+  "image": "mcr.microsoft.com/devcontainers/base:debian",
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.14"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "24",
+      "nodeGypDependencies": true
+    }
+  },
+  "forwardPorts": [8501],
+  "portsAttributes": {
+    "8501": {
+      "label": "Curso Interativo (Streamlit)",
+      "onAutoForward": "openBrowser",
+      "visibility": "private"
+    }
+  },
+  "postCreateCommand": "python -m pip install --upgrade pip && pip install -U uv && npm install -g npm@12 && pip install -r requirements.txt",
+  "postAttachCommand": "if [ -f app/main.py ]; then echo 'Para iniciar: python -m streamlit run app/main.py --server.port 8501 --server.address 0.0.0.0'; fi",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+        "yzhang.markdown-all-in-one"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "python",
+        "terminal.integrated.shell.linux": "/bin/bash"
+      }
+    }
+  },
+  "remoteUser": "vscode"
+}

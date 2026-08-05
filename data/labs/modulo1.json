@@ -1,0 +1,33 @@
+{
+  "module_id": "modulo1",
+  "title": "Terminal de decisão: ecossistema e limites",
+  "instructions": "Preencha cada cenário com uma decisão justificável. O laboratório verifica completude; a qualidade da decisão é revisada pela rubrica do módulo.",
+  "task_types": ["exploração", "síntese", "edição local", "decisão operacional"],
+  "tool_options": ["ChatGPT (conversa)", "Codex (repositório)", "Sem LLM / processo manual"],
+  "scenarios": [
+    {
+      "id": "estudo",
+      "title": "Planejar o estudo de um capítulo",
+      "context": "Resumir cinco páginas e criar quatro perguntas para a revisão de amanhã.",
+      "risk_hint": "A resposta pode ficar vaga ou omitir uma ideia relevante."
+    },
+    {
+      "id": "configuracao",
+      "title": "Ajustar a base do curso",
+      "context": "Padronizar texto em README.md, docs/plano-de-entrega.md e app/main.py.",
+      "risk_hint": "Um arquivo errado pode ser editado ou uma alteração pode ficar sem validação."
+    },
+    {
+      "id": "recomendacao",
+      "title": "Orientar um colega com prazo curto",
+      "context": "Comparar usar IA para tudo com usar IA somente para rascunhos.",
+      "risk_hint": "A recomendação pode ignorar o impacto e o contexto da tarefa."
+    },
+    {
+      "id": "confidencial",
+      "title": "Analisar conteúdo confidencial",
+      "context": "Uma mensagem contém dados pessoais e chaves temporárias da equipe.",
+      "risk_hint": "Dados ou segredos podem ser expostos fora da política aprovada."
+    }
+  ]
+}

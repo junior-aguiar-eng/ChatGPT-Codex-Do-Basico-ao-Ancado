@@ -1,0 +1,138 @@
+{
+  "modules": [
+    {
+      "id": "diag",
+      "title": "Diagnostico inicial e missao",
+      "level": "base",
+      "pet": "Scout",
+      "accent": "#6ee6a7",
+      "glow": "#0dbf73",
+      "mission": "Mapear perfil, objetivos e montar plano de trilha com ambiente pronto.",
+      "outcomes": [
+        "Definir metas pessoais e contexto de estudo",
+        "Configurar workspace, contas e fluxos de trabalho"
+      ],
+      "deliverable": "Checklist de inicio validado no repositório"
+    },
+    {
+      "id": "modulo1",
+      "title": "Modulo 1 - Ecossistema e limites de LLM",
+      "level": "fundacao",
+      "pet": "Atlas",
+      "accent": "#7ad4ff",
+      "glow": "#2fb2ff",
+      "mission": "Entender capacidades, limites, custos e decisões iniciais de uso.",
+      "outcomes": [
+        "Diferenciar tipos de modelos e modos de uso",
+        "Reconhecer cenários possíveis e limites técnicos",
+        "Tomar decisão de ferramenta por contexto"
+      ],
+      "deliverable": "Comparativo de cenários com decisão justificada"
+    },
+    {
+      "id": "modulo2",
+      "title": "Modulo 2 - Comunicacao eficiente com ChatGPT",
+      "level": "fundacao",
+      "pet": "Alpha",
+      "accent": "#89d7ff",
+      "glow": "#2fb2ff",
+      "mission": "Construir instrucoes com contexto, objetivo e formato de resposta.",
+      "outcomes": [
+        "Escrever prompts com intenção, escopo e restricoes",
+        "Estruturar saidas para revisão e decisão",
+        "Iterar para aumentar qualidade sem redundancia"
+      ],
+      "deliverable": "Biblioteca inicial de prompts e um fluxo padronizado"
+    },
+    {
+      "id": "modulo3",
+      "title": "Modulo 3 - Qualidade, evidencia e validacao",
+      "level": "intermediario",
+      "pet": "Nimbus",
+      "accent": "#9fe58d",
+      "glow": "#68c85a",
+      "mission": "Separar fato, inferencia e hipotese; validar com critério e fonte.",
+      "outcomes": [
+        "Aplicar protocolo de verificacao de fatos",
+        "Documentar incertezas e limite de conclusao",
+        "Criar resposta com trilha de raciocinio rastreavel"
+      ],
+      "deliverable": "Relatorio curto de validacao e revisao"
+    },
+    {
+      "id": "modulo4",
+      "title": "Modulo 4 - Seguranca, privacidade e governanca",
+      "level": "intermediario",
+      "pet": "Shield",
+      "accent": "#f5a34a",
+      "glow": "#e47f17",
+      "mission": "Planejar uso seguro e com limite de risco para dados e automacoes.",
+      "outcomes": [
+        "Aplicar regras basicas de dados sensiveis",
+        "Reconhecer cenarios de risco e resposta adequada",
+        "Documentar guardrails e plano de contingencia"
+      ],
+      "deliverable": "Matriz de risco com protocolo de acao"
+    },
+    {
+      "id": "modulo5",
+      "title": "Modulo 5 - Git, rastreabilidade e evidencia",
+      "level": "profissional",
+      "pet": "Forge",
+      "accent": "#b07bff",
+      "glow": "#9c7bff",
+      "mission": "Versionar tarefas e decisões para auditoria e continuidade.",
+      "outcomes": [
+        "Estruturar branch, commits e mensagens consistentes",
+        "Registrar critério de mudanca e resultado",
+        "Rastrear evidencias dentro do repositorio"
+      ],
+      "deliverable": "Mini projeto com log de decisão e evidencias"
+    },
+    {
+      "id": "modulo6",
+      "title": "Modulo 6 - Codex para engenharia de tarefas",
+      "level": "avancado",
+      "pet": "Forge",
+      "accent": "#6ec5ff",
+      "glow": "#2fb2ff",
+      "mission": "Executar mudanças orientadas por objetivo e com validacao no fluxo.",
+      "outcomes": [
+        "Dividir tarefas em planos executáveis",
+        "Aplicar Codex em alteracoes pequenas e verificáveis",
+        "Fechar ciclos com evidencia de resultado"
+      ],
+      "deliverable": "Mudanca completa com verificacao e revisao"
+    },
+    {
+      "id": "modulo7",
+      "title": "Modulo 7 - Integracao de ferramentas e automacoes",
+      "level": "avancado",
+      "pet": "Sigma",
+      "accent": "#6ee6a7",
+      "glow": "#4dd58f",
+      "mission": "Conectar ferramentas para um fluxo funcional com controle e logs.",
+      "outcomes": [
+        "Construir mini fluxo entre 2 sistemas ou arquivos",
+        "Registrar entradas, saídas e erros esperados",
+        "Implementar rollback e observabilidade basica"
+      ],
+      "deliverable": "Protótipo de automação com logs e plano de rollback"
+    },
+    {
+      "id": "final",
+      "title": "Projeto final integrado",
+      "level": "master",
+      "pet": "Atlas",
+      "accent": "#89f0ff",
+      "glow": "#5ec8ff",
+      "mission": "Integrar os módulos em um caso real com qualidade, custo e risco tratados.",
+      "outcomes": [
+        "Executar uma entrega ponta a ponta",
+        "Demonstrar rastreabilidade e governanca",
+        "Apresentar plano de manutenção e evolução"
+      ],
+      "deliverable": "Portfolio final com banca de validacao"
+    }
+  ]
+}
