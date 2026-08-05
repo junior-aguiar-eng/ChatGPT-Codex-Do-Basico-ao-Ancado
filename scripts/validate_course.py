@@ -21,9 +21,11 @@ REQUIRED_LAB_KEYS = {
     "instructions",
     "task_types",
     "tool_options",
+    "surface_cards",
     "scenarios",
 }
 REQUIRED_SCENARIO_KEYS = {"id", "title", "context", "risk_hint"}
+REQUIRED_SURFACE_KEYS = {"name", "use_when", "boundary", "source"}
 REQUIRED_DIAGNOSTIC_KEYS = {
     "module_id",
     "title",
@@ -73,6 +75,21 @@ def validate_module1_lab() -> int:
         if missing:
             raise SystemExit(
                 f"Module 1 scenario #{idx} missing required keys: {sorted(missing)}"
+            )
+
+    if len(lab["scenarios"]) != 5:
+        raise SystemExit("Module 1 must contain the five canonical B1 scenarios.")
+
+    surface_names = {surface.get("name") for surface in lab["surface_cards"]}
+    required_surfaces = {"ChatGPT", "Codex", "API Platform", "Processo manual"}
+    if surface_names != required_surfaces:
+        raise SystemExit("Module 1 surface cards do not match the B1 decision set.")
+
+    for idx, surface in enumerate(lab["surface_cards"], start=1):
+        missing = REQUIRED_SURFACE_KEYS - set(surface.keys())
+        if missing:
+            raise SystemExit(
+                f"Module 1 surface #{idx} missing required keys: {sorted(missing)}"
             )
 
     return len(lab["scenarios"])
@@ -212,5 +229,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 

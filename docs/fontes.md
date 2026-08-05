@@ -14,6 +14,9 @@ data de conferência.
 | OpenAI Developers | https://developers.openai.com/ | Guias de desenvolvimento, SDKs e referências atuais. |
 | Diagnóstico inicial | Não aplicável: conteúdo pedagógico interno, sem alegação de capacidade de produto. Verificado em 05-08-2026. | Objetivo, repertório, ambiente, projeto e cuidados de entrada. |
 | Preparação do ambiente | https://learn.chatgpt.com/docs/use-chatgpt#what-chatgpt-work-can-do — verificado em 05-08-2026. | Dependência de plano, plataforma, região, rollout e configurações do workspace; verificação de acesso e controles. |
+| B1 — ChatGPT | https://learn.chatgpt.com/docs/web.md — verificado em 05-08-2026. | Delimitar ChatGPT como superfície conversacional para pesquisar, analisar e criar artefatos. |
+| B1 — Codex | https://learn.chatgpt.com/docs/codex/cli.md — verificado em 05-08-2026. | Delimitar Codex como superfície de trabalho em projetos e repositórios. |
+| B1 — API Platform | https://developers.openai.com/api/docs/quickstart.md — verificado em 05-08-2026. | Delimitar integração programável, chave protegida e ambiente como preocupações iniciais. |
 
 ## Regra de atualização
 
@@ -24,5 +27,6 @@ limite, disponibilidade, plano ou comportamento de interface:
 2. registrar a data de verificação;
 3. indicar as condições de disponibilidade relevantes;
 4. substituir afirmações que não possam mais ser sustentadas.
+
 
 

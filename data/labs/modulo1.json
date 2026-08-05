@@ -1,9 +1,35 @@
 {
   "module_id": "basic-b1",
   "title": "Terminal de decisão: B1 · Ecossistema OpenAI",
-  "instructions": "Preencha cada cenário com uma decisão justificável entre ChatGPT, Codex, API Platform ou processo manual. O laboratório verifica completude; a qualidade é revisada pela rubrica de B1.",
-  "task_types": ["exploração", "síntese", "edição local", "decisão operacional"],
-  "tool_options": ["ChatGPT (conversa)", "Codex (repositório)", "Sem LLM / processo manual"],
+  "instructions": "Preencha cada cenário com uma decisão justificável entre ChatGPT, Codex, API Platform ou processo manual. O laboratório verifica completude e alternativas consideradas; a qualidade é revisada pela rubrica de B1.",
+  "task_types": ["exploração", "síntese", "edição local", "decisão operacional", "integração de aplicação"],
+  "tool_options": ["ChatGPT (interface)", "Codex (projeto ou repositório)", "API Platform (aplicação)", "Sem LLM / processo manual"],
+  "surface_cards": [
+    {
+      "name": "ChatGPT",
+      "use_when": "Uma pessoa precisa pesquisar, analisar, criar ou revisar um artefato em uma interface conversacional.",
+      "boundary": "Confirme as ferramentas disponíveis na conta e mantenha a revisão proporcional ao impacto.",
+      "source": "https://learn.chatgpt.com/docs/web.md"
+    },
+    {
+      "name": "Codex",
+      "use_when": "A tarefa envolve um projeto, arquivos, código ou repositório com contexto técnico e validação.",
+      "boundary": "Não substitui leitura de diff, testes, controle de permissões ou revisão humana.",
+      "source": "https://learn.chatgpt.com/docs/codex/cli.md"
+    },
+    {
+      "name": "API Platform",
+      "use_when": "É preciso integrar modelos e ferramentas a uma aplicação ou workflow programável.",
+      "boundary": "Requer credenciais protegidas, tratamento de falhas, custo e operação do software.",
+      "source": "https://developers.openai.com/api/docs/quickstart.md"
+    },
+    {
+      "name": "Processo manual",
+      "use_when": "A ação não deve ser delegada, os dados não podem ser usados ou a revisão disponível é insuficiente.",
+      "boundary": "É uma decisão válida quando reduz risco; não representa fracasso do uso de IA.",
+      "source": "Inferência pedagógica baseada na análise de risco do cenário."
+    }
+  ],
   "scenarios": [
     {
       "id": "estudo",
@@ -37,3 +63,4 @@
     }
   ]
 }
+

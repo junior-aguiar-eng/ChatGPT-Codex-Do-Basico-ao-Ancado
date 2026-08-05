@@ -21,12 +21,15 @@ definir a revisão humana antes de agir.
 5. **Criar uma ferramenta para uso recorrente**: necessidade de integração,
    custo, autenticação, logs e manutenção.
 
-Para cada cenário, classifique a tarefa, escolha a superfície, justifique,
-registre o risco, declare a revisão e explique por que as alternativas foram
-descartadas.
+Para cada cenário, classifique a tarefa, escolha a superfície, registre pelo
+menos uma alternativa descartada, justifique, declare o risco e descreva a
+revisão humana. A API Platform precisa ser considerada no cenário 5, ainda que
+a decisão final seja outra. Não crie chaves nem execute integrações nesta
+unidade: isso pertence a P1 em diante.
 
 ## Critério de conclusão
 
-A entrega só está pronta quando todas as escolhas tiverem motivo, risco e
-revisão humana. O painel organiza a atividade, mas não aprova a qualidade da
-resposta automaticamente; use a rubrica antes de concluir B1.
+A entrega só está pronta quando os cinco cenários tiverem escolha, alternativa,
+motivo, risco e revisão humana. O painel organiza a atividade, mas não aprova
+a qualidade da resposta automaticamente; use a rubrica antes de concluir B1.
+

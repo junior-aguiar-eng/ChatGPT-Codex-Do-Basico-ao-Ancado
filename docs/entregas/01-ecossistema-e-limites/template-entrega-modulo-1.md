@@ -9,15 +9,15 @@
 
 ## 1) Decisão de ferramenta por cenário
 
-Preencha 4 cenários (ou o máximo que aplicou):
+Preencha os 5 cenários do laboratório:
 
-| Cenário | Tipo de tarefa | Ferramenta escolhida | Justificativa (até 2 linhas) | Risco principal | Revisão humana |
-| --- | --- | --- | --- | --- | --- |
-| 1 |  |  |  |  |  |
-| 2 |  |  |  |  |  |
-| 3 |  |  |  |  |  |
-| 4 |  |  |  |  |  |
-| 5 |  |  |  |  |  |
+| Cenário | Tipo de tarefa | Superfície escolhida | Alternativa descartada | Justificativa (até 2 linhas) | Risco principal | Revisão humana |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 |  |  |  |  |  |  |
+| 2 |  |  |  |  |  |  |
+| 3 |  |  |  |  |  |  |
+| 4 |  |  |  |  |  |  |
+| 5 |  |  |  |  |  |  |
 
 ## 2) Alternativa deliberada
 
@@ -43,3 +43,4 @@ Preencha 4 cenários (ou o máximo que aplicou):
 
 - Comprovante de execução do laboratório (`.md`, `.png`, ou log):
 - Observações do tutor/revisor:
+
