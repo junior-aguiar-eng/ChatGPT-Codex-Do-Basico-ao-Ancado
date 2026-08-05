@@ -1,0 +1,53 @@
+{
+  "module_id": "basic-b2",
+  "title": "Oficina de briefing: B2 · Fundamentos de interação",
+  "instructions": "Converta cada pedido vago em um briefing que possa ser revisado. O formulário mede a presença dos componentes; a rubrica mede a qualidade do raciocínio e da revisão.",
+  "official_sources": [
+    "https://developers.openai.com/api/docs/guides/prompt-engineering",
+    "https://developers.openai.com/api/docs/guides/reasoning-best-practices"
+  ],
+  "verified_on": "2026-08-05",
+  "components": [
+    "objetivo observável",
+    "contexto e insumos",
+    "instruções de execução",
+    "restrições e critérios",
+    "formato de saída",
+    "exemplo ou justificativa de ausência",
+    "histórico, anexos e lacunas de contexto",
+    "crítica da primeira saída",
+    "próximo refinamento"
+  ],
+  "scenarios": [
+    {
+      "id": "estudo",
+      "title": "Transformar uma revisão vaga em plano de estudo",
+      "vague_request": "Me ajude a estudar este tema.",
+      "context_hint": "Há uma avaliação em sete dias e apenas duas horas por noite."
+    },
+    {
+      "id": "documento",
+      "title": "Revisar um documento sem inventar informação",
+      "vague_request": "Melhore este texto e deixe profissional.",
+      "context_hint": "O texto será enviado a uma equipe que precisa distinguir fatos de propostas."
+    },
+    {
+      "id": "projeto",
+      "title": "Converter uma ideia de projeto em primeira resposta útil",
+      "vague_request": "Crie uma solução para organizar minhas tarefas.",
+      "context_hint": "O primeiro resultado deve ser uma proposta simples, não código nem automação."
+    }
+  ],
+  "completion_fields": [
+    "objetivo",
+    "contexto",
+    "instrucoes",
+    "restricoes",
+    "formato",
+    "exemplo",
+    "lacuna",
+    "critica",
+    "refinamento"
+  ]
+}
+
