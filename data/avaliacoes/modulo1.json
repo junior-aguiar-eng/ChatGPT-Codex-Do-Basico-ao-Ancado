@@ -1,12 +1,12 @@
 {
-  "module_id": "modulo1",
-  "module_title": "Ecossistema e limites de LLM",
+  "module_id": "basic-b1",
+  "module_title": "B1 · Ecossistema OpenAI",
   "status": "em_andamento",
   "start_date": "2026-08-05",
   "learning_outcomes": [
-    "Diferenciar cenários de uso e limites de ferramentas",
-    "Selecionar ferramenta com critério de risco e revisão humana",
-    "Produzir decisão rastreável e não enciclopédica no template do módulo"
+    "Diferenciar ChatGPT, Codex, API Platform e processo manual",
+    "Selecionar superfície com critério de risco e revisão humana",
+    "Produzir decisão rastreável no template da unidade"
   ],
   "artifacts_expected": [
     "docs/modulos/01-ecossistema-e-limites/01-guia-do-modulo-1.md",

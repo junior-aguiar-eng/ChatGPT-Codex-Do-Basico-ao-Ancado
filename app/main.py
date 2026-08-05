@@ -55,7 +55,7 @@ def build_module1_delivery(answers: list[dict[str, str]]) -> str:
         )
         for answer in answers
     )
-    return f"""# Entrega — Módulo 1: Ecossistema e limites de LLM
+    return f"""# Entrega — B1: Ecossistema OpenAI
 
 > Gerado no laboratório interativo. Revise com a rubrica antes de enviar.
 
@@ -258,7 +258,7 @@ st.markdown(
     <div class="hero">
       <span>NEXUS COURSE OPS</span>
       <h1>Interface do curso ChatGPT e Codex</h1>
-      <p>Clean, azulada, tecnica e com marca visual de mini pet por modulo.</p>
+      <p>Mapa canônico completo, navegação por unidades e mini pets por trilha.</p>
     </div>
     """,
     unsafe_allow_html=True,
@@ -293,11 +293,12 @@ with detail_col:
           <div class='pet-card'>{build_pet_svg(selected_pet, selected_color, selected_glow, done_count)}</div>
           <div>
             <span class='small-chip'>id: {selected.get('id')}</span>
-            <span class='small-chip'>nivel: {selected.get('level')}</span>
+            <span class='small-chip'>etapa: {selected.get('stage')}</span>
+            <span class='small-chip'>trilha: {selected.get('track')}</span>
             <span class='small-chip'>status: {status_text(progress[selected['id']])}</span>
           </div>
           <h4 style='color:#cde9ff;'>{selected.get('title')}</h4>
-          <p class='status'>{selected.get('mission')}</p>
+          <p class='status'>{selected.get('outcomes', [''])[0]}</p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -305,6 +306,9 @@ with detail_col:
     st.markdown("**Resultados esperados**")
     for outcome in selected["outcomes"]:
         st.markdown(f"- {outcome}")
+    st.markdown("**Escopo canônico desta unidade**")
+    for topic in selected.get("topics", []):
+        st.markdown(f"- {topic}")
     st.markdown("**Entrega principal**")
     st.info(selected["deliverable"])
 
@@ -323,14 +327,15 @@ with action_col:
         log_event(f"{selected['id']} resetado.")
         st.rerun()
 
-if selected["id"] == "modulo1":
+if selected["id"] == "basic-b1":
     render_module1_lab()
 
 for idx, module in enumerate(modules, start=1):
     state = progress.get(module["id"], "pending")
     badge = status_badge(state)
     st.markdown(
-        f"<span class='status'>{badge}</span> {idx}. {module.get('pet', 'Nexus')}  ·  {module['title']}",
+        f"<span class='status'>{badge}</span> {idx}. {module.get('pet', 'Nexus')}  ·  "
+        f"{module['title']} <span class='small-chip'>{module.get('stage')}</span>",
         unsafe_allow_html=True,
     )
     with st.expander("Detalhes do modulo", expanded=False):
@@ -342,9 +347,10 @@ for idx, module in enumerate(modules, start=1):
             )
         with cols[1]:
             st.markdown(f"**Status:** {status_text(state)}")
-            st.markdown(module.get("mission", ""))
+            st.markdown(module["outcomes"][0])
             for item in module["outcomes"]:
                 st.markdown(f"- {item}")
+            st.caption("Tópicos: " + " · ".join(module.get("topics", [])))
 
 st.divider()
 with st.expander("Nerd log", expanded=False):

@@ -1,69 +1,92 @@
-# Currículo por módulo — evolução do básico ao avançado
+# Currículo canônico — ChatGPT e Codex, do básico ao avançado
 
-## Princípio de desenho do curso
+## Fonte de arquitetura
 
-O curso é modular, progressivo e em cadeia causal:
+O [mapa do curso](mapa-do-curso.mmd) é a especificação canônica da trilha. Ele
+foi versionado a partir do `preview.mmd` aprovado em 04-08-2026. Este currículo
+organiza a produção editorial; não reduz, funde nem substitui blocos do mapa.
 
-- nenhum módulo depende de habilidade não apresentada antes;
-- não há repetição de conteúdo entre módulos;
-- cada módulo tem:
-  1) base conceitual mínima;
-  2) prática guiada;
-  3) entrega verificável;
-  4) critério de transição para o próximo módulo.
+Mudanças de escopo, ordem causal, trilha, checkpoint ou critério de conclusão
+exigem autorização expressa da pessoa responsável pelo curso. Propostas de
+melhoria devem ser apresentadas em comparação antes de qualquer edição.
 
-O formato será lúdico para jovens adultos: linguagem de missão, checkpoints,
-simulações, erros reais e revisão de risco.
+## Entrada e convergência
 
-## Mapa consolidado de dependências
+O participante começa pelo **Diagnóstico inicial** e pela **Preparação do
+ambiente**. Pode declarar uma motivação predominante — trabalho intelectual,
+projetos com Codex ou produtos de IA —, mas os três percursos convergem no
+Nível 1 antes de qualquer especialização.
 
-1. `Diagnóstico e missão inicial`
-   → define metas pessoais e cria a base técnica do ambiente.
-2. `Módulo 1 — Ecossistema e limites de LLM`
-3. `Módulo 2 — Comunicação eficiente com ChatGPT`
-4. `Módulo 3 — Qualidade, evidência e validação`
-5. `Módulo 4 — Segurança, privacidade e governança`
-6. `Módulo 5 — Git, rastreabilidade e trabalho orientado a evidência`
-7. `Módulo 6 — Codex para engenharia de tarefas`
-8. `Módulo 7 — Integração de ferramentas e automações`
-9. `Módulo 8 — Projeto final integrado (Nível avançado)`
+## Nível 1 — Básico: fundamentos e operação segura
 
-Cada etapa só avança quando a anterior está comprovada por evidência no repositório.
+| Unidade | Escopo integral do mapa | Marco de saída |
+| --- | --- | --- |
+| B1 · Ecossistema OpenAI | ChatGPT; Codex; API Platform; modelo, produto, ferramenta, agente e app. | Escolha justificada de superfície e limites. |
+| B2 · Fundamentos de interação | Objetivo, contexto, instruções, restrições, critérios, formato, exemplos, iteração, crítica, refinamento e janela de contexto. | Instruções revisadas e saída verificável. |
+| B3 · ChatGPT essencial | Conversação, web, fontes, arquivos, dados, Canvas, imagens, voz e multimodalidade. | Entrega multimodal com evidências. |
+| B4 · Qualidade e segurança | Verificação factual, fatos/inferências/hipóteses, privacidade, dados sensíveis, erros, alucinações e revisão humana. | Relatório de qualidade e segurança. |
 
-## Trilha por módulo
+O laboratório básico exige pesquisar, analisar arquivo e produzir entrega
+verificável. Quem não consolidar as competências retorna a B2.
 
-| Etapa | Resultados de aprendizagem | Escopo delimitado | Entrega mínima |
-| --- | --- | --- | --- |
-| Diagnóstico e missão inicial | Mapear objetivos, repertório prévio e contexto de uso. | Onboarding, metas, estrutura da trilha, configuração inicial e plano pessoal. | Formulário de diagnóstico + checklist de ambiente funcional. |
-| Módulo 1 — Ecossistema e limites de LLM | Explicar diferenças entre modelos, planos, modos de uso e custo básico. | Conceito de funcionamento, alcance e limites de modelos. Sem entrar em tuning/extensão avançada ainda. | Página de comparação entre cenários com justificativa de escolha do recurso. |
-| Módulo 2 — Comunicação eficiente com ChatGPT | Construir prompts com contexto, papel, formato e critérios de saída. | Técnicas de interação e engenharia de conversa; sem introduzir ainda automações. | Laboratório de reescrita, síntese e instrução de procedimento com evidência de saída correta. |
-| Módulo 3 — Qualidade, evidência e validação | Diferenciar fato documentado, inferência e hipótese. | Fontes oficiais, revisão de consistência e detecção de alucinação controlada. | Relatório curto com 3 exemplos de validação de resposta. |
-| Módulo 4 — Segurança, privacidade e governança | Aplicar limites de compartilhamento e checagem de risco. | Threat model, dados sensíveis, viés, fallback e plano de contenção. | Matriz de risco aplicada a 2 cenários reais de uso. |
-| Módulo 5 — Git, rastreabilidade e trabalho orientado a evidência | Versionar tarefas e decisões com histórico auditável. | Regras de commit, revisão, logs de decisão e documentação. | Mini projeto com branch, commits, revisão e changelog de evidência. |
-| Módulo 6 — Codex para engenharia de tarefas | Traduzir objetivo funcional em instrução executável com verificação. | Uso de Codex em tarefas reais de edição, busca de contexto e revisão. Sem entrar ainda em integração API pesada. | Mudança ponta a ponta com evidência de entrada, edição e checagem. |
-| Módulo 7 — Integração de ferramentas e automações | Orquestrar apps e fluxo com automações simples e controláveis. | Ligação de fontes, scripts e APIs em um mini fluxo funcional. | Protótipo de automação com logs de execução e critério de rollback. |
-| Módulo 8 — Projeto final integrado | Unificar módulos 1 a 7 em solução completa e explicável. | Entrega final com documentação, custo estimado, limitações e plano de manutenção. | Projeto final com banca de validação, evidência e plano de evolução. |
+## Nível 2 — Intermediário: organização, workflows e introdução ao Codex
 
-## Regras de não sobreposição
+| Unidade | Escopo integral do mapa | Marco de saída |
+| --- | --- | --- |
+| I1 · Organização persistente | Projects, memória, Library, instruções de projeto e gestão de contexto. | Workspace recuperável. |
+| I2 · Arquitetura de workflows | Decomposição, ferramenta, entradas, saídas, validações, revisão e versões. | Workflow reproduzível. |
+| I3 · Pesquisa e fontes | Busca, Deep Research, fontes conectadas, atualidade e síntese rastreável. | Relatório citado. |
+| I4 · Produção de artefatos | Documentos, planilhas, apresentações, sites, ferramentas leves e revisão. | Artefato revisado. |
+| I5 · Personalização funcional | GPTs, instruções, arquivos, capacidades, Apps/Actions, testes, versões e compartilhamento. | Personalização testada. |
+| I6 · Tarefas e recorrência | Tarefas, rotinas, monitoramento, cadência, notificações e ajuste. | Rotina com critério de alerta. |
+| I7 · Fundamentos técnicos para Codex | Terminal, arquivos, Git, projeto, dependências, código, logs, testes, ambiente e segredos. | Repositório de exercício. |
+| I8 · Primeiros passos no Codex | Desktop, IDE, CLI, Cloud/Web; contexto; inspecionar, planejar, editar, testar, revisar e registrar. | Mudança revisada no Git. |
+| I9 · Permissões e segurança do Codex | Sandbox, approval policy, somente leitura, workspace write, acesso ampliado, allowlists e caminhos protegidos. | Matriz de permissões. |
 
-- 1 e 2: não misturam técnica de validação com validação prática.
-- 2 e 3: não repetem conceitos de prompting na discussão de evidência.
-- 3 e 4: não confundem consistência factual com segurança de operação.
-- 5 e 6: Git e rastreabilidade aparecem antes da automação de mudanças no código.
-- 6 e 7: Codex é a base de engenharia; integração é aplicação orquestrada.
+O laboratório intermediário une workflow documental, projeto versionado e tarefa
+recorrente. Quem não demonstrar segurança e reprodutibilidade retorna a I2.
 
-## Método de profundidade pedagógica
+## Nível 3 — Trilhas avançadas independentes
 
-- Não é enciclopédico: cada módulo aprofunda só o que será usado no próprio módulo e no próximo.
-- Não é superficial: todo módulo tem uma entrega verificável e um mini erro proposital para depuração.
-- Cada laboratório tem:
-  - objetivo mensurável,
-  - dados/inputs,
-  - critérios de conclusão,
-  - revisão de falha frequente,
-  - uma versão “melhor prática”.
+### 3A · ChatGPT, Work e conhecimento conectado
 
-## Conexão com o mapa visual
+`A1` workflows profissionais; `A2` ChatGPT Work; `A3` conhecimento
+conectado; `A4` GPTs em produção. Inclui web, arquivos, apps, subagentes,
+conectores, permissões, mitigação de prompt injection, Apps/Actions,
+autenticação, avaliação e publicação.
 
-As fases 1 a 4 do mapa (`diagnóstico`, `fundamentos` e `laboratório básico`) continuam válidas.
-As fases 5 a 8 consolidam a trilha de `workflow`, `specialização` e `projeto final`.
+### 3B · Codex, agentes de execução e engenharia
+
+`C1` contexto e configuração; `C2` fluxo completo de engenharia; `C3`
+superfícies e handoffs; `C4` paralelismo e isolamento; `C5` automação;
+`C6` segurança avançada; `C7` Codex programável. Inclui AGENTS.md,
+configuração, MCP, worktrees, subagentes, CI/GitHub, segurança e
+SDK/App Server/GitHub Action.
+
+### 3C · API Platform, agentes e apps
+
+`P1` fundamentos da API; `P2` Responses API; `P3` Agents SDK; `P4`
+Plugins, Skills e MCP; `P5` Apps SDK; `P6` produção e confiabilidade.
+Inclui ferramentas, estado, function calling, busca, recuperação, MCP,
+guardrails, tracing, avaliação, autenticação, UX, deploy, custo e falhas.
+
+Cada trilha tem projeto avançado próprio; nenhuma é pré-requisito artificial
+das demais. As três convergem apenas na integração final.
+
+## Capacidades transversais
+
+Aplicadas nos três percursos: engenharia de contexto, skills reutilizáveis, MCP
+e integrações, subagentes e delegação, segurança e permissões, avaliações e
+observabilidade, custos/limites/desempenho, documentação e versionamento.
+
+## Integração e banca final
+
+A etapa `M1 · Arquitetar o sistema completo` escolhe ChatGPT, Codex, API ou
+combinação; define dados, ferramentas, fronteiras, supervisão, permissões,
+métricas de qualidade/custo/risco e estratégia de documentação, testes e
+versionamento.
+
+O projeto final pode ser sistema de estudo e pesquisa, esteira de documentos,
+aplicação ou dashboard com agente, plugin próprio ou automação segura. A banca
+avalia correção, completude, rastreabilidade, segurança, privacidade,
+reprodutibilidade, manutenibilidade e viabilidade operacional.

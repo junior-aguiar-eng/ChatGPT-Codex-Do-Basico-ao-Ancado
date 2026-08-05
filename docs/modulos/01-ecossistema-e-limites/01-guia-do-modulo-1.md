@@ -1,72 +1,45 @@
-# Módulo 1 — Ecossistema e limites de LLM
+# B1 · Ecossistema OpenAI
 
-> Mascote do módulo: **Atlas**
-> Tom: técnico, limpo, com missão de decisão.
+> Mascote da unidade: **Atlas**
+>
+> Fontes de produto devem ser conferidas em [fontes canônicas](../../fontes.md)
+> no dia de cada aula, pois planos, superfícies e disponibilidade variam.
 
-## Objetivo de aprendizagem
+## Propósito
 
-Ao final do módulo, você deverá conseguir:
+Construir o vocabulário que evita decisões confusas: uma pessoa não escolhe
+“uma IA” de forma abstrata; escolhe uma superfície, um fluxo, uma permissão e
+uma forma de revisão para um objetivo concreto.
 
-- Identificar em quais cenários **usar ou não** um LLM para resolver uma tarefa.
-- Distinguir “o que a ferramenta faz” do “como a ferramenta deve ser supervisionada”.
-- Escolher uma estratégia inicial (ChatGPT/Codex/sem LLM) com justificativa curta e rastreável.
+## Os quatro blocos obrigatórios
 
-## Missão de treino (roteiro)
+| Bloco | Questão que a unidade responde | Limite de decisão |
+| --- | --- | --- |
+| ChatGPT | Quando uma interface conversacional e suas ferramentas ajudam? | Não presume disponibilidade de um recurso por plano ou região. |
+| Codex | Quando o trabalho é uma tarefa em projeto, arquivos ou repositório? | Não substitui revisão de diff, testes e permissões proporcionais. |
+| API Platform | Quando é necessário integrar modelos e ferramentas a uma aplicação? | Exige projeto, autenticação, custo, tratamento de erro e observabilidade. |
+| Vocabulário | O que muda entre modelo, produto, ferramenta, agente e app? | Os termos não são intercambiáveis. |
 
-Você é operador de uma célula de produtividade do curso. Recebe três demandas reais e precisa decidir o caminho técnico mais seguro e eficiente para cada uma.
+## Modelo mental
 
-1. **Entradas não triviais** aparecem no início de qualquer pedido (texto, código, regras, risco, prazo).
-2. **Cada decisão precisa de critério**, não de achismo.
-3. **Escolha de ferramenta ≠ sucesso automático**: toda decisão precisa de revisão humana no fim.
+- **Modelo**: componente que recebe contexto e produz uma resposta.
+- **Produto**: experiência pronta para uma pessoa operar, como uma interface.
+- **Ferramenta**: capacidade disponível dentro de um produto ou aplicação.
+- **Agente**: sistema que usa modelo, instruções, ferramentas e regras para
+  avançar uma tarefa.
+- **App**: aplicação que integra uma experiência, dados, interface e regras.
 
-## O que esse módulo cobre
+Essas definições são pedagógicas. As capacidades concretas devem ser verificadas
+na documentação oficial e na conta que será usada.
 
-- Ecossistema prático de uso do ChatGPT e do Codex em contexto de curso/produto.
-- Tipos de tarefas e limites comuns dos modelos de linguagem.
-- Risco de ferramenta inadequada (ex.: ambiguidade, privacidade, precisão técnica).
-- Critérios de custo de tempo/risco antes de executar.
+## Decisão inicial
 
-## O que esse módulo não cobre (e propositalmente fica para frente)
+Antes de escolher uma superfície, registre objetivo, dados envolvidos, impacto
+de erro, necessidade de artefato versionado, necessidade de integração e modo
+de revisão humana. A escolha é provisória: ela pode mudar quando o risco, o
+contexto ou os requisitos mudarem.
 
-- Engenharia de prompt avançada fina (`Módulo 2`).
-- Validação factual profunda com protocolo de prova (`Módulo 3`).
-- Segurança operacional e plano de resposta a incidente (`Módulo 4`).
-- Otimização de automações, API e fluxos avançados (`Módulo 7`).
+## Conexão com a próxima unidade
 
-## Matriz de decisão — versão inicial
-
-Antes de enviar qualquer pedido, responda:
-
-1. O objetivo é **exploração**, **síntese**, **edição local** ou **decisão operacional**?
-2. O conteúdo é **sensível** (dados pessoais, segredos, chaves, credenciais)?
-3. Você precisa de:
-   - saída criativa
-   - resposta argumentativa
-   - edição segura de arquivo real
-4. Existe risco de erro com impacto real (financeiro, jurídico, pessoal)?
-
-### Regra prática de escolha
-
-Use esta régua para iniciar:
-
-- **ChatGPT (conversa)**: ideal para pesquisa exploratória, síntese, redação e discussão de estratégia.
-- **Codex (execução local/repo)**: ideal quando há um artefato versionado, mudança rastreável e necessidade de executar ação no projeto.
-- **Sem LLM**: ideal para tarefas repetitivas, checagens objetivas e decisões já conhecidas.
-
-## Limites operacionais que você deve assumir desde já
-
-- Toda resposta de IA pode conter incerteza.
-- Modelos seguem o contexto que recebem; instruções fracas geram saída fraca.
-- Ambiguidade no pedido vira ambiguidade no resultado.
-- Não substitui revisão humana em decisões com impacto.
-- Recursos, planos e recursos disponíveis mudam com região, conta e período; atualize a escolha por contexto.
-
-## Entrega mínima do módulo (prévia)
-
-No seu registro de entrega, você deve apresentar:
-
-- uma comparação de 3 cenários reais com ferramenta escolhida
-- justificativa objetiva (1–3 linhas por cenário)
-- risco principal de cada escolha e como mitigar
-
-> Referência de navegação: entregue em `docs/entregas/01-ecossistema-e-limites/template-entrega-modulo-1.md`.
+B1 escolhe a superfície e delimita o problema. B2 ensinará a formular contexto,
+instruções, critérios e formatos sem repetir a taxonomia desta unidade.

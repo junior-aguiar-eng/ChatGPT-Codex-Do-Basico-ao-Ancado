@@ -1,7 +1,7 @@
 {
-  "module_id": "modulo1",
-  "title": "Terminal de decisão: ecossistema e limites",
-  "instructions": "Preencha cada cenário com uma decisão justificável. O laboratório verifica completude; a qualidade da decisão é revisada pela rubrica do módulo.",
+  "module_id": "basic-b1",
+  "title": "Terminal de decisão: B1 · Ecossistema OpenAI",
+  "instructions": "Preencha cada cenário com uma decisão justificável entre ChatGPT, Codex, API Platform ou processo manual. O laboratório verifica completude; a qualidade é revisada pela rubrica de B1.",
   "task_types": ["exploração", "síntese", "edição local", "decisão operacional"],
   "tool_options": ["ChatGPT (conversa)", "Codex (repositório)", "Sem LLM / processo manual"],
   "scenarios": [
@@ -28,6 +28,12 @@
       "title": "Analisar conteúdo confidencial",
       "context": "Uma mensagem contém dados pessoais e chaves temporárias da equipe.",
       "risk_hint": "Dados ou segredos podem ser expostos fora da política aprovada."
+    },
+    {
+      "id": "integracao",
+      "title": "Criar uma ferramenta para uso recorrente",
+      "context": "Transformar uma tarefa repetida em aplicação integrada a dados e outros serviços.",
+      "risk_hint": "Autenticação, custo, observabilidade e tratamento de falhas precisam existir antes da operação."
     }
   ]
 }

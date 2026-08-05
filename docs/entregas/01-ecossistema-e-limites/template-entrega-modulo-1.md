@@ -1,4 +1,4 @@
-# Entrega — Módulo 1: Ecossistema e limites de LLM
+# Entrega — B1: Ecossistema OpenAI
 
 ## Identificação
 
@@ -17,6 +17,7 @@ Preencha 4 cenários (ou o máximo que aplicou):
 | 2 |  |  |  |  |  |
 | 3 |  |  |  |  |  |
 | 4 |  |  |  |  |  |
+| 5 |  |  |  |  |  |
 
 ## 2) Alternativa deliberada
 

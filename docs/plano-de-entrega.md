@@ -1,57 +1,47 @@
-# Plano de entrega por módulo
+# Plano de entrega fiel à arquitetura canônica
 
-## Fase 0 — Alinhamento de base
+Este plano é uma ordem de produção editorial e técnica. Ele não altera a
+arquitetura do [mapa canônico](mapa-do-curso.mmd).
 
-- [x] Validar objetivo do curso, público e critérios pedagógicos.
-- [x] Definir fluxo de publicação GitHub-first e documentação canônica.
-- [x] Provisionar ambiente de desenvolvimento no Codespaces.
-- [ ] Consolidar identidade visual, tom lúdico e sistema de pet mascotes no curso.
+## Marco 0 — Controle de arquitetura
 
-## Fase 1 — Fundamentos conectados (módulos 1 a 4)
+- [x] Versionar o mapa canônico sem compactação.
+- [x] Registrar a regra de autorização expressa para mudanças estruturais.
+- [x] Modelar dados da interface para todas as unidades B, I, A, C, P e M.
+- [ ] Criar índice de fontes oficiais datadas por unidade.
 
-- [ ] **Módulo diagnóstico**: diagnóstico inicial e plano pessoal de trilha.
-- [ ] **Módulo 1**: ecossistema, limites e escolha de estratégia de uso.
-  - [x] Estruturar trilha conceitual e critérios de decisão.
-  - [x] Publicar roteiro, cenários práticos e rubrica de avaliação.
-  - [x] Fechar template de entrega com evidência de conclusão.
-  - [x] Integrar laboratório interativo com exportação de entrega em Markdown.
-- [ ] **Módulo 2**: comunicação com ChatGPT, prompts e saída orientada.
-- [ ] **Módulo 3**: qualidade de resposta, fontes e revisão de consistência.
-- [ ] **Módulo 4**: segurança, privacidade, risco e limites de autonomia.
-- Critério de saída:
-  - cada módulo com entrega publicada em `docs/`, `app` e/ou `data`.
+## Marco 1 — Início do curso
 
-## Fase 2 — Trabalho profissional (módulos 5 e 6)
+- [ ] Diagnóstico inicial: objetivos, repertório, ambiente e projetos.
+- [ ] Preparação: conta, plano, workspace, aplicativos e controles de dados.
+- [ ] B1: ecossistema OpenAI completo.
+- [ ] B2: fundamentos de interação.
+- [ ] B3: ChatGPT essencial.
+- [ ] B4: qualidade e segurança.
+- [ ] Laboratório básico e checkpoint de retorno a B2.
 
-- [ ] **Módulo 5**: Git, commit estruturado, revisão e rastreabilidade.
-- [ ] **Módulo 6**: Codex como motor de tarefas técnicas.
-- Critério de saída:
-  - mini projeto versionado com evidência de decisão técnica e revisão de resultado.
+## Marco 2 — Núcleo intermediário
 
-## Fase 3 — Especialização e integração (módulos 7 e 8)
+- [ ] I1 a I6: organização, workflows, pesquisa, artefatos, personalização e recorrência.
+- [ ] I7 a I9: fundamentos técnicos, primeiros passos e permissões do Codex.
+- [ ] Laboratório intermediário e checkpoint de retorno a I2.
 
-- [ ] **Módulo 7**: integração de ferramentas/fluxos e automações curtas.
-- [ ] **Módulo 8**: projeto final integrado com trilha de validação completa.
-- [ ] Rubrica final:
-  - coerência entre entrada, resultado e evidência;
-  - custos/limitações documentados;
-  - risco e pontos de falha identificados;
-  - plano de manutenção e melhoria.
+## Marco 3 — Trilhas avançadas
 
-## Estrutura de produção contínua
+- [ ] 3A: A1 a A4 e projeto avançado ChatGPT.
+- [ ] 3B: C1 a C7 e projeto avançado Codex.
+- [ ] 3C: P1 a P6 e projeto avançado API, agentes e apps.
 
-Cada publicação avança com este contrato:
+## Marco 4 — Integração
 
-1. objetivo do módulo fechado;
-2. material de estudo e laboratório carregado;
-3. entrega verificável no repositório;
-4. revisão de consistência contra módulos anteriores;
-5. atualização de fontes em `docs/fontes.md` quando necessário.
+- [ ] M1: arquitetura do sistema completo.
+- [ ] Projeto final nas modalidades previstas no mapa.
+- [ ] Banca de validação e ciclo de atualização contínua.
 
-## Critério de continuidade
+## Contrato de publicação de cada unidade
 
-- Um módulo só sobe de status quando possui:
-  - pré-requisito explícito cumprido;
-  - conteúdo original e não redundante;
-  - atividade prática com evidência;
-  - critérios de conclusão mensuráveis.
+Cada unidade publicada precisa conter objetivo, pré-requisitos, conteúdo,
+demonstração, atividade guiada, entrega verificável, critério de conclusão,
+limites, risco, fontes oficiais datadas e conexão explícita com a próxima
+unidade. Nenhuma publicação pode antecipar ou absorver conteúdo que o mapa
+reservou a outra unidade sem autorização expressa.

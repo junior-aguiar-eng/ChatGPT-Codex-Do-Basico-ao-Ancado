@@ -5,8 +5,8 @@ Curso completo para iniciantes, do básico ao avançado.
 Repositório canônico de um curso prático para operar, supervisionar e construir
 com ChatGPT, Codex e a plataforma de APIs da OpenAI.
 
-> Status: fundação do projeto. O currículo será transformado em módulos,
-> laboratórios, materiais e critérios de avaliação versionados.
+> Status: arquitetura canônica versionada. O curso será publicado por unidade,
+> laboratório e trilha, preservando integralmente o mapa aprovado.
 
 ## Objetivo
 
@@ -27,20 +27,17 @@ auditáveis, segurança, privacidade, supervisão humana e fontes rastreáveis.
 ## Organização
 
 - [Visão do produto](docs/visao-do-produto.md)
+- [Como começar](docs/inicio-do-curso.md)
 - [Currículo e mapa de aprendizagem](docs/curriculo.md)
 - [Mapa visual](docs/mapa-do-curso.mmd)
 - [Plano de entrega](docs/plano-de-entrega.md)
 - [Fontes canônicas](docs/fontes.md)
 
-## Módulo em produção
+## Regra de arquitetura
 
-O **Módulo 1 — Ecossistema e limites de LLM** já possui guia, laboratório,
-rubrica, template de entrega e uma versão interativa no painel Streamlit:
-
-- [Guia do Módulo 1](docs/modulos/01-ecossistema-e-limites/01-guia-do-modulo-1.md)
-- [Laboratório 1](docs/modulos/01-ecossistema-e-limites/02-laboratorio-ecossistema-e-limites.md)
-- [Rubrica de avaliação](docs/modulos/01-ecossistema-e-limites/03-rubrica-avaliacao-modulo-1.md)
-- [Template da entrega](docs/entregas/01-ecossistema-e-limites/template-entrega-modulo-1.md)
+O [mapa canônico](docs/mapa-do-curso.mmd) define toda a engenharia pedagógica.
+Não compactamos, fundimos, removemos ou reorganizamos unidades e trilhas sem
+autorização expressa do responsável pelo curso.
 
 ## Princípios editoriais
 
@@ -57,15 +54,11 @@ rubrica, template de entrega e uma versão interativa no painel Streamlit:
 
 Publicar em ordem modular:
 
-1. Diagnóstico inicial e missão.
-2. Módulo 1 — Ecossistema e limites de LLM.
-3. Módulo 2 — Comunicação eficiente com ChatGPT.
-4. Módulo 3 — Qualidade, evidência e validação.
-5. Módulo 4 — Segurança, privacidade e governança.
-6. Módulo 5 — Git, rastreabilidade e trabalho orientado a evidência.
-7. Módulo 6 — Codex para engenharia de tarefas.
-8. Módulo 7 — Integração de ferramentas e automações.
-9. Módulo 8 — Projeto final integrado.
+1. Diagnóstico inicial e preparação do ambiente.
+2. Nível 1 completo: B1 a B4 e laboratório básico.
+3. Nível 2 completo: I1 a I9 e laboratório intermediário.
+4. Trilhas avançadas independentes: 3A, 3B e 3C.
+5. Integração, projeto final e banca de validação.
 
 ## Como o curso estara sendo forjado
 
@@ -81,7 +74,7 @@ Este projeto sera construído como um produto GitHub-first:
 Comando rapido local no Codespace:
 
 ```bash
-python -m streamlit run app/main.py --server.port 8501 --server.address 0.0.0.0
+uv run --with-requirements requirements.txt streamlit run app/main.py --server.port 8501 --server.address 0.0.0.0
 ```
 
 Requisito de base: o projeto e interativo, versionado e com validacao automatica.

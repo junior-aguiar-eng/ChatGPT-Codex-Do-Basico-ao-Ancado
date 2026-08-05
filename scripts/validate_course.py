@@ -6,7 +6,15 @@ import json
 from pathlib import Path
 
 
-REQUIRED_OUTLINE_KEYS = {"id", "title", "outcomes", "deliverable"}
+REQUIRED_OUTLINE_KEYS = {
+    "id",
+    "title",
+    "stage",
+    "track",
+    "outcomes",
+    "topics",
+    "deliverable",
+}
 REQUIRED_LAB_KEYS = {
     "module_id",
     "title",
@@ -28,8 +36,8 @@ def validate_module1_lab() -> int:
     if missing:
         raise SystemExit(f"Module 1 lab missing required keys: {sorted(missing)}")
 
-    if lab["module_id"] != "modulo1":
-        raise SystemExit("Module 1 lab must have module_id='modulo1'.")
+    if lab["module_id"] != "basic-b1":
+        raise SystemExit("Module 1 lab must have module_id='basic-b1'.")
 
     for key in ("task_types", "tool_options", "scenarios"):
         if not isinstance(lab[key], list) or not lab[key]:
@@ -64,6 +72,34 @@ def main() -> None:
         missing = REQUIRED_OUTLINE_KEYS - set(module.keys())
         if missing:
             raise SystemExit(f"Module #{idx} missing required keys: {sorted(missing)}")
+
+    expected_units = {
+        "diagnostico",
+        "preparacao",
+        "basic-b1",
+        "basic-b4",
+        "inter-i1",
+        "inter-i9",
+        "chat-a1",
+        "chat-a4",
+        "codex-c1",
+        "codex-c7",
+        "api-p1",
+        "api-p6",
+        "integracao-m1",
+    }
+    present_units = {module["id"] for module in modules}
+    missing_units = expected_units - present_units
+    if missing_units:
+        raise SystemExit(
+            f"Course outline is missing canonical units: {sorted(missing_units)}"
+        )
+
+    map_path = Path("docs/mapa-do-curso.mmd")
+    map_contents = map_path.read_text(encoding="utf-8")
+    for marker in ("NÍVEL 1", "NÍVEL 2", "NÍVEL 3A", "NÍVEL 3B", "NÍVEL 3C"):
+        if marker not in map_contents:
+            raise SystemExit(f"Canonical map is missing marker: {marker}")
 
     scenario_count = validate_module1_lab()
     print(

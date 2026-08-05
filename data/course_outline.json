@@ -1,138 +1,425 @@
 {
+  "architecture_version": "2026-08-04-preview-canonico",
+  "canonical_map": "docs/mapa-do-curso.mmd",
+  "entry_paths": [
+    "Trabalho intelectual: usar ChatGPT com método",
+    "Projetos: usar Codex com segurança",
+    "Produtos de IA: desenvolver com APIs e SDKs"
+  ],
+  "transversal_capabilities": [
+    "Engenharia de contexto",
+    "Skills reutilizáveis",
+    "MCP e integrações",
+    "Subagentes e delegação",
+    "Segurança e permissões",
+    "Avaliações e observabilidade",
+    "Custos, limites e desempenho",
+    "Documentação e versionamento"
+  ],
   "modules": [
     {
-      "id": "diag",
-      "title": "Diagnostico inicial e missao",
-      "level": "base",
+      "id": "diagnostico",
+      "title": "Diagnóstico inicial",
+      "stage": "Entrada",
+      "track": "Comum",
       "pet": "Scout",
       "accent": "#6ee6a7",
       "glow": "#0dbf73",
-      "mission": "Mapear perfil, objetivos e montar plano de trilha com ambiente pronto.",
-      "outcomes": [
-        "Definir metas pessoais e contexto de estudo",
-        "Configurar workspace, contas e fluxos de trabalho"
-      ],
-      "deliverable": "Checklist de inicio validado no repositório"
+      "outcomes": ["Mapear objetivos, repertório, ambiente e projetos do participante"],
+      "topics": ["objetivos", "repertório", "ambiente", "projetos"],
+      "deliverable": "Diagnóstico preenchido e metas de percurso registradas"
     },
     {
-      "id": "modulo1",
-      "title": "Modulo 1 - Ecossistema e limites de LLM",
-      "level": "fundacao",
+      "id": "preparacao",
+      "title": "Preparação do ambiente",
+      "stage": "Entrada",
+      "track": "Comum",
+      "pet": "Scout",
+      "accent": "#6ee6a7",
+      "glow": "#0dbf73",
+      "outcomes": ["Preparar conta, plano, workspace, aplicativos e controles de dados"],
+      "topics": ["conta", "plano", "workspace", "aplicativos", "controles de dados"],
+      "deliverable": "Checklist de ambiente e controles de dados"
+    },
+    {
+      "id": "basic-b1",
+      "title": "B1 · Ecossistema OpenAI",
+      "stage": "Nível 1 — Básico",
+      "track": "Fundamentos",
       "pet": "Atlas",
       "accent": "#7ad4ff",
       "glow": "#2fb2ff",
-      "mission": "Entender capacidades, limites, custos e decisões iniciais de uso.",
-      "outcomes": [
-        "Diferenciar tipos de modelos e modos de uso",
-        "Reconhecer cenários possíveis e limites técnicos",
-        "Tomar decisão de ferramenta por contexto"
-      ],
-      "deliverable": "Comparativo de cenários com decisão justificada"
+      "outcomes": ["Distinguir as superfícies do ecossistema e escolher o ponto de partida adequado"],
+      "topics": ["ChatGPT: interface conversacional e ferramentas", "Codex: agente para executar trabalho em projetos", "API Platform: modelos e ferramentas em aplicações", "modelo, produto, ferramenta, agente e app"],
+      "deliverable": "Mapa de escolha de superfície com justificativa e limites"
     },
     {
-      "id": "modulo2",
-      "title": "Modulo 2 - Comunicacao eficiente com ChatGPT",
-      "level": "fundacao",
-      "pet": "Alpha",
-      "accent": "#89d7ff",
+      "id": "basic-b2",
+      "title": "B2 · Fundamentos de interação",
+      "stage": "Nível 1 — Básico",
+      "track": "Fundamentos",
+      "pet": "Atlas",
+      "accent": "#7ad4ff",
       "glow": "#2fb2ff",
-      "mission": "Construir instrucoes com contexto, objetivo e formato de resposta.",
-      "outcomes": [
-        "Escrever prompts com intenção, escopo e restricoes",
-        "Estruturar saidas para revisão e decisão",
-        "Iterar para aumentar qualidade sem redundancia"
-      ],
-      "deliverable": "Biblioteca inicial de prompts e um fluxo padronizado"
+      "outcomes": ["Estruturar pedidos, avaliar resposta e preservar contexto relevante"],
+      "topics": ["objetivo e contexto", "instruções, restrições e critérios", "formato de saída e exemplos", "iteração, crítica e refinamento", "janela de contexto, histórico, anexos e perda de informação"],
+      "deliverable": "Conjunto de instruções revisadas com critérios de saída"
     },
     {
-      "id": "modulo3",
-      "title": "Modulo 3 - Qualidade, evidencia e validacao",
-      "level": "intermediario",
-      "pet": "Nimbus",
-      "accent": "#9fe58d",
-      "glow": "#68c85a",
-      "mission": "Separar fato, inferencia e hipotese; validar com critério e fonte.",
-      "outcomes": [
-        "Aplicar protocolo de verificacao de fatos",
-        "Documentar incertezas e limite de conclusao",
-        "Criar resposta com trilha de raciocinio rastreavel"
-      ],
-      "deliverable": "Relatorio curto de validacao e revisao"
+      "id": "basic-b3",
+      "title": "B3 · ChatGPT essencial",
+      "stage": "Nível 1 — Básico",
+      "track": "Fundamentos",
+      "pet": "Atlas",
+      "accent": "#7ad4ff",
+      "glow": "#2fb2ff",
+      "outcomes": ["Usar recursos centrais do ChatGPT com finalidade, limites e revisão"],
+      "topics": ["conversação e raciocínio", "pesquisa na web, fontes, citações e atualidade", "upload e leitura de arquivos", "análise de dados, tabelas, cálculos e gráficos", "canvas e edição iterativa", "geração e edição de imagens", "voz, ditado e multimodalidade"],
+      "deliverable": "Entrega multimodal verificável com fontes e revisão"
     },
     {
-      "id": "modulo4",
-      "title": "Modulo 4 - Seguranca, privacidade e governanca",
-      "level": "intermediario",
+      "id": "basic-b4",
+      "title": "B4 · Qualidade e segurança",
+      "stage": "Nível 1 — Básico",
+      "track": "Fundamentos",
       "pet": "Shield",
       "accent": "#f5a34a",
       "glow": "#e47f17",
-      "mission": "Planejar uso seguro e com limite de risco para dados e automacoes.",
-      "outcomes": [
-        "Aplicar regras basicas de dados sensiveis",
-        "Reconhecer cenarios de risco e resposta adequada",
-        "Documentar guardrails e plano de contingencia"
-      ],
-      "deliverable": "Matriz de risco com protocolo de acao"
+      "outcomes": ["Avaliar evidências, incertezas, privacidade e necessidade de revisão humana"],
+      "topics": ["verificação factual e documental", "fatos, inferências e hipóteses", "privacidade, dados sensíveis e compartilhamento", "limites, erros e alucinações", "revisão humana antes de agir ou publicar"],
+      "deliverable": "Relatório de qualidade e segurança de uma entrega"
     },
     {
-      "id": "modulo5",
-      "title": "Modulo 5 - Git, rastreabilidade e evidencia",
-      "level": "profissional",
+      "id": "inter-i1",
+      "title": "I1 · Organização persistente",
+      "stage": "Nível 2 — Intermediário",
+      "track": "Comum",
+      "pet": "Nexus",
+      "accent": "#9fe58d",
+      "glow": "#68c85a",
+      "outcomes": ["Organizar conhecimento e contexto de trabalho de forma recuperável"],
+      "topics": ["Projects", "memória e personalização", "Library e reutilização de arquivos", "instruções de projeto", "gestão de contexto, resumos, referências e versionamento"],
+      "deliverable": "Workspace organizado com instruções e referências"
+    },
+    {
+      "id": "inter-i2",
+      "title": "I2 · Arquitetura de workflows",
+      "stage": "Nível 2 — Intermediário",
+      "track": "Comum",
+      "pet": "Nexus",
+      "accent": "#9fe58d",
+      "glow": "#68c85a",
+      "outcomes": ["Projetar um fluxo repetível, verificável e corrigível"],
+      "topics": ["decompor o problema", "escolher ferramenta", "definir entradas, saídas e validações", "executar, revisar e corrigir", "registrar decisões e versões"],
+      "deliverable": "Workflow documentado com validações"
+    },
+    {
+      "id": "inter-i3",
+      "title": "I3 · Pesquisa e fontes",
+      "stage": "Nível 2 — Intermediário",
+      "track": "Comum",
+      "pet": "Nexus",
+      "accent": "#9fe58d",
+      "glow": "#68c85a",
+      "outcomes": ["Pesquisar com atualidade e rastreabilidade"],
+      "topics": ["busca rápida na web", "Deep Research", "arquivos e fontes conectadas", "comparação de fontes e controle de atualidade", "síntese rastreável"],
+      "deliverable": "Relatório citado com matriz de fontes"
+    },
+    {
+      "id": "inter-i4",
+      "title": "I4 · Produção de artefatos",
+      "stage": "Nível 2 — Intermediário",
+      "track": "Comum",
+      "pet": "Nexus",
+      "accent": "#9fe58d",
+      "glow": "#68c85a",
+      "outcomes": ["Produzir e revisar artefatos em formatos adequados"],
+      "topics": ["documentos e relatórios", "planilhas, modelos e análises", "apresentações e materiais visuais", "sites e ferramentas leves", "revisão de forma, conteúdo e consistência"],
+      "deliverable": "Artefato publicado com revisão registrada"
+    },
+    {
+      "id": "inter-i5",
+      "title": "I5 · Personalização funcional",
+      "stage": "Nível 2 — Intermediário",
+      "track": "Comum",
+      "pet": "Nexus",
+      "accent": "#9fe58d",
+      "glow": "#68c85a",
+      "outcomes": ["Projetar uma personalização funcional com testes e limites"],
+      "topics": ["GPTs personalizados", "instruções e iniciadores", "conhecimento por arquivos", "capacidades habilitadas", "Apps ou Actions", "testes, versões e compartilhamento"],
+      "deliverable": "GPT ou configuração equivalente testada"
+    },
+    {
+      "id": "inter-i6",
+      "title": "I6 · Tarefas e recorrência",
+      "stage": "Nível 2 — Intermediário",
+      "track": "Comum",
+      "pet": "Nexus",
+      "accent": "#9fe58d",
+      "glow": "#68c85a",
+      "outcomes": ["Definir automações recorrentes com notificação e revisão"],
+      "topics": ["tarefas pontuais agendadas", "rotinas recorrentes", "monitoramento condicionado", "cadência, escopo e notificação", "revisão de resultados e ajuste do prompt"],
+      "deliverable": "Rotina documentada com critério de alerta"
+    },
+    {
+      "id": "inter-i7",
+      "title": "I7 · Fundamentos técnicos para Codex",
+      "stage": "Nível 2 — Intermediário",
+      "track": "Comum",
       "pet": "Forge",
       "accent": "#b07bff",
       "glow": "#9c7bff",
-      "mission": "Versionar tarefas e decisões para auditoria e continuidade.",
-      "outcomes": [
-        "Estruturar branch, commits e mensagens consistentes",
-        "Registrar critério de mudanca e resultado",
-        "Rastrear evidencias dentro do repositorio"
-      ],
-      "deliverable": "Mini projeto com log de decisão e evidencias"
+      "outcomes": ["Ler e operar o contexto técnico mínimo para trabalho seguro em repositórios"],
+      "topics": ["terminal e sistema de arquivos", "Git: repositório, branch, commit, diff e pull request", "estrutura de projeto e dependências", "leitura de código, logs e testes", "variáveis de ambiente e segredos"],
+      "deliverable": "Repositório de exercício com histórico e evidências"
     },
     {
-      "id": "modulo6",
-      "title": "Modulo 6 - Codex para engenharia de tarefas",
-      "level": "avancado",
+      "id": "inter-i8",
+      "title": "I8 · Primeiros passos no Codex",
+      "stage": "Nível 2 — Intermediário",
+      "track": "Comum",
       "pet": "Forge",
-      "accent": "#6ec5ff",
-      "glow": "#2fb2ff",
-      "mission": "Executar mudanças orientadas por objetivo e com validacao no fluxo.",
-      "outcomes": [
-        "Dividir tarefas em planos executáveis",
-        "Aplicar Codex em alteracoes pequenas e verificáveis",
-        "Fechar ciclos com evidencia de resultado"
-      ],
-      "deliverable": "Mudanca completa com verificacao e revisao"
+      "accent": "#b07bff",
+      "glow": "#9c7bff",
+      "outcomes": ["Executar uma tarefa de engenharia com contexto, teste e revisão"],
+      "topics": ["superfícies: desktop, IDE, CLI e Cloud/Web", "abrir projeto e fornecer contexto", "inspecionar, planejar, editar, testar e revisar", "revisar diff", "registrar alterações no Git"],
+      "deliverable": "Mudança pequena com teste, diff e commit"
     },
     {
-      "id": "modulo7",
-      "title": "Modulo 7 - Integracao de ferramentas e automacoes",
-      "level": "avancado",
+      "id": "inter-i9",
+      "title": "I9 · Permissões e segurança do Codex",
+      "stage": "Nível 2 — Intermediário",
+      "track": "Comum",
+      "pet": "Shield",
+      "accent": "#f5a34a",
+      "glow": "#e47f17",
+      "outcomes": ["Escolher permissões proporcionais ao risco"],
+      "topics": ["sandbox", "approval policy", "modo somente leitura", "workspace write", "acesso ampliado quando necessário", "allowlists e caminhos protegidos"],
+      "deliverable": "Matriz de permissões para uma tarefa Codex"
+    },
+    {
+      "id": "chat-a1",
+      "title": "A1 · Workflows profissionais no ChatGPT",
+      "stage": "Nível 3A — Avançado",
+      "track": "ChatGPT e conhecimento conectado",
+      "pet": "Aurora",
+      "accent": "#ffd071",
+      "glow": "#e7a23b",
+      "outcomes": ["Orquestrar pesquisa, arquivos, apps e entregas com checkpoints"],
+      "topics": ["combinar web, arquivos, apps e ferramentas", "planejar tarefas longas", "execução com checkpoints e revisão", "entregas finais em múltiplos formatos"],
+      "deliverable": "Workflow profissional documentado"
+    },
+    {
+      "id": "chat-a2",
+      "title": "A2 · ChatGPT Work",
+      "stage": "Nível 3A — Avançado",
+      "track": "ChatGPT e conhecimento conectado",
+      "pet": "Aurora",
+      "accent": "#ffd071",
+      "glow": "#e7a23b",
+      "outcomes": ["Acompanhar trabalho de agentes em um ambiente de produção"],
+      "topics": ["arquivos e projetos locais ou hospedados", "atividade do agente", "subagentes", "integração de pesquisa, análise e produção", "supervisão humana"],
+      "deliverable": "Workspace especializado com evidência de supervisão"
+    },
+    {
+      "id": "chat-a3",
+      "title": "A3 · Conhecimento conectado",
+      "stage": "Nível 3A — Avançado",
+      "track": "ChatGPT e conhecimento conectado",
+      "pet": "Aurora",
+      "accent": "#ffd071",
+      "glow": "#e7a23b",
+      "outcomes": ["Conectar fontes privadas com permissões e proteção contra injeção"],
+      "topics": ["Apps e conectores", "fontes privadas", "ações de escrita com confirmação", "permissões por conta e workspace", "prompt injection e exposição de dados"],
+      "deliverable": "Fluxo conectado com limites de permissão"
+    },
+    {
+      "id": "chat-a4",
+      "title": "A4 · GPTs em produção",
+      "stage": "Nível 3A — Avançado",
+      "track": "ChatGPT e conhecimento conectado",
+      "pet": "Aurora",
+      "accent": "#ffd071",
+      "glow": "#e7a23b",
+      "outcomes": ["Construir, avaliar e publicar um GPT com governança"],
+      "topics": ["arquitetura de instruções", "curadoria de conhecimento", "Apps versus Actions", "autenticação e OpenAPI para Actions", "avaliação, compartilhamento e publicação"],
+      "deliverable": "GPT versionado com plano de avaliação"
+    },
+    {
+      "id": "codex-c1",
+      "title": "C1 · Contexto e configuração do projeto",
+      "stage": "Nível 3B — Avançado",
+      "track": "Codex e engenharia",
+      "pet": "Forge",
+      "accent": "#b07bff",
+      "glow": "#9c7bff",
+      "outcomes": ["Configurar regras e contexto duráveis do projeto"],
+      "topics": ["AGENTS.md", "config.toml", "perfis, modelos e esforço de raciocínio", "regras de comandos e permissões", "MCP servers e ferramentas externas"],
+      "deliverable": "Repositório configurado com instruções verificáveis"
+    },
+    {
+      "id": "codex-c2",
+      "title": "C2 · Fluxo completo de engenharia",
+      "stage": "Nível 3B — Avançado",
+      "track": "Codex e engenharia",
+      "pet": "Forge",
+      "accent": "#b07bff",
+      "glow": "#9c7bff",
+      "outcomes": ["Conduzir uma mudança de engenharia ponta a ponta"],
+      "topics": ["explorar repositório", "plano de implementação", "editar múltiplos arquivos", "lint, testes e build", "diagnosticar falhas", "revisar diff, riscos e compatibilidade", "commit, branch, pull request e revisão"],
+      "deliverable": "Feature com testes e pull request"
+    },
+    {
+      "id": "codex-c3",
+      "title": "C3 · Superfícies e handoffs",
+      "stage": "Nível 3B — Avançado",
+      "track": "Codex e engenharia",
+      "pet": "Forge",
+      "accent": "#b07bff",
+      "glow": "#9c7bff",
+      "outcomes": ["Selecionar superfície e transferência de contexto adequadas"],
+      "topics": ["IDE", "CLI", "Desktop", "Cloud", "remote control"],
+      "deliverable": "Plano de superfícies e handoffs"
+    },
+    {
+      "id": "codex-c4",
+      "title": "C4 · Paralelismo e isolamento",
+      "stage": "Nível 3B — Avançado",
+      "track": "Codex e engenharia",
+      "pet": "Forge",
+      "accent": "#b07bff",
+      "glow": "#9c7bff",
+      "outcomes": ["Usar paralelismo sem perder isolamento e controle de custo"],
+      "topics": ["Git worktrees", "subagentes", "agentes personalizados em TOML", "explorador, executor e revisor", "fan-out e síntese", "custo e consumo de contexto"],
+      "deliverable": "Execução paralela com papéis e síntese"
+    },
+    {
+      "id": "codex-c5",
+      "title": "C5 · Automação no Codex",
+      "stage": "Nível 3B — Avançado",
+      "track": "Codex e engenharia",
+      "pet": "Forge",
+      "accent": "#b07bff",
+      "glow": "#9c7bff",
+      "outcomes": ["Automatizar tarefas com observação inicial e permissões graduais"],
+      "topics": ["tarefas agendadas", "execução local ou worktree", "triagem de issues", "revisões, testes e relatórios recorrentes", "integração com CI e GitHub", "ajuste de permissões"],
+      "deliverable": "Automação segura com logs e rollback"
+    },
+    {
+      "id": "codex-c6",
+      "title": "C6 · Segurança avançada",
+      "stage": "Nível 3B — Avançado",
+      "track": "Codex e engenharia",
+      "pet": "Shield",
+      "accent": "#f5a34a",
+      "glow": "#e47f17",
+      "outcomes": ["Aplicar defesa em profundidade a ações e dados de engenharia"],
+      "topics": ["filesystem e network sandbox", "políticas granulares", "auto-review", "segredos na fase autorizada", "exfiltração e ações destrutivas", "Codex Security"],
+      "deliverable": "Threat model e controles de engenharia"
+    },
+    {
+      "id": "codex-c7",
+      "title": "C7 · Codex programável",
+      "stage": "Nível 3B — Avançado",
+      "track": "Codex e engenharia",
+      "pet": "Forge",
+      "accent": "#b07bff",
+      "glow": "#9c7bff",
+      "outcomes": ["Integrar Codex em fluxos programáveis e não interativos"],
+      "topics": ["Codex SDK", "App Server", "Codex como MCP server", "GitHub Action", "execução não interativa e scripts"],
+      "deliverable": "Integração programável demonstrada"
+    },
+    {
+      "id": "api-p1",
+      "title": "P1 · Fundamentos da API",
+      "stage": "Nível 3C — Avançado",
+      "track": "API Platform, agentes e apps",
       "pet": "Sigma",
-      "accent": "#6ee6a7",
-      "glow": "#4dd58f",
-      "mission": "Conectar ferramentas para um fluxo funcional com controle e logs.",
-      "outcomes": [
-        "Construir mini fluxo entre 2 sistemas ou arquivos",
-        "Registrar entradas, saídas e erros esperados",
-        "Implementar rollback e observabilidade basica"
-      ],
-      "deliverable": "Protótipo de automação com logs e plano de rollback"
+      "accent": "#ff8eb6",
+      "glow": "#e45b7a",
+      "outcomes": ["Preparar uma integração de API com custo e confiabilidade considerados"],
+      "topics": ["projeto, chave, autenticação e ambiente", "modelos, tokens, contexto e custos", "prompts versionados e saídas estruturadas", "streaming, estado e erros", "rate limits, retries e idempotência"],
+      "deliverable": "Cliente de API com configuração segura"
     },
     {
-      "id": "final",
-      "title": "Projeto final integrado",
-      "level": "master",
+      "id": "api-p2",
+      "title": "P2 · Responses API",
+      "stage": "Nível 3C — Avançado",
+      "track": "API Platform, agentes e apps",
+      "pet": "Sigma",
+      "accent": "#ff8eb6",
+      "glow": "#e45b7a",
+      "outcomes": ["Usar respostas multimodais e ferramentas com controle de estado"],
+      "topics": ["entrada multimodal", "function calling", "web search", "file search", "Code Interpreter", "computer use e shell", "Remote MCP", "conversation e previous response"],
+      "deliverable": "Protótipo Responses API com ferramenta"
+    },
+    {
+      "id": "api-p3",
+      "title": "P3 · Agents SDK",
+      "stage": "Nível 3C — Avançado",
+      "track": "API Platform, agentes e apps",
+      "pet": "Sigma",
+      "accent": "#ff8eb6",
+      "glow": "#e45b7a",
+      "outcomes": ["Construir agentes com ferramentas, handoffs, guardrails e tracing"],
+      "topics": ["Agent", "Runner e agent loop", "agents as tools", "handoffs", "guardrails", "sessões, memória e estado", "human in the loop", "tracing e observabilidade", "streaming e tempo real"],
+      "deliverable": "Agente especializado com avaliação"
+    },
+    {
+      "id": "api-p4",
+      "title": "P4 · Plugins, Skills e MCP",
+      "stage": "Nível 3C — Avançado",
+      "track": "API Platform, agentes e apps",
+      "pet": "Sigma",
+      "accent": "#ff8eb6",
+      "glow": "#e45b7a",
+      "outcomes": ["Empacotar capacidades reutilizáveis com escopo e segurança"],
+      "topics": ["Skill", "descoberta progressiva", "Plugin", "MCP server", "autenticação, autorização e escopo", "testes, versionamento e distribuição"],
+      "deliverable": "Plugin ou MCP versionado"
+    },
+    {
+      "id": "api-p5",
+      "title": "P5 · Apps SDK e interfaces no ChatGPT",
+      "stage": "Nível 3C — Avançado",
+      "track": "API Platform, agentes e apps",
+      "pet": "Sigma",
+      "accent": "#ff8eb6",
+      "glow": "#e45b7a",
+      "outcomes": ["Projetar uma app com UI, ferramentas, autenticação e UX segura"],
+      "topics": ["caso de uso e ferramentas", "MCP server", "componente UI", "MCP Apps bridge e estado", "autenticação", "metadados e descoberta", "segurança, privacidade e confirmação", "testar, submeter e publicar"],
+      "deliverable": "App com ferramenta e interface"
+    },
+    {
+      "id": "api-p6",
+      "title": "P6 · Produção e confiabilidade",
+      "stage": "Nível 3C — Avançado",
+      "track": "API Platform, agentes e apps",
+      "pet": "Sigma",
+      "accent": "#ff8eb6",
+      "glow": "#e45b7a",
+      "outcomes": ["Operar uma aplicação com avaliação, observabilidade e plano de falhas"],
+      "topics": ["evals e casos de teste", "tracing, logs e métricas", "red teaming e prompt injection", "fallbacks e recuperação", "custo e latência", "deploy, monitoramento e versões"],
+      "deliverable": "Plano de produção com métricas e fallback"
+    },
+    {
+      "id": "integracao-m1",
+      "title": "M1 · Arquitetar o sistema completo",
+      "stage": "Integração",
+      "track": "Projeto final",
       "pet": "Atlas",
       "accent": "#89f0ff",
       "glow": "#5ec8ff",
-      "mission": "Integrar os módulos em um caso real com qualidade, custo e risco tratados.",
-      "outcomes": [
-        "Executar uma entrega ponta a ponta",
-        "Demonstrar rastreabilidade e governanca",
-        "Apresentar plano de manutenção e evolução"
-      ],
-      "deliverable": "Portfolio final com banca de validacao"
+      "outcomes": ["Integrar especializações em uma solução justificável e sustentável"],
+      "topics": ["escolher ChatGPT, Codex, API ou combinação", "dados, ferramentas e fronteiras", "supervisão humana e permissões", "métricas de qualidade, custo e risco", "documentar, testar e versionar"],
+      "deliverable": "Projeto final integrado e banca de validação"
     }
+  ],
+  "milestones": [
+    "Laboratório básico: pesquisar, analisar arquivo e produzir entrega verificável",
+    "Checkpoint básico: competências consolidadas ou retorno a B2",
+    "Laboratório intermediário: workflow documental, projeto versionado e tarefa recorrente",
+    "Checkpoint intermediário: workflow reproduzível e seguro ou retorno a I2",
+    "Projetos avançados independentes em ChatGPT, Codex e API",
+    "Banca final: correção, rastreabilidade, segurança, reprodutibilidade, manutenção, custo e operação"
   ]
 }
