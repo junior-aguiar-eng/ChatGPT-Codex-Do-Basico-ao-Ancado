@@ -9,6 +9,19 @@ com ChatGPT, Codex e a plataforma de APIs da OpenAI.
 > ambiente, B1, B2 e B3 publicados; B3 está pronto para revisão. O curso seguirá por unidade, laboratório e trilha,
 > preservando integralmente o mapa aprovado.
 
+## Página pública parcial
+
+A página institucional estática é publicada no GitHub Pages em
+[junior-aguiar-eng.github.io/ChatGPT-Codex-Do-Basico-ao-Ancado/](https://junior-aguiar-eng.github.io/ChatGPT-Codex-Do-Basico-ao-Ancado/).
+Ela apresenta o percurso e as unidades já liberadas. Os laboratórios interativos
+continuam no aplicativo Streamlit e serão disponibilizados em uma hospedagem
+com backend Python em etapa posterior.
+
+O workflow `.github/workflows/deploy-pages.yml` publica apenas a pasta `site/`
+quando alterações chegam à `main`; o workflow de qualidade permanece separado.
+O domínio próprio só será configurado depois de o DNS existir e apontar para o
+GitHub Pages.
+
 ## Objetivo
 
 Levar o participante de uma operação segura e criteriosa das ferramentas até a
