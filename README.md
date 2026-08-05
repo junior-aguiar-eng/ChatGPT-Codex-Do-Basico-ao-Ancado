@@ -1,5 +1,7 @@
 # ChatGPT e Codex — do Básico ao Avançado
 
+Curso completo para iniciantes, do básico ao avançado.
+
 Repositório canônico de um curso prático para operar, supervisionar e construir
 com ChatGPT, Codex e a plataforma de APIs da OpenAI.
 
