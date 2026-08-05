@@ -1,0 +1,28 @@
+{
+  "module_id": "basic-b2",
+  "module_title": "B2 · Fundamentos de interação",
+  "status": "pronto_para_revisao",
+  "start_date": "2026-08-05",
+  "learning_outcomes": [
+    "Transformar pedidos vagos em briefings com objetivo, contexto e critérios",
+    "Declarar lacunas de contexto sem convertê-las em suposições",
+    "Registrar crítica da primeira saída e próximo refinamento"
+  ],
+  "artifacts_expected": [
+    "docs/modulos/02-fundamentos-de-interacao/01-guia-b2.md",
+    "docs/modulos/02-fundamentos-de-interacao/02-laboratorio-b2.md",
+    "docs/modulos/02-fundamentos-de-interacao/03-rubrica-b2.md",
+    "docs/entregas/02-fundamentos-de-interacao/template-entrega-b2.md"
+  ],
+  "assessment_rules": {
+    "minimum_points": 18,
+    "max_points": 30,
+    "required_passports": [
+      "tres_briefings_completos",
+      "lacuna_de_contexto_declarada",
+      "refinamento_registrado"
+    ]
+  },
+  "created_at": "2026-08-05T00:00:00-03:00"
+}
+

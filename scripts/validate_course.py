@@ -49,6 +49,17 @@ REQUIRED_PREPARATION_KEYS = {
     "control_options",
     "completion_fields",
 }
+REQUIRED_B2_LAB_KEYS = {
+    "module_id",
+    "title",
+    "instructions",
+    "official_sources",
+    "verified_on",
+    "components",
+    "scenarios",
+    "completion_fields",
+}
+REQUIRED_B2_SCENARIO_KEYS = {"id", "title", "vague_request", "context_hint"}
 
 
 def validate_module1_lab() -> int:
@@ -170,6 +181,40 @@ def validate_preparation() -> int:
     return len(preparation["completion_fields"])
 
 
+def validate_b2_lab() -> int:
+    lab_path = Path("data/fundamentos-interacao-b2.json")
+    if not lab_path.exists():
+        raise SystemExit("B2 lab data not found.")
+
+    lab = json.loads(lab_path.read_text(encoding="utf-8"))
+    missing = REQUIRED_B2_LAB_KEYS - set(lab.keys())
+    if missing:
+        raise SystemExit(f"B2 lab missing required keys: {sorted(missing)}")
+    if lab["module_id"] != "basic-b2":
+        raise SystemExit("B2 lab must have module_id='basic-b2'.")
+    if len(lab["scenarios"]) != 3:
+        raise SystemExit("B2 must contain the three canonical briefing scenarios.")
+    for idx, scenario in enumerate(lab["scenarios"], start=1):
+        missing = REQUIRED_B2_SCENARIO_KEYS - set(scenario.keys())
+        if missing:
+            raise SystemExit(f"B2 scenario #{idx} missing keys: {sorted(missing)}")
+
+    required_fields = {
+        "objetivo",
+        "contexto",
+        "instrucoes",
+        "restricoes",
+        "formato",
+        "exemplo",
+        "lacuna",
+        "critica",
+        "refinamento",
+    }
+    if set(lab["completion_fields"]) != required_fields:
+        raise SystemExit("B2 completion_fields do not match the required fields.")
+    return len(lab["scenarios"])
+
+
 def main() -> None:
     outline = Path("data/course_outline.json")
     if not outline.exists():
@@ -219,16 +264,19 @@ def main() -> None:
     scenario_count = validate_module1_lab()
     diagnostic_field_count = validate_diagnostic()
     preparation_field_count = validate_preparation()
+    b2_scenario_count = validate_b2_lab()
     print(
         f"Course outline OK: {len(modules)} modules loaded; "
         f"Module 1 lab OK: {scenario_count} scenarios loaded; "
         f"Diagnostic OK: {diagnostic_field_count} required fields loaded; "
-        f"Preparation OK: {preparation_field_count} required fields loaded."
+        f"Preparation OK: {preparation_field_count} required fields loaded; "
+        f"B2 lab OK: {b2_scenario_count} scenarios loaded."
     )
 
 
 if __name__ == "__main__":
     main()
+
 
 
 

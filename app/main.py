@@ -10,6 +10,7 @@ OUTLINE_PATH = BASE_DIR / "data" / "course_outline.json"
 MODULE1_LAB_PATH = BASE_DIR / "data" / "labs" / "modulo1.json"
 DIAGNOSTIC_PATH = BASE_DIR / "data" / "diagnostico-inicial.json"
 PREPARATION_PATH = BASE_DIR / "data" / "preparacao-do-ambiente.json"
+B2_LAB_PATH = BASE_DIR / "data" / "fundamentos-interacao-b2.json"
 
 
 @st.cache_data
@@ -30,6 +31,11 @@ def load_diagnostic() -> dict[str, Any]:
 @st.cache_data
 def load_preparation() -> dict[str, Any]:
     return json.loads(PREPARATION_PATH.read_text(encoding="utf-8"))
+
+
+@st.cache_data
+def load_b2_lab() -> dict[str, Any]:
+    return json.loads(B2_LAB_PATH.read_text(encoding="utf-8"))
 
 
 def progress_state(modules: list[dict[str, Any]]) -> dict[str, str]:
@@ -515,6 +521,125 @@ def render_b1_lab() -> None:
         )
 
 
+def build_b2_delivery(answers: list[dict[str, str]]) -> str:
+    sections = []
+    for answer in answers:
+        sections.append(
+            f"""## {answer['title']}
+
+**Pedido vago:** {answer['vague_request']}
+
+- Objetivo observável: {answer['objective']}
+- Contexto e insumos: {answer['context']}
+- Instruções: {answer['instructions']}
+- Restrições e critérios: {answer['constraints']}
+- Formato de saída: {answer['format']}
+- Exemplo ou justificativa de ausência: {answer['example']}
+- Histórico, anexo ou lacuna de contexto: {answer['gap']}
+- Crítica da primeira saída: {answer['critique']}
+- Próximo refinamento: {answer['refinement']}"""
+        )
+    return "# Entrega — B2: Fundamentos de interação\n\n" + "\n\n".join(sections)
+
+
+def render_b2_lab() -> None:
+    lab = load_b2_lab()
+    st.markdown("<div class='section-kicker'>OFICINA ATIVA // B2</div>", unsafe_allow_html=True)
+    st.subheader(str(lab["title"]))
+    st.caption(str(lab["instructions"]))
+    st.info(
+        "Método: tornar explícitos objetivo, contexto e critérios. "
+        "O formulário não confirma fatos nem substitui revisão humana."
+    )
+    st.markdown("**Componentes que cada briefing deve tornar visíveis**")
+    st.markdown(
+        "<div class='component-line'>"
+        + "".join(f"<span>{escape(component)}</span>" for component in lab["components"])
+        + "</div>",
+        unsafe_allow_html=True,
+    )
+
+    answers: list[dict[str, str]] = []
+    for position, scenario in enumerate(lab["scenarios"], start=1):
+        scenario_id = scenario["id"]
+        with st.expander(f"{position:02d} · {scenario['title']}", expanded=position == 1):
+            st.markdown(f"**Pedido vago** — {scenario['vague_request']}")
+            st.caption(f"Pista de contexto: {scenario['context_hint']}")
+            objective = st.text_area(
+                "1. Objetivo observável",
+                key=f"b2-objective-{scenario_id}",
+                placeholder="Que resultado deve existir ao final e para quem?",
+            ).strip()
+            context = st.text_area(
+                "2. Contexto e insumos",
+                key=f"b2-context-{scenario_id}",
+                placeholder="Quais fatos, materiais ou condições podem ser usados?",
+            ).strip()
+            instructions = st.text_area(
+                "3. Instruções de execução",
+                key=f"b2-instructions-{scenario_id}",
+                placeholder="Descreva a transformação esperada com verbos claros.",
+            ).strip()
+            constraints = st.text_area(
+                "4. Restrições e critérios",
+                key=f"b2-constraints-{scenario_id}",
+                placeholder="O que evitar e como reconhecer uma resposta aceitável?",
+            ).strip()
+            output_format = st.text_input(
+                "5. Formato de saída",
+                key=f"b2-format-{scenario_id}",
+                placeholder="Ex.: tabela com três colunas, até 200 palavras, em português.",
+            ).strip()
+            example = st.text_area(
+                "6. Exemplo ou justificativa de ausência",
+                key=f"b2-example-{scenario_id}",
+                placeholder="Inclua um exemplo coerente ou diga por que ele não é necessário.",
+            ).strip()
+            gap = st.text_area(
+                "7. Histórico, anexo ou lacuna de contexto",
+                key=f"b2-gap-{scenario_id}",
+                placeholder="O que ainda não foi fornecido e não pode ser presumido?",
+            ).strip()
+            critique = st.text_area(
+                "8. Crítica da primeira saída",
+                key=f"b2-critique-{scenario_id}",
+                placeholder="Que evidência, critério ou trecho você verificará na primeira resposta?",
+            ).strip()
+            refinement = st.text_area(
+                "Próximo refinamento",
+                key=f"b2-refinement-{scenario_id}",
+                placeholder="Escreva o próximo pedido que corrigirá a falha encontrada.",
+            ).strip()
+            answers.append(
+                {
+                    "title": str(scenario["title"]),
+                    "vague_request": str(scenario["vague_request"]),
+                    "objective": objective,
+                    "context": context,
+                    "instructions": instructions,
+                    "constraints": constraints,
+                    "format": output_format,
+                    "example": example,
+                    "gap": gap,
+                    "critique": critique,
+                    "refinement": refinement,
+                }
+            )
+
+    required_keys = ("objective", "context", "instructions", "constraints", "format", "example", "gap", "critique", "refinement")
+    completed = sum(all(answer[key] for key in required_keys) for answer in answers)
+    st.progress(completed / len(answers))
+    st.caption(f"{completed}/{len(answers)} briefings completos")
+    if completed == len(answers):
+        st.success("Briefings completos. Execute um, critique a primeira saída e salve a versão refinada.")
+        st.download_button(
+            "Baixar entrega B2 em Markdown",
+            data=build_b2_delivery(answers),
+            file_name="entrega-b2-fundamentos-interacao.md",
+            mime="text/markdown",
+        )
+
+
 st.set_page_config(
     page_title="Codex // Curso Completo",
     page_icon="◈",
@@ -580,7 +705,7 @@ st.markdown(
       .stat-card { padding: 1.15rem 1.2rem; min-height: 112px; }.stat-card span { color:var(--muted); font-size:.82rem; }.stat-card strong { display:block; color:var(--cyan); font-size:1.8rem; margin:.32rem 0; }.stat-card small{color:#cdd9ea;}
       .story-card { padding: 1.65rem; min-height: 100%; }.story-card p { color:var(--muted); font-size:1.03rem; line-height:1.6; }.story-card strong { color:var(--ink); }
       .mini-terminal { border:1px solid var(--line); border-radius:14px; background:#050b19; padding:1rem; font: .82rem/1.75 ui-monospace,monospace; color:#b5c8dc; margin-top:1.2rem; }.mini-terminal em{color:var(--green);font-style:normal;}.mini-terminal b{color:var(--cyan);}
-      .focus-card { padding:1.3rem; margin:.45rem 0 1.2rem; }.focus-card h4{margin:.7rem 0 .5rem;}.focus-card p{color:var(--muted); line-height:1.55;}.pet-wrap{max-width:112px;}.surface-card{height:100%;border:1px solid var(--line);border-radius:13px;background:rgba(8,18,41,.84);padding:1rem}.surface-card strong{color:var(--cyan);font:800 .82rem/1 ui-monospace,monospace}.surface-card p{color:var(--ink);font-size:.9rem;line-height:1.42;margin:.7rem 0}.surface-card small{color:var(--muted);font-size:.77rem;line-height:1.3}
+      .focus-card { padding:1.3rem; margin:.45rem 0 1.2rem; }.focus-card h4{margin:.7rem 0 .5rem;}.focus-card p{color:var(--muted); line-height:1.55;}.pet-wrap{max-width:112px;}.surface-card{height:100%;border:1px solid var(--line);border-radius:13px;background:rgba(8,18,41,.84);padding:1rem}.surface-card strong{color:var(--cyan);font:800 .82rem/1 ui-monospace,monospace}.surface-card p{color:var(--ink);font-size:.9rem;line-height:1.42;margin:.7rem 0}.surface-card small{color:var(--muted);font-size:.77rem;line-height:1.3}.component-line{display:flex;flex-wrap:wrap;gap:.5rem;margin:.75rem 0 1.3rem}.component-line span{border:1px solid var(--line);border-radius:10px;background:rgba(9,23,49,.82);color:#c5efff;padding:.45rem .62rem;font:.72rem/1.2 ui-monospace,monospace}
       .syllabus-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; margin:1.2rem 0 2.6rem; }.syllabus-card{display:grid;grid-template-columns:52px 1fr;gap:1rem;align-items:start;padding:1.05rem 1.12rem;border:1px solid var(--line);background:rgba(8,18,41,.84);border-radius:14px;min-height:105px;}.syllabus-card:hover{border-color:rgba(103,216,255,.7);background:rgba(15,34,69,.9);}.syllabus-number{color:var(--cyan);font:800 1.05rem/1 ui-monospace,monospace;padding-top:.15rem;}.syllabus-stage{color:#93a7c8;font:600 .66rem/1 ui-monospace,monospace;text-transform:uppercase;letter-spacing:.08em;}.syllabus-card h4{font-size:1rem;margin:.4rem 0 .3rem;letter-spacing:-.01em;}.syllabus-card p{color:var(--muted);font-size:.82rem;line-height:1.35;margin:0;}.syllabus-card.is-active{border-color:rgba(103,216,255,.75);box-shadow:inset 3px 0 var(--cyan);}.syllabus-card.is-done{border-color:rgba(100,226,167,.55);}.syllabus-card.is-done .syllabus-number{color:var(--green);}
       div[data-testid="stSelectbox"] label, div[data-testid="stTextInput"] label, div[data-testid="stTextArea"] label { color:#dceeff !important; font-weight:700; }.stSelectbox > div > div, .stTextInput input, .stTextArea textarea { background:rgba(5,14,32,.84) !important; border-color:rgba(103,216,255,.28) !important; color:#eff8ff !important; border-radius:11px !important; }.stExpander{border:1px solid var(--line) !important;background:rgba(9,21,46,.78) !important;border-radius:13px !important;}.stProgress > div > div > div{background:linear-gradient(90deg,var(--blue),var(--cyan)) !important;}.stAlert{background:rgba(15,35,68,.78) !important;border:1px solid var(--line) !important;color:var(--ink) !important;}.stDivider{border-color:var(--line) !important;}
       @media (max-width: 800px) { .block-container{padding-left:1rem;padding-right:1rem;}.terminal-shell{transform:none;margin-top:1rem;}.syllabus-grid{grid-template-columns:1fr;}h1{font-size:3.2rem !important;}.hero-copy{padding-top:1.4rem;} }
@@ -724,9 +849,14 @@ if selected_id == "basic-b1":
     st.divider()
     render_b1_lab()
 
+if selected_id == "basic-b2":
+    st.divider()
+    render_b2_lab()
+
 with st.expander("Log de navegação", expanded=False):
     log_lines = "\n".join(st.session_state.get("course_events", [])) or "Nenhum evento nesta sessão."
     st.code(log_lines, language="text")
+
 
 
 
