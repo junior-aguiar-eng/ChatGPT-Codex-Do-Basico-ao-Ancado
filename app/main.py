@@ -9,6 +9,7 @@ BASE_DIR = Path(__file__).resolve().parents[1]
 OUTLINE_PATH = BASE_DIR / "data" / "course_outline.json"
 MODULE1_LAB_PATH = BASE_DIR / "data" / "labs" / "modulo1.json"
 DIAGNOSTIC_PATH = BASE_DIR / "data" / "diagnostico-inicial.json"
+PREPARATION_PATH = BASE_DIR / "data" / "preparacao-do-ambiente.json"
 
 
 @st.cache_data
@@ -24,6 +25,11 @@ def load_b1_lab() -> dict[str, Any]:
 @st.cache_data
 def load_diagnostic() -> dict[str, Any]:
     return json.loads(DIAGNOSTIC_PATH.read_text(encoding="utf-8"))
+
+
+@st.cache_data
+def load_preparation() -> dict[str, Any]:
+    return json.loads(PREPARATION_PATH.read_text(encoding="utf-8"))
 
 
 def progress_state(modules: list[dict[str, Any]]) -> dict[str, str]:
@@ -267,6 +273,151 @@ def render_diagnostic() -> None:
                 "Baixar diagnóstico em Markdown",
                 data=build_diagnostic_delivery(answers),
                 file_name="diagnostico-inicial.md",
+                mime="text/markdown",
+            )
+        else:
+            st.warning("Antes de gerar a entrega, confirme a proteção dos dados registrados.")
+
+
+def build_preparation_delivery(answers: dict[str, Any]) -> str:
+    workspaces = ", ".join(answers["workspaces"])
+    controls = ", ".join(answers["controls"])
+    return f"""# Preparação do ambiente
+
+> Registro gerado no curso. Revise antes de guardar ou compartilhar.
+
+## Acesso e disponibilidade
+
+Conta ou workspace: {answers["account"]}
+
+Onde conferi plano, permissões e disponibilidade: {answers["availability"]}
+
+## Ambiente escolhido
+
+{workspaces}
+
+## Repositório e espaço de trabalho
+
+{answers["repository"]}
+
+## Política pessoal de dados
+
+Pode compartilhar: {answers["allowed_data"]}
+
+Não pode compartilhar: {answers["restricted_data"]}
+
+## Controles e revisão
+
+Controles selecionados: {controls}
+
+Revisão antes de ação com impacto: {answers["review"]}
+
+## Evidência de conclusão
+
+{answers["evidence"]}
+
+## Próxima unidade
+
+Iniciar B1 · Ecossistema OpenAI. Confirme novamente qualquer recurso que dependa
+de conta, plano, plataforma, região, rollout ou configurações do workspace.
+"""
+
+
+def render_preparation() -> None:
+    preparation = load_preparation()
+    st.markdown("<div class='section-kicker'>UNIDADE ATIVA // ENTRADA</div>", unsafe_allow_html=True)
+    st.subheader(str(preparation["title"]))
+    st.caption(str(preparation["purpose"]))
+    st.warning(str(preparation["availability_note"]))
+    st.caption(
+        f"Fonte oficial verificada em {preparation['verified_on']}: "
+        f"{preparation['official_source']}"
+    )
+
+    account = st.selectbox(
+        "1. Qual é seu ponto de acesso atual?",
+        options=["Selecione..."] + list(preparation["account_options"]),
+        key="preparation-account",
+    )
+    availability = st.text_area(
+        "2. Onde você conferiu plano, permissões e disponibilidade?",
+        key="preparation-availability",
+        placeholder="Ex.: página da conta, configuração do workspace ou orientação do administrador.",
+    ).strip()
+    workspaces = st.multiselect(
+        "3. Quais ambientes você usará nesta etapa?",
+        options=list(preparation["workspace_options"]),
+        key="preparation-workspaces",
+        placeholder="Selecione apenas os ambientes disponíveis para você.",
+    )
+    repository = st.text_area(
+        "4. Qual repositório, pasta de exercícios ou fluxo de revisão você usará?",
+        key="preparation-repository",
+        placeholder="Ex.: repositório GitHub do curso e pull requests para mudanças técnicas.",
+    ).strip()
+    allowed_data = st.text_area(
+        "5. Que tipo de informação pode entrar no seu ambiente de estudo?",
+        key="preparation-allowed-data",
+        placeholder="Ex.: exemplos fictícios, material público ou dados anonimizados.",
+    ).strip()
+    restricted_data = st.text_area(
+        "O que não pode ser compartilhado?",
+        key="preparation-restricted-data",
+        placeholder="Nunca inclua senhas, chaves de API, tokens, conteúdo sigiloso ou dados pessoais de terceiros.",
+    ).strip()
+    controls = st.multiselect(
+        "6. Quais controles você adotará desde agora?",
+        options=list(preparation["control_options"]),
+        key="preparation-controls",
+        placeholder="Selecione um ou mais controles.",
+    )
+    review = st.text_area(
+        "Como você revisará uma ação antes de publicar ou executar?",
+        key="preparation-review",
+        placeholder="Descreva a pessoa, critério ou etapa de revisão.",
+    ).strip()
+    evidence = st.text_input(
+        "7. Onde ficará o registro desta preparação?",
+        key="preparation-evidence",
+        placeholder="Ex.: arquivo Markdown, issue, projeto ou pasta de estudo.",
+    ).strip()
+    safe_data_confirmed = st.checkbox(
+        "Confirmo que não registrei senhas, chaves de API, tokens ou dados pessoais de terceiros.",
+        key="preparation-safe-data",
+    )
+
+    answers: dict[str, Any] = {
+        "account": "" if account == "Selecione..." else account,
+        "availability": availability,
+        "workspaces": workspaces,
+        "repository": repository,
+        "allowed_data": allowed_data,
+        "restricted_data": restricted_data,
+        "controls": controls,
+        "review": review,
+        "evidence": evidence,
+    }
+    completed = sum(
+        (
+            bool(answers["account"]),
+            bool(answers["availability"]),
+            bool(answers["workspaces"]),
+            bool(answers["repository"]),
+            bool(answers["allowed_data"] and answers["restricted_data"]),
+            bool(answers["controls"] and answers["review"]),
+            bool(answers["evidence"]),
+        )
+    )
+    st.progress(completed / len(preparation["completion_fields"]))
+    st.caption(f"{completed}/{len(preparation['completion_fields'])} critérios de conclusão preenchidos")
+
+    if completed == len(preparation["completion_fields"]):
+        if safe_data_confirmed:
+            st.success("Preparação concluída. O próximo passo é B1 · Ecossistema OpenAI.")
+            st.download_button(
+                "Baixar preparação em Markdown",
+                data=build_preparation_delivery(answers),
+                file_name="preparacao-do-ambiente.md",
                 mime="text/markdown",
             )
         else:
@@ -543,6 +694,10 @@ if selected_id == "diagnostico":
     st.divider()
     render_diagnostic()
 
+if selected_id == "preparacao":
+    st.divider()
+    render_preparation()
+
 if selected_id == "basic-b1":
     st.divider()
     render_b1_lab()
@@ -550,4 +705,5 @@ if selected_id == "basic-b1":
 with st.expander("Log de navegação", expanded=False):
     log_lines = "\n".join(st.session_state.get("course_events", [])) or "Nenhum evento nesta sessão."
     st.code(log_lines, language="text")
+
 

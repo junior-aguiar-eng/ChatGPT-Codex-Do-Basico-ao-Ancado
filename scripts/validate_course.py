@@ -35,6 +35,18 @@ REQUIRED_DIAGNOSTIC_KEYS = {
     "care_options",
     "completion_fields",
 }
+REQUIRED_PREPARATION_KEYS = {
+    "module_id",
+    "title",
+    "purpose",
+    "availability_note",
+    "official_source",
+    "verified_on",
+    "account_options",
+    "workspace_options",
+    "control_options",
+    "completion_fields",
+}
 
 
 def validate_module1_lab() -> int:
@@ -104,6 +116,43 @@ def validate_diagnostic() -> int:
     return len(diagnostic["completion_fields"])
 
 
+def validate_preparation() -> int:
+    preparation_path = Path("data/preparacao-do-ambiente.json")
+    if not preparation_path.exists():
+        raise SystemExit("preparacao-do-ambiente.json data not found.")
+
+    preparation = json.loads(preparation_path.read_text(encoding="utf-8"))
+    missing = REQUIRED_PREPARATION_KEYS - set(preparation.keys())
+    if missing:
+        raise SystemExit(f"Preparation data missing required keys: {sorted(missing)}")
+
+    if preparation["module_id"] != "preparacao":
+        raise SystemExit("Preparation data must have module_id='preparacao'.")
+
+    for key in (
+        "account_options",
+        "workspace_options",
+        "control_options",
+        "completion_fields",
+    ):
+        if not isinstance(preparation[key], list) or not preparation[key]:
+            raise SystemExit(f"Preparation key '{key}' must be a non-empty list.")
+
+    required_fields = {
+        "acesso",
+        "disponibilidade",
+        "workspace",
+        "repositório",
+        "dados",
+        "revisão",
+        "evidência",
+    }
+    if set(preparation["completion_fields"]) != required_fields:
+        raise SystemExit("Preparation completion_fields do not match the required fields.")
+
+    return len(preparation["completion_fields"])
+
+
 def main() -> None:
     outline = Path("data/course_outline.json")
     if not outline.exists():
@@ -152,13 +201,16 @@ def main() -> None:
 
     scenario_count = validate_module1_lab()
     diagnostic_field_count = validate_diagnostic()
+    preparation_field_count = validate_preparation()
     print(
         f"Course outline OK: {len(modules)} modules loaded; "
         f"Module 1 lab OK: {scenario_count} scenarios loaded; "
-        f"Diagnostic OK: {diagnostic_field_count} required fields loaded."
+        f"Diagnostic OK: {diagnostic_field_count} required fields loaded; "
+        f"Preparation OK: {preparation_field_count} required fields loaded."
     )
 
 
 if __name__ == "__main__":
     main()
+
 
