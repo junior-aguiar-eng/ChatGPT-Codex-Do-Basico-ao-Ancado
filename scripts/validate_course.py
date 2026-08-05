@@ -59,6 +59,27 @@ REQUIRED_B2_LAB_KEYS = {
     "completion_fields",
 }
 REQUIRED_B2_SCENARIO_KEYS = {"id", "title", "vague_request", "context_hint"}
+REQUIRED_B3_LAB_KEYS = {
+    "module_id",
+    "title",
+    "instructions",
+    "official_sources",
+    "verified_on",
+    "availability_note",
+    "capability_cards",
+    "workflows",
+    "completion_fields",
+}
+REQUIRED_B3_CARD_KEYS = {"name", "use_when", "evidence", "boundary"}
+REQUIRED_B3_WORKFLOW_KEYS = {
+    "id",
+    "title",
+    "prompt",
+    "input_label",
+    "input_placeholder",
+    "evidence_label",
+    "risk_hint",
+}
 
 
 def validate_module1_lab() -> int:
@@ -214,6 +235,36 @@ def validate_b2_lab() -> int:
     return len(lab["scenarios"])
 
 
+def validate_b3_lab() -> int:
+    lab_path = Path("data/chatgpt-essencial-b3.json")
+    if not lab_path.exists():
+        raise SystemExit("B3 lab data not found.")
+
+    lab = json.loads(lab_path.read_text(encoding="utf-8"))
+    missing = REQUIRED_B3_LAB_KEYS - set(lab.keys())
+    if missing:
+        raise SystemExit(f"B3 lab missing required keys: {sorted(missing)}")
+    if lab["module_id"] != "basic-b3":
+        raise SystemExit("B3 lab must have module_id='basic-b3'.")
+    if len(lab["capability_cards"]) != 4:
+        raise SystemExit("B3 must contain the four capability cards.")
+    if len(lab["workflows"]) != 3:
+        raise SystemExit("B3 must contain the three evidence workflows.")
+    for idx, card in enumerate(lab["capability_cards"], start=1):
+        missing = REQUIRED_B3_CARD_KEYS - set(card.keys())
+        if missing:
+            raise SystemExit(f"B3 capability card #{idx} missing keys: {sorted(missing)}")
+    for idx, workflow in enumerate(lab["workflows"], start=1):
+        missing = REQUIRED_B3_WORKFLOW_KEYS - set(workflow.keys())
+        if missing:
+            raise SystemExit(f"B3 workflow #{idx} missing keys: {sorted(missing)}")
+
+    required_fields = {"intencao", "evidencia", "disponibilidade", "revisao"}
+    if set(lab["completion_fields"]) != required_fields:
+        raise SystemExit("B3 completion_fields do not match the required fields.")
+    return len(lab["workflows"])
+
+
 def main() -> None:
     outline = Path("data/course_outline.json")
     if not outline.exists():
@@ -236,6 +287,8 @@ def main() -> None:
         "diagnostico",
         "preparacao",
         "basic-b1",
+        "basic-b2",
+        "basic-b3",
         "basic-b4",
         "inter-i1",
         "inter-i9",
@@ -264,12 +317,14 @@ def main() -> None:
     diagnostic_field_count = validate_diagnostic()
     preparation_field_count = validate_preparation()
     b2_scenario_count = validate_b2_lab()
+    b3_workflow_count = validate_b3_lab()
     print(
         f"Course outline OK: {len(modules)} modules loaded; "
         f"Module 1 lab OK: {scenario_count} scenarios loaded; "
         f"Diagnostic OK: {diagnostic_field_count} required fields loaded; "
         f"Preparation OK: {preparation_field_count} required fields loaded; "
-        f"B2 lab OK: {b2_scenario_count} scenarios loaded."
+        f"B2 lab OK: {b2_scenario_count} scenarios loaded; "
+        f"B3 lab OK: {b3_workflow_count} workflows loaded."
     )
 
 
