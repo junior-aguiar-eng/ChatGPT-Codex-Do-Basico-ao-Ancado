@@ -14,7 +14,7 @@ arquitetura do [mapa canônico](mapa-do-curso.mmd).
 
 - [x] Diagnóstico inicial: objetivos, repertório, ambiente e projetos.
 - [x] Preparação: conta, plano, workspace, aplicativos e controles de dados.
-- [ ] B1: ecossistema OpenAI completo.
+- [x] B1: ecossistema OpenAI completo.
 - [ ] B2: fundamentos de interação.
 - [ ] B3: ChatGPT essencial.
 - [ ] B4: qualidade e segurança.
@@ -45,5 +45,6 @@ demonstração, atividade guiada, entrega verificável, critério de conclusão,
 limites, risco, fontes oficiais datadas e conexão explícita com a próxima
 unidade. Nenhuma publicação pode antecipar ou absorver conteúdo que o mapa
 reservou a outra unidade sem autorização expressa.
+
 
 

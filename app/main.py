@@ -121,7 +121,7 @@ def build_syllabus_cards(modules: list[dict[str, Any]], progress: dict[str, str]
 
 def build_b1_delivery(answers: list[dict[str, str]]) -> str:
     rows = "\n".join(
-        "| {title} | {task_type} | {tool} | {reason} | {risk} | {review} |".format(
+        "| {title} | {task_type} | {tool} | {alternatives} | {reason} | {risk} | {review} |".format(
             **answer
         )
         for answer in answers
@@ -132,8 +132,8 @@ def build_b1_delivery(answers: list[dict[str, str]]) -> str:
 
 ## Decisão de superfície por cenário
 
-| Cenário | Tipo de tarefa | Superfície escolhida | Justificativa | Risco principal | Revisão humana |
-| --- | --- | --- | --- | --- | --- |
+| Cenário | Tipo de tarefa | Superfície escolhida | Alternativas descartadas | Justificativa | Risco principal | Revisão humana |
+| --- | --- | --- | --- | --- | --- | --- |
 {rows}
 
 ## Conclusão de risco
@@ -435,6 +435,18 @@ def render_b1_lab() -> None:
     task_types = lab["task_types"]
     tool_options = lab["tool_options"]
 
+    st.markdown("**Radar de superfícies**")
+    surface_columns = st.columns(len(lab["surface_cards"]), gap="small")
+    for column, surface in zip(surface_columns, lab["surface_cards"]):
+        with column:
+            st.markdown(
+                f"<div class='surface-card'><strong>{escape(surface['name'])}</strong>"
+                f"<p>{escape(surface['use_when'])}</p>"
+                f"<small>Limite: {escape(surface['boundary'])}</small></div>",
+                unsafe_allow_html=True,
+            )
+    st.caption("Fatos de produto foram verificados em 05-08-2026; disponibilidade e controles podem variar.")
+
     for position, scenario in enumerate(scenarios, start=1):
         scenario_id = scenario["id"]
         with st.expander(f"{position:02d} · {scenario['title']}", expanded=position == 1):
@@ -449,6 +461,12 @@ def render_b1_lab() -> None:
                 "Superfície escolhida",
                 options=["Selecione..."] + tool_options,
                 key=f"b1-tool-{scenario_id}",
+            )
+            alternatives = st.multiselect(
+                "Alternativas descartadas",
+                options=tool_options,
+                key=f"b1-alternatives-{scenario_id}",
+                placeholder="Registre ao menos uma alternativa que não atende tão bem ao cenário.",
             )
             reason = st.text_area(
                 "Justificativa",
@@ -470,6 +488,7 @@ def render_b1_lab() -> None:
                     "title": str(scenario["title"]),
                     "task_type": task_type if task_type != "Selecione..." else "",
                     "tool": tool if tool != "Selecione..." else "",
+                    "alternatives": ", ".join(alternatives),
                     "reason": reason,
                     "risk": risk,
                     "review": review,
@@ -477,7 +496,10 @@ def render_b1_lab() -> None:
             )
 
     completed = sum(
-        all(answer[key] for key in ("task_type", "tool", "reason", "risk", "review"))
+        all(
+            answer[key]
+            for key in ("task_type", "tool", "alternatives", "reason", "risk", "review")
+        )
         for answer in answers
     )
     st.progress(completed / len(answers))
@@ -558,7 +580,7 @@ st.markdown(
       .stat-card { padding: 1.15rem 1.2rem; min-height: 112px; }.stat-card span { color:var(--muted); font-size:.82rem; }.stat-card strong { display:block; color:var(--cyan); font-size:1.8rem; margin:.32rem 0; }.stat-card small{color:#cdd9ea;}
       .story-card { padding: 1.65rem; min-height: 100%; }.story-card p { color:var(--muted); font-size:1.03rem; line-height:1.6; }.story-card strong { color:var(--ink); }
       .mini-terminal { border:1px solid var(--line); border-radius:14px; background:#050b19; padding:1rem; font: .82rem/1.75 ui-monospace,monospace; color:#b5c8dc; margin-top:1.2rem; }.mini-terminal em{color:var(--green);font-style:normal;}.mini-terminal b{color:var(--cyan);}
-      .focus-card { padding:1.3rem; margin:.45rem 0 1.2rem; }.focus-card h4{margin:.7rem 0 .5rem;}.focus-card p{color:var(--muted); line-height:1.55;}.pet-wrap{max-width:112px;}
+      .focus-card { padding:1.3rem; margin:.45rem 0 1.2rem; }.focus-card h4{margin:.7rem 0 .5rem;}.focus-card p{color:var(--muted); line-height:1.55;}.pet-wrap{max-width:112px;}.surface-card{height:100%;border:1px solid var(--line);border-radius:13px;background:rgba(8,18,41,.84);padding:1rem}.surface-card strong{color:var(--cyan);font:800 .82rem/1 ui-monospace,monospace}.surface-card p{color:var(--ink);font-size:.9rem;line-height:1.42;margin:.7rem 0}.surface-card small{color:var(--muted);font-size:.77rem;line-height:1.3}
       .syllabus-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; margin:1.2rem 0 2.6rem; }.syllabus-card{display:grid;grid-template-columns:52px 1fr;gap:1rem;align-items:start;padding:1.05rem 1.12rem;border:1px solid var(--line);background:rgba(8,18,41,.84);border-radius:14px;min-height:105px;}.syllabus-card:hover{border-color:rgba(103,216,255,.7);background:rgba(15,34,69,.9);}.syllabus-number{color:var(--cyan);font:800 1.05rem/1 ui-monospace,monospace;padding-top:.15rem;}.syllabus-stage{color:#93a7c8;font:600 .66rem/1 ui-monospace,monospace;text-transform:uppercase;letter-spacing:.08em;}.syllabus-card h4{font-size:1rem;margin:.4rem 0 .3rem;letter-spacing:-.01em;}.syllabus-card p{color:var(--muted);font-size:.82rem;line-height:1.35;margin:0;}.syllabus-card.is-active{border-color:rgba(103,216,255,.75);box-shadow:inset 3px 0 var(--cyan);}.syllabus-card.is-done{border-color:rgba(100,226,167,.55);}.syllabus-card.is-done .syllabus-number{color:var(--green);}
       div[data-testid="stSelectbox"] label, div[data-testid="stTextInput"] label, div[data-testid="stTextArea"] label { color:#dceeff !important; font-weight:700; }.stSelectbox > div > div, .stTextInput input, .stTextArea textarea { background:rgba(5,14,32,.84) !important; border-color:rgba(103,216,255,.28) !important; color:#eff8ff !important; border-radius:11px !important; }.stExpander{border:1px solid var(--line) !important;background:rgba(9,21,46,.78) !important;border-radius:13px !important;}.stProgress > div > div > div{background:linear-gradient(90deg,var(--blue),var(--cyan)) !important;}.stAlert{background:rgba(15,35,68,.78) !important;border:1px solid var(--line) !important;color:var(--ink) !important;}.stDivider{border-color:var(--line) !important;}
       @media (max-width: 800px) { .block-container{padding-left:1rem;padding-right:1rem;}.terminal-shell{transform:none;margin-top:1rem;}.syllabus-grid{grid-template-columns:1fr;}h1{font-size:3.2rem !important;}.hero-copy{padding-top:1.4rem;} }
@@ -705,5 +727,6 @@ if selected_id == "basic-b1":
 with st.expander("Log de navegação", expanded=False):
     log_lines = "\n".join(st.session_state.get("course_events", [])) or "Nenhum evento nesta sessão."
     st.code(log_lines, language="text")
+
 
 

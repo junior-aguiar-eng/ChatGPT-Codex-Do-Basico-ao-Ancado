@@ -1,7 +1,7 @@
 {
   "module_id": "basic-b1",
   "module_title": "B1 · Ecossistema OpenAI",
-  "status": "em_andamento",
+  "status": "pronto_para_revisao",
   "start_date": "2026-08-05",
   "learning_outcomes": [
     "Diferenciar ChatGPT, Codex, API Platform e processo manual",
@@ -25,3 +25,4 @@
   },
   "created_at": "2026-08-05T00:00:00-03:00"
 }
+

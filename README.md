@@ -6,7 +6,7 @@ Repositório canônico de um curso prático para operar, supervisionar e constru
 com ChatGPT, Codex e a plataforma de APIs da OpenAI.
 
 > Status: arquitetura canônica versionada, Diagnóstico inicial e Preparação do
-> ambiente publicados. O curso seguirá por unidade, laboratório e trilha,
+> ambiente publicados; B1 está pronto para revisão. O curso seguirá por unidade, laboratório e trilha,
 > preservando integralmente o mapa aprovado.
 
 ## Objetivo
@@ -80,5 +80,6 @@ uv run --with-requirements requirements.txt streamlit run app/main.py --server.p
 ```
 
 Requisito de base: o projeto e interativo, versionado e com validacao automatica.
+
 
 
