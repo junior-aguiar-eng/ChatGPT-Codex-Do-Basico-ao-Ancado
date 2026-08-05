@@ -1,6 +1,6 @@
 # ChatGPT e Codex — do Básico ao Avançado
 
-Curso completo para iniciantes, do básico ao avançado.
+Curso gratuito para iniciantes, do básico ao avançado.
 
 Repositório canônico de um curso prático para operar, supervisionar e construir
 com ChatGPT, Codex e a plataforma de APIs da OpenAI.
@@ -13,7 +13,7 @@ com ChatGPT, Codex e a plataforma de APIs da OpenAI.
 
 A página institucional estática é publicada no GitHub Pages em
 [junior-aguiar-eng.github.io/ChatGPT-Codex-Do-Basico-ao-Ancado/](https://junior-aguiar-eng.github.io/ChatGPT-Codex-Do-Basico-ao-Ancado/).
-Ela apresenta o percurso e as unidades já liberadas. Os laboratórios interativos
+Ela apresenta o percurso, o caráter gratuito do curso e as unidades já liberadas. Os laboratórios interativos
 continuam no aplicativo Streamlit e serão disponibilizados em uma hospedagem
 com backend Python em etapa posterior.
 

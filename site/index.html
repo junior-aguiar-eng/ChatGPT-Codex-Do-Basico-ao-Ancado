@@ -5,207 +5,249 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Curso prático de ChatGPT e Codex, do básico ao avançado."
+      content="Curso gratuito de ChatGPT e Codex, do básico ao avançado."
     />
-    <title>ChatGPT e Codex — do Básico ao Avançado</title>
+    <title>ChatGPT e Codex — Curso gratuito</title>
     <style>
       :root {
         color-scheme: dark;
-        --ink: #edf5ff;
-        --muted: #a9b8cc;
-        --line: rgba(169, 202, 255, 0.18);
-        --surface: rgba(9, 22, 45, 0.78);
-        --blue: #67d8ff;
-        --violet: #b59cff;
-        --green: #9fe58d;
+        --ink: #f2f7ff;
+        --muted: #aab8ce;
+        --line: rgba(136, 174, 235, 0.2);
+        --surface: rgba(10, 20, 42, 0.76);
+        --blue: #32dbff;
+        --violet: #b26dff;
+        --green: #95eca6;
         --amber: #ffd071;
-        --background: #050c1b;
+        --deep: #030814;
       }
 
       * { box-sizing: border-box; }
-
       html { scroll-behavior: smooth; }
-
       body {
         margin: 0;
         min-width: 320px;
+        overflow-x: hidden;
         color: var(--ink);
         background:
-          radial-gradient(circle at 10% -10%, rgba(84, 140, 255, 0.25), transparent 30rem),
-          radial-gradient(circle at 90% 0%, rgba(181, 156, 255, 0.18), transparent 28rem),
-          var(--background);
+          radial-gradient(circle at 12% -8%, rgba(0, 212, 255, 0.16), transparent 29rem),
+          radial-gradient(circle at 88% 10%, rgba(156, 91, 255, 0.16), transparent 27rem),
+          linear-gradient(120deg, #020713 0%, #071228 50%, #030713 100%);
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         line-height: 1.55;
       }
 
       a { color: inherit; }
-
-      .shell { width: min(1120px, calc(100% - 2.5rem)); margin: 0 auto; }
-
+      .shell { width: min(1160px, calc(100% - 2.5rem)); margin: 0 auto; }
       .topbar {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 1.5rem;
-        padding: 1.4rem 0;
+        padding: 1.15rem 1.35rem;
+        margin-top: 1.25rem;
+        border: 1px solid rgba(128, 164, 225, 0.15);
+        border-radius: 0.9rem;
+        background: rgba(5, 13, 29, 0.7);
+        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.24);
+        backdrop-filter: blur(16px);
       }
 
-      .brand { display: flex; align-items: center; gap: 0.8rem; font-weight: 760; text-decoration: none; }
-
+      .brand { display: inline-flex; align-items: center; gap: 0.75rem; font-weight: 800; text-decoration: none; }
       .mark {
         display: grid;
-        width: 2.2rem;
-        height: 2.2rem;
+        width: 2.05rem;
+        height: 2.05rem;
         place-items: center;
-        border: 1px solid rgba(103, 216, 255, 0.65);
-        border-radius: 0.65rem;
+        border: 1px solid rgba(50, 219, 255, 0.7);
+        border-radius: 0.55rem;
         color: var(--blue);
-        background: rgba(7, 23, 48, 0.85);
+        background: #071a35;
         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-weight: 900;
       }
 
-      .topbar nav { display: flex; gap: 1.3rem; color: var(--muted); font-size: 0.94rem; }
-      .topbar nav a { text-decoration: none; }
-      .topbar nav a:hover { color: var(--blue); }
+      nav { display: flex; align-items: center; gap: 1.5rem; }
+      nav a { color: var(--muted); font-size: 0.9rem; text-decoration: none; }
+      nav a:hover { color: var(--blue); }
+      .nav-action { padding: 0.45rem 0.85rem; border: 1px solid rgba(178, 109, 255, 0.65); border-radius: 999px; color: var(--ink); }
 
-      .hero { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 3rem; padding: 5.6rem 0 4.2rem; }
-
+      .hero { display: grid; grid-template-columns: 1fr 0.92fr; gap: 3.6rem; align-items: center; padding: 6.5rem 0 5rem; }
       .eyebrow, .section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
         margin: 0 0 1rem;
         color: var(--blue);
         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 0.11em;
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0.09em;
       }
-
+      .eyebrow::before { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--blue); box-shadow: 0 0 16px var(--blue); content: ""; }
       h1, h2, h3, p { margin-top: 0; }
-      h1 { max-width: 13ch; margin-bottom: 1.25rem; font-size: clamp(2.75rem, 6vw, 5.4rem); line-height: 0.98; letter-spacing: -0.065em; }
-      .hero-copy { max-width: 60ch; color: var(--muted); font-size: 1.14rem; }
-      .actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2rem; }
-
+      h1 { max-width: 11ch; margin-bottom: 1.2rem; font-size: clamp(3.1rem, 6.6vw, 5.8rem); letter-spacing: -0.07em; line-height: 0.97; }
+      .gradient { color: transparent; background: linear-gradient(100deg, var(--blue), #85d3ff 46%, var(--violet)); background-clip: text; -webkit-background-clip: text; }
+      .hero-copy { max-width: 56ch; color: var(--muted); font-size: 1.08rem; }
+      .actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 2rem 0 1.25rem; }
       .button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 2.8rem;
+        min-height: 2.9rem;
         padding: 0.65rem 1rem;
         border: 1px solid var(--line);
-        border-radius: 0.55rem;
-        background: rgba(12, 31, 59, 0.62);
-        font-weight: 700;
+        border-radius: 0.65rem;
+        background: rgba(10, 27, 55, 0.72);
+        font-weight: 750;
         text-decoration: none;
       }
-
-      .button.primary { border-color: rgba(103, 216, 255, 0.8); color: #02101d; background: var(--blue); }
+      .button.primary { border-color: rgba(50, 219, 255, 0.75); color: #001522; background: linear-gradient(100deg, var(--blue), #9e79ff); box-shadow: 0 0 28px rgba(50, 219, 255, 0.2); }
       .button:hover { transform: translateY(-1px); filter: brightness(1.08); }
+      .free-note { color: #cbd8eb; font-size: 0.9rem; }
+      .free-note strong { color: var(--green); }
 
-      .terminal {
-        align-self: center;
+      .workbench {
+        position: relative;
+        min-height: 32rem;
+        padding: 1.1rem;
         overflow: hidden;
-        border: 1px solid var(--line);
+        border: 1px solid rgba(111, 182, 255, 0.36);
         border-radius: 1rem;
-        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
-        background: #08172e;
+        background:
+          linear-gradient(rgba(11, 31, 60, 0.93), rgba(5, 13, 31, 0.96)),
+          repeating-linear-gradient(90deg, transparent 0 3rem, rgba(89, 148, 230, 0.06) 3rem 3.06rem);
+        box-shadow: -12px 22px 70px rgba(0, 0, 0, 0.44), 0 0 36px rgba(50, 219, 255, 0.12);
       }
-
-      .terminal-bar { display: flex; align-items: center; gap: 0.45rem; padding: 0.8rem 1rem; border-bottom: 1px solid var(--line); color: #92a7c1; font-size: 0.8rem; }
-      .dot { width: 0.58rem; height: 0.58rem; border-radius: 50%; background: #ff8e8e; }
+      .workbench::after { position: absolute; inset: 0; background: radial-gradient(circle at 70% 20%, rgba(178, 109, 255, 0.22), transparent 12rem); pointer-events: none; content: ""; }
+      .window-bar { display: flex; align-items: center; gap: 0.4rem; color: #b5c9e4; font-size: 0.78rem; }
+      .dot { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: #ff8c9c; }
       .dot:nth-child(2) { background: var(--amber); }
       .dot:nth-child(3) { background: var(--green); }
-      .terminal-body { padding: 1.5rem; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.9rem; }
-      .terminal-body p { margin-bottom: 0.55rem; }
-      .prompt, .ok { color: var(--green); }
-      .terminal-title { color: var(--violet); font-weight: 800; }
+      .window-title { margin-left: 0.45rem; font-family: ui-monospace, monospace; }
+      .board { position: relative; z-index: 1; display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 0.9rem; padding-top: 1.45rem; }
+      .panel { border: 1px solid rgba(139, 178, 235, 0.22); border-radius: 0.7rem; background: rgba(7, 20, 43, 0.72); }
+      .panel-title { display: block; padding: 0.75rem 0.85rem; border-bottom: 1px solid rgba(139, 178, 235, 0.16); color: #acc3e4; font-size: 0.72rem; font-weight: 750; text-transform: uppercase; letter-spacing: 0.08em; }
+      .route { display: grid; gap: 0.35rem; padding: 0.7rem; }
+      .route-item { padding: 0.48rem 0.55rem; border-radius: 0.4rem; color: #b4c7df; font-family: ui-monospace, monospace; font-size: 0.75rem; }
+      .route-item.active { color: var(--ink); background: linear-gradient(90deg, rgba(50, 219, 255, 0.19), rgba(118, 139, 255, 0.08)); box-shadow: inset 2px 0 var(--blue); }
+      .route-item.done::after { float: right; color: var(--green); content: "✓"; }
+      .lesson-stack { display: grid; gap: 0.7rem; padding: 0.8rem; }
+      .lesson { padding: 0.75rem; border: 1px solid rgba(129, 179, 250, 0.22); border-radius: 0.55rem; background: rgba(18, 41, 76, 0.68); }
+      .lesson:first-child { border-color: rgba(50, 219, 255, 0.58); box-shadow: 0 0 20px rgba(50, 219, 255, 0.1); }
+      .lesson small { color: var(--blue); font-family: ui-monospace, monospace; }
+      .lesson strong { display: block; margin-top: 0.25rem; font-size: 0.84rem; }
+      .lesson span { color: var(--muted); font-size: 0.72rem; }
+      .terminal { position: absolute; z-index: 2; right: -1.5rem; bottom: 1.35rem; width: min(21rem, 76%); padding: 0.95rem 1rem; border: 1px solid rgba(178, 109, 255, 0.46); border-radius: 0.72rem; background: rgba(9, 18, 39, 0.94); box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35); font-family: ui-monospace, monospace; font-size: 0.7rem; }
+      .terminal p { margin: 0.34rem 0; color: #aabbd4; }
+      .terminal .prompt, .terminal .ok { color: var(--green); }
 
-      .status { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.4rem; }
-      .chip { padding: 0.32rem 0.62rem; border: 1px solid var(--line); border-radius: 999px; color: #c5d4ea; background: rgba(13, 32, 61, 0.7); font-size: 0.8rem; }
-      .chip.live { border-color: rgba(159, 229, 141, 0.55); color: var(--green); }
-
-      section { padding: 4.8rem 0; border-top: 1px solid var(--line); }
-      h2 { max-width: 17ch; margin-bottom: 1rem; font-size: clamp(2rem, 4vw, 3.25rem); letter-spacing: -0.045em; line-height: 1.03; }
+      section { padding: 5rem 0; border-top: 1px solid var(--line); }
+      h2 { max-width: 17ch; margin-bottom: 1rem; font-size: clamp(2.1rem, 4.2vw, 3.45rem); letter-spacing: -0.055em; line-height: 1.03; }
       .lead { max-width: 65ch; color: var(--muted); }
-
-      .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; }
-      .card { padding: 1.35rem; border: 1px solid var(--line); border-radius: 0.8rem; background: var(--surface); }
-      .card-number { color: var(--blue); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.8rem; font-weight: 700; }
-      .card h3 { margin: 0.75rem 0 0.6rem; font-size: 1.1rem; }
+      .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+      .card { padding: 1.4rem; border: 1px solid var(--line); border-radius: 0.8rem; background: var(--surface); }
+      .icon { display: grid; width: 2.45rem; height: 2.45rem; place-items: center; border: 1px solid rgba(50, 219, 255, 0.4); border-radius: 0.58rem; color: var(--blue); background: rgba(7, 29, 56, 0.8); font-family: ui-monospace, monospace; }
+      .card h3 { margin: 1rem 0 0.55rem; font-size: 1.1rem; }
       .card p { margin: 0; color: var(--muted); font-size: 0.93rem; }
 
-      .release { display: grid; grid-template-columns: 0.75fr 1.25fr; gap: 2rem; align-items: start; }
-      .timeline { display: grid; gap: 0.8rem; }
-      .unit { display: grid; grid-template-columns: 3rem 1fr auto; align-items: center; gap: 0.75rem; padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: 0.65rem; background: rgba(8, 23, 46, 0.58); }
+      .release { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 2.5rem; align-items: start; }
+      .free-box { padding: 1.25rem; margin-top: 1.7rem; border: 1px solid rgba(149, 236, 166, 0.38); border-radius: 0.75rem; background: rgba(35, 103, 77, 0.15); }
+      .free-box strong { color: var(--green); }
+      .free-box p { margin: 0.4rem 0 0; color: #d0e5da; font-size: 0.92rem; }
+      .timeline { display: grid; gap: 0.75rem; }
+      .unit { display: grid; grid-template-columns: 3.4rem 1fr auto; gap: 0.75rem; align-items: center; padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: 0.65rem; background: rgba(8, 21, 45, 0.62); }
       .unit code { color: var(--blue); font-weight: 800; }
-      .unit span { color: var(--muted); }
-      .unit strong { color: var(--green); font-size: 0.76rem; text-transform: uppercase; }
+      .unit span { color: #d9e5f7; }
+      .unit strong { color: var(--green); font-size: 0.73rem; letter-spacing: 0.03em; text-transform: uppercase; }
 
-      .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
-      .principle { padding: 1.2rem 0 0; border-top: 2px solid var(--line); }
+      .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; margin-top: 2rem; }
+      .principle { padding-top: 1.15rem; border-top: 2px solid var(--line); }
       .principle:nth-child(1) { border-color: var(--blue); }
       .principle:nth-child(2) { border-color: var(--violet); }
       .principle:nth-child(3) { border-color: var(--amber); }
       .principle p { color: var(--muted); }
 
-      .notice { margin-top: 2rem; padding: 1rem 1.2rem; border-left: 3px solid var(--amber); background: rgba(255, 208, 113, 0.08); color: #e9edf5; }
+      footer { display: flex; justify-content: space-between; gap: 1rem; padding: 2.3rem 0 3rem; color: var(--muted); font-size: 0.9rem; }
+      footer p { margin: 0; }
 
-      footer { padding: 2.4rem 0 3rem; color: var(--muted); font-size: 0.9rem; }
-      footer p { margin: 0.35rem 0; }
-
-      @media (max-width: 800px) {
-        .topbar nav { display: none; }
+      @media (max-width: 860px) {
+        nav a:not(.nav-action) { display: none; }
         .hero, .release { grid-template-columns: 1fr; }
-        .hero { padding-top: 3.6rem; }
-        .grid { grid-template-columns: repeat(2, 1fr); }
+        .hero { gap: 2.4rem; padding-top: 4.4rem; }
+        .workbench { min-height: 28rem; }
       }
-
-      @media (max-width: 520px) {
-        .shell { width: min(100% - 1.5rem, 1120px); }
+      @media (max-width: 620px) {
+        .shell { width: min(100% - 1.5rem, 1160px); }
+        .topbar { padding: 0.9rem; }
+        .brand span:last-child { display: none; }
         .grid, .principles { grid-template-columns: 1fr; }
-        .unit { grid-template-columns: 2.6rem 1fr; }
+        .board { grid-template-columns: 1fr; }
+        .route { grid-template-columns: repeat(2, 1fr); }
+        .terminal { right: 0.8rem; width: calc(100% - 1.6rem); }
+        .unit { grid-template-columns: 3rem 1fr; }
         .unit strong { grid-column: 2; }
+        footer { display: block; }
+        footer p + p { margin-top: 0.35rem; }
       }
     </style>
   </head>
   <body>
     <header class="shell topbar">
       <a class="brand" href="#inicio" aria-label="Início">
-        <span class="mark">C/</span><span>ChatGPT &amp; Codex</span>
+        <span class="mark">&lt;/&gt;</span><span>ChatGPT &amp; Codex</span>
       </a>
       <nav aria-label="Navegação principal">
-        <a href="#percurso">Percurso</a>
-        <a href="#liberacao">Liberação</a>
-        <a href="#principios">Princípios</a>
+        <a href="#inicio">Início</a>
+        <a href="#percurso">Conteúdo</a>
+        <a href="#modulos">Módulos</a>
+        <a href="#principios">Método</a>
+        <a class="nav-action" href="#modulos">Acesso gratuito →</a>
       </nav>
     </header>
 
     <main id="inicio">
       <section class="shell hero" aria-labelledby="titulo">
         <div>
-          <p class="eyebrow">CURSO PRÁTICO // VERSÃO PÚBLICA PARCIAL</p>
-          <h1 id="titulo">Do primeiro prompt ao projeto com IA.</h1>
+          <p class="eyebrow">CURSO GRATUITO · ACESSO ABERTO</p>
+          <h1 id="titulo"><span class="gradient">ChatGPT &amp; Codex.</span> Do básico ao projeto real.</h1>
           <p class="hero-copy">
-            Uma formação para usar ChatGPT, Codex e APIs com contexto,
-            critérios de qualidade, segurança e revisão humana.
+            Uma formação prática para aprender a usar IA com contexto, qualidade,
+            segurança e revisão humana — da primeira conversa ao fluxo versionado.
           </p>
           <div class="actions">
-            <a class="button primary" href="#liberacao">Ver o que já está liberado</a>
-            <a class="button" href="https://github.com/junior-aguiar-eng/ChatGPT-Codex-Do-Basico-ao-Ancado">Abrir repositório</a>
+            <a class="button primary" href="#modulos">Começar gratuitamente →</a>
+            <a class="button" href="https://github.com/junior-aguiar-eng/ChatGPT-Codex-Do-Basico-ao-Ancado">Ver repositório</a>
           </div>
-          <div class="status" aria-label="Estado da publicação">
-            <span class="chip live">site institucional publicado</span>
-            <span class="chip">conteúdo em construção por módulos</span>
-          </div>
+          <p class="free-note"><strong>100% gratuito.</strong> Conteúdo publicado progressivamente e sem venda de vagas.</p>
         </div>
-        <aside class="terminal" aria-label="Prévia do percurso">
-          <div class="terminal-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>curso@codex:~/percurso</div>
-          <div class="terminal-body">
-            <p><span class="prompt">~ $</span> iniciar --objetivo autonomia</p>
-            <p class="terminal-title">◈ COURSE SYSTEM</p>
-            <p>01. situar o ponto de partida</p>
-            <p>02. preparar um ambiente seguro</p>
-            <p>03. aprender, construir e revisar</p>
-            <p class="ok">✓ percurso canônico carregado</p>
-            <p class="ok">✓ evidência e supervisão habilitadas</p>
+
+        <aside class="workbench" aria-label="Prévia da área de aprendizagem">
+          <div class="window-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="window-title">curso@codex — percurso</span></div>
+          <div class="board">
+            <div class="panel">
+              <span class="panel-title">Percurso</span>
+              <div class="route">
+                <div class="route-item done">00 / Entrada</div>
+                <div class="route-item done">B1 / Ecossistema</div>
+                <div class="route-item done">B2 / Interação</div>
+                <div class="route-item active">B3 / ChatGPT</div>
+                <div class="route-item">I1 / Em breve</div>
+              </div>
+            </div>
+            <div class="panel">
+              <span class="panel-title">Publicações recentes</span>
+              <div class="lesson-stack">
+                <div class="lesson"><small>PUBLICADO</small><strong>B3 · ChatGPT essencial</strong><span>Prática multimodal com evidência e revisão.</span></div>
+                <div class="lesson"><small>PUBLICADO</small><strong>B2 · Fundamentos de interação</strong><span>Contexto, critérios e melhoria iterativa.</span></div>
+                <div class="lesson"><small>EM CONSTRUÇÃO</small><strong>Próximo módulo</strong><span>O mapa completo permanece versionado no GitHub.</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="terminal">
+            <p><span class="prompt">~ $</span> iniciar percurso --objetivo autonomia</p>
+            <p>✓ contexto carregado</p>
+            <p class="ok">✓ acesso gratuito confirmado</p>
           </div>
         </aside>
       </section>
@@ -214,27 +256,22 @@
         <div class="shell">
           <p class="section-label">O PERCURSO</p>
           <h2>Aprender a decidir antes de automatizar.</h2>
-          <p class="lead">
-            O curso progride de fundamentos aplicados a projetos auditáveis.
-            Cada etapa combina conceito, prática guiada, evidência verificável e
-            um critério explícito de conclusão.
-          </p>
+          <p class="lead">O curso une conceito, prática guiada, evidência verificável e critérios explícitos de conclusão. A meta não é só obter respostas, mas construir um processo confiável.</p>
           <div class="grid">
-            <article class="card"><span class="card-number">01</span><h3>Fundamentos</h3><p>Ecossistema, interação, qualidade e segurança para começar com discernimento.</p></article>
-            <article class="card"><span class="card-number">02</span><h3>Workflows e Codex</h3><p>Organização, Git, projetos, testes e engenharia assistida por IA.</p></article>
-            <article class="card"><span class="card-number">03</span><h3>Especializações</h3><p>ChatGPT, Codex, APIs, agentes e apps em trilhas independentes.</p></article>
-            <article class="card"><span class="card-number">04</span><h3>Projeto integrado</h3><p>Uma entrega final com avaliação de risco, qualidade e manutenção.</p></article>
+            <article class="card"><span class="icon">01</span><h3>Fundamentos</h3><p>Ecossistema, interação, qualidade e segurança para começar com discernimento.</p></article>
+            <article class="card"><span class="icon">02</span><h3>Workflows e Codex</h3><p>Organização, Git, projetos, testes e engenharia assistida por IA.</p></article>
+            <article class="card"><span class="icon">03</span><h3>Projetos aplicados</h3><p>ChatGPT, Codex, APIs, agentes e apps em trilhas progressivas.</p></article>
           </div>
         </div>
       </section>
 
-      <section id="liberacao">
+      <section id="modulos">
         <div class="shell release">
           <div>
-            <p class="section-label">PRIMEIRA LIBERAÇÃO</p>
-            <h2>Já existe uma base para começar.</h2>
-            <p class="lead">A página apresenta o curso. Os laboratórios interativos permanecem no aplicativo Streamlit enquanto o serviço com backend é preparado.</p>
-            <div class="notice">Recursos da OpenAI podem variar por conta, plano, região, plataforma, permissões e rollout. O curso trata essas condições como parte da prática.</div>
+            <p class="section-label">COMECE AGORA</p>
+            <h2>Uma base aberta para evoluir com IA.</h2>
+            <p class="lead">A página apresenta o curso e o repositório concentra o material já publicado. Os laboratórios interativos serão disponibilizados em uma hospedagem com backend Python em etapa posterior.</p>
+            <div class="free-box"><strong>Curso gratuito</strong><p>Não há inscrição paga nem compra de vaga. Novas unidades são liberadas de forma progressiva, com histórico e revisão no GitHub.</p></div>
           </div>
           <div class="timeline" aria-label="Unidades já publicadas">
             <div class="unit"><code>00.1</code><span>Diagnóstico inicial</span><strong>Disponível</strong></div>
@@ -251,9 +288,9 @@
           <p class="section-label">MÉTODO</p>
           <h2>IA útil exige fronteiras claras.</h2>
           <div class="principles">
-            <article class="principle"><h3>Fontes e evidências</h3><p>Uma resposta fluente não substitui a checagem do material de origem, das datas e das condições aplicáveis.</p></article>
+            <article class="principle"><h3>Fontes e evidências</h3><p>Uma resposta fluente não substitui a conferência do material de origem, das datas e das condições aplicáveis.</p></article>
             <article class="principle"><h3>Segurança e privacidade</h3><p>Não inclua segredos, dados pessoais de terceiros ou conteúdo sigiloso nos exercícios e fluxos de trabalho.</p></article>
-            <article class="principle"><h3>Revisão humana</h3><p>Automação não transfere responsabilidade. Ação com impacto deve ter critério, evidência e supervisão proporcionais ao risco.</p></article>
+            <article class="principle"><h3>Revisão humana</h3><p>Automação não transfere responsabilidade. Ação com impacto exige critério, evidência e supervisão proporcionais ao risco.</p></article>
           </div>
         </div>
       </section>
@@ -261,7 +298,7 @@
 
     <footer class="shell">
       <p><strong>ChatGPT e Codex — do Básico ao Avançado</strong></p>
-      <p>Conteúdo versionado no GitHub e publicado progressivamente.</p>
+      <p>Curso gratuito, versionado no GitHub e publicado progressivamente.</p>
     </footer>
   </body>
 </html>
