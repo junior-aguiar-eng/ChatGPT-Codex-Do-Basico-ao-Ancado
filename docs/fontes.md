@@ -12,6 +12,7 @@ data de conferência.
 | API Platform | https://developers.openai.com/api/docs | APIs, autenticação, ferramentas e limites técnicos. |
 | Ferramentas da API | https://developers.openai.com/api/docs/guides/tools | Web, arquivos, funções, MCP e ferramentas hospedadas. |
 | OpenAI Developers | https://developers.openai.com/ | Guias de desenvolvimento, SDKs e referências atuais. |
+| Diagnóstico inicial | Não aplicável: conteúdo pedagógico interno, sem alegação de capacidade de produto. Verificado em 05-08-2026. | Objetivo, repertório, ambiente, projeto e cuidados de entrada. |
 
 ## Regra de atualização
 
@@ -22,3 +23,4 @@ limite, disponibilidade, plano ou comportamento de interface:
 2. registrar a data de verificação;
 3. indicar as condições de disponibilidade relevantes;
 4. substituir afirmações que não possam mais ser sustentadas.
+

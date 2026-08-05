@@ -5,8 +5,9 @@ Curso completo para iniciantes, do básico ao avançado.
 Repositório canônico de um curso prático para operar, supervisionar e construir
 com ChatGPT, Codex e a plataforma de APIs da OpenAI.
 
-> Status: arquitetura canônica versionada. O curso será publicado por unidade,
-> laboratório e trilha, preservando integralmente o mapa aprovado.
+> Status: arquitetura canônica versionada e Diagnóstico inicial publicado. O
+> curso seguirá por unidade, laboratório e trilha, preservando integralmente o
+> mapa aprovado.
 
 ## Objetivo
 
@@ -55,7 +56,7 @@ autorização expressa do responsável pelo curso.
 
 Publicar em ordem modular:
 
-1. Diagnóstico inicial e preparação do ambiente.
+1. Preparação do ambiente.
 2. Nível 1 completo: B1 a B4 e laboratório básico.
 3. Nível 2 completo: I1 a I9 e laboratório intermediário.
 4. Trilhas avançadas independentes: 3A, 3B e 3C.
@@ -79,3 +80,4 @@ uv run --with-requirements requirements.txt streamlit run app/main.py --server.p
 ```
 
 Requisito de base: o projeto e interativo, versionado e com validacao automatica.
+

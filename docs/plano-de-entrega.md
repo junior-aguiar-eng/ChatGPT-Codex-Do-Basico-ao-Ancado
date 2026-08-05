@@ -12,7 +12,7 @@ arquitetura do [mapa canônico](mapa-do-curso.mmd).
 
 ## Marco 1 — Início do curso
 
-- [ ] Diagnóstico inicial: objetivos, repertório, ambiente e projetos.
+- [x] Diagnóstico inicial: objetivos, repertório, ambiente e projetos.
 - [ ] Preparação: conta, plano, workspace, aplicativos e controles de dados.
 - [ ] B1: ecossistema OpenAI completo.
 - [ ] B2: fundamentos de interação.
@@ -45,3 +45,4 @@ demonstração, atividade guiada, entrega verificável, critério de conclusão,
 limites, risco, fontes oficiais datadas e conexão explícita com a próxima
 unidade. Nenhuma publicação pode antecipar ou absorver conteúdo que o mapa
 reservou a outra unidade sem autorização expressa.
+

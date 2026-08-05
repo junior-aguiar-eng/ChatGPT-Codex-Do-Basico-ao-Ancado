@@ -1,0 +1,35 @@
+{
+  "module_id": "diagnostico",
+  "title": "Diagnóstico inicial",
+  "purpose": "Registrar o ponto de partida do participante antes da preparação do ambiente.",
+  "privacy_note": "Não registre senhas, chaves de API, documentos sigilosos, dados pessoais de terceiros ou informações que não possam ser compartilhadas. As respostas ficam apenas nesta sessão; o download é uma escolha do participante.",
+  "entry_paths": [
+    "Trabalho intelectual: usar ChatGPT com método",
+    "Projetos: usar Codex com segurança",
+    "Produtos de IA: desenvolver com APIs e SDKs"
+  ],
+  "experience_levels": [
+    "Estou começando agora",
+    "Já uso ferramentas de IA para tarefas pontuais",
+    "Já trabalho com código, Git ou automações",
+    "Já construo produtos ou integrações de IA"
+  ],
+  "environment_options": [
+    "Navegador",
+    "Aplicativo desktop",
+    "IDE ou editor de código",
+    "Terminal",
+    "Ambiente em nuvem"
+  ],
+  "care_options": [
+    "Dados pessoais, sigilosos ou regulados",
+    "Pessoas afetadas pela entrega",
+    "Prazo ou impacto operacional",
+    "Custo, limite de uso ou orçamento",
+    "Revisão humana antes de agir ou publicar"
+  ],
+  "completion_fields": [
+    "objetivo", "rota", "repertório", "ambiente", "projeto", "cuidados", "sucesso"
+  ]
+}
+

@@ -24,6 +24,17 @@ REQUIRED_LAB_KEYS = {
     "scenarios",
 }
 REQUIRED_SCENARIO_KEYS = {"id", "title", "context", "risk_hint"}
+REQUIRED_DIAGNOSTIC_KEYS = {
+    "module_id",
+    "title",
+    "purpose",
+    "privacy_note",
+    "entry_paths",
+    "experience_levels",
+    "environment_options",
+    "care_options",
+    "completion_fields",
+}
 
 
 def validate_module1_lab() -> int:
@@ -53,6 +64,44 @@ def validate_module1_lab() -> int:
             )
 
     return len(lab["scenarios"])
+
+
+def validate_diagnostic() -> int:
+    diagnostic_path = Path("data/diagnostico-inicial.json")
+    if not diagnostic_path.exists():
+        raise SystemExit("diagnostico-inicial.json data not found.")
+
+    diagnostic = json.loads(diagnostic_path.read_text(encoding="utf-8"))
+    missing = REQUIRED_DIAGNOSTIC_KEYS - set(diagnostic.keys())
+    if missing:
+        raise SystemExit(f"Diagnostic data missing required keys: {sorted(missing)}")
+
+    if diagnostic["module_id"] != "diagnostico":
+        raise SystemExit("Diagnostic data must have module_id='diagnostico'.")
+
+    for key in (
+        "entry_paths",
+        "experience_levels",
+        "environment_options",
+        "care_options",
+        "completion_fields",
+    ):
+        if not isinstance(diagnostic[key], list) or not diagnostic[key]:
+            raise SystemExit(f"Diagnostic key '{key}' must be a non-empty list.")
+
+    required_fields = {
+        "objetivo",
+        "rota",
+        "repertório",
+        "ambiente",
+        "projeto",
+        "cuidados",
+        "sucesso",
+    }
+    if set(diagnostic["completion_fields"]) != required_fields:
+        raise SystemExit("Diagnostic completion_fields do not match the required fields.")
+
+    return len(diagnostic["completion_fields"])
 
 
 def main() -> None:
@@ -102,11 +151,14 @@ def main() -> None:
             raise SystemExit(f"Canonical map is missing marker: {marker}")
 
     scenario_count = validate_module1_lab()
+    diagnostic_field_count = validate_diagnostic()
     print(
         f"Course outline OK: {len(modules)} modules loaded; "
-        f"Module 1 lab OK: {scenario_count} scenarios loaded."
+        f"Module 1 lab OK: {scenario_count} scenarios loaded; "
+        f"Diagnostic OK: {diagnostic_field_count} required fields loaded."
     )
 
 
 if __name__ == "__main__":
     main()
+
