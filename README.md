@@ -71,7 +71,7 @@ Este projeto sera construído como um produto GitHub-first:
 - Ambiente padrao no GitHub Codespaces via `.devcontainer/devcontainer.json`.
 - Gerenciamento de ambientes Python com `uv` (e `requirements*.txt`).
 - Automacao de qualidade em GitHub Actions (`.github/workflows/course-ci.yml`)
-  com validação do catálogo, compilação e lint.
+  com validação do catálogo, compilação, lint e testes dos fluxos do painel.
 - Node + npm mantidos no Codespace para ferramentas auxiliares quando preciso (`node` 24 e `npm` 12).
 
 Comando rapido local no Codespace:
@@ -81,6 +81,7 @@ uv run --with-requirements requirements.txt streamlit run app/main.py --server.p
 ```
 
 Requisito de base: o projeto e interativo, versionado e com validacao automatica.
+
 
 
 
