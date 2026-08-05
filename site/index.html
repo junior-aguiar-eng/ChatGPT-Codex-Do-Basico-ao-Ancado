@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Curso prático de ChatGPT e Codex, do básico ao avançado."
+    />
+    <title>ChatGPT e Codex — do Básico ao Avançado</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --ink: #edf5ff;
+        --muted: #a9b8cc;
+        --line: rgba(169, 202, 255, 0.18);
+        --surface: rgba(9, 22, 45, 0.78);
+        --blue: #67d8ff;
+        --violet: #b59cff;
+        --green: #9fe58d;
+        --amber: #ffd071;
+        --background: #050c1b;
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 10% -10%, rgba(84, 140, 255, 0.25), transparent 30rem),
+          radial-gradient(circle at 90% 0%, rgba(181, 156, 255, 0.18), transparent 28rem),
+          var(--background);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.55;
+      }
+
+      a { color: inherit; }
+
+      .shell { width: min(1120px, calc(100% - 2.5rem)); margin: 0 auto; }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+        padding: 1.4rem 0;
+      }
+
+      .brand { display: flex; align-items: center; gap: 0.8rem; font-weight: 760; text-decoration: none; }
+
+      .mark {
+        display: grid;
+        width: 2.2rem;
+        height: 2.2rem;
+        place-items: center;
+        border: 1px solid rgba(103, 216, 255, 0.65);
+        border-radius: 0.65rem;
+        color: var(--blue);
+        background: rgba(7, 23, 48, 0.85);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+
+      .topbar nav { display: flex; gap: 1.3rem; color: var(--muted); font-size: 0.94rem; }
+      .topbar nav a { text-decoration: none; }
+      .topbar nav a:hover { color: var(--blue); }
+
+      .hero { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 3rem; padding: 5.6rem 0 4.2rem; }
+
+      .eyebrow, .section-label {
+        margin: 0 0 1rem;
+        color: var(--blue);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.11em;
+      }
+
+      h1, h2, h3, p { margin-top: 0; }
+      h1 { max-width: 13ch; margin-bottom: 1.25rem; font-size: clamp(2.75rem, 6vw, 5.4rem); line-height: 0.98; letter-spacing: -0.065em; }
+      .hero-copy { max-width: 60ch; color: var(--muted); font-size: 1.14rem; }
+      .actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2rem; }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 2.8rem;
+        padding: 0.65rem 1rem;
+        border: 1px solid var(--line);
+        border-radius: 0.55rem;
+        background: rgba(12, 31, 59, 0.62);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .button.primary { border-color: rgba(103, 216, 255, 0.8); color: #02101d; background: var(--blue); }
+      .button:hover { transform: translateY(-1px); filter: brightness(1.08); }
+
+      .terminal {
+        align-self: center;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 1rem;
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+        background: #08172e;
+      }
+
+      .terminal-bar { display: flex; align-items: center; gap: 0.45rem; padding: 0.8rem 1rem; border-bottom: 1px solid var(--line); color: #92a7c1; font-size: 0.8rem; }
+      .dot { width: 0.58rem; height: 0.58rem; border-radius: 50%; background: #ff8e8e; }
+      .dot:nth-child(2) { background: var(--amber); }
+      .dot:nth-child(3) { background: var(--green); }
+      .terminal-body { padding: 1.5rem; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.9rem; }
+      .terminal-body p { margin-bottom: 0.55rem; }
+      .prompt, .ok { color: var(--green); }
+      .terminal-title { color: var(--violet); font-weight: 800; }
+
+      .status { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.4rem; }
+      .chip { padding: 0.32rem 0.62rem; border: 1px solid var(--line); border-radius: 999px; color: #c5d4ea; background: rgba(13, 32, 61, 0.7); font-size: 0.8rem; }
+      .chip.live { border-color: rgba(159, 229, 141, 0.55); color: var(--green); }
+
+      section { padding: 4.8rem 0; border-top: 1px solid var(--line); }
+      h2 { max-width: 17ch; margin-bottom: 1rem; font-size: clamp(2rem, 4vw, 3.25rem); letter-spacing: -0.045em; line-height: 1.03; }
+      .lead { max-width: 65ch; color: var(--muted); }
+
+      .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; }
+      .card { padding: 1.35rem; border: 1px solid var(--line); border-radius: 0.8rem; background: var(--surface); }
+      .card-number { color: var(--blue); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.8rem; font-weight: 700; }
+      .card h3 { margin: 0.75rem 0 0.6rem; font-size: 1.1rem; }
+      .card p { margin: 0; color: var(--muted); font-size: 0.93rem; }
+
+      .release { display: grid; grid-template-columns: 0.75fr 1.25fr; gap: 2rem; align-items: start; }
+      .timeline { display: grid; gap: 0.8rem; }
+      .unit { display: grid; grid-template-columns: 3rem 1fr auto; align-items: center; gap: 0.75rem; padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: 0.65rem; background: rgba(8, 23, 46, 0.58); }
+      .unit code { color: var(--blue); font-weight: 800; }
+      .unit span { color: var(--muted); }
+      .unit strong { color: var(--green); font-size: 0.76rem; text-transform: uppercase; }
+
+      .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+      .principle { padding: 1.2rem 0 0; border-top: 2px solid var(--line); }
+      .principle:nth-child(1) { border-color: var(--blue); }
+      .principle:nth-child(2) { border-color: var(--violet); }
+      .principle:nth-child(3) { border-color: var(--amber); }
+      .principle p { color: var(--muted); }
+
+      .notice { margin-top: 2rem; padding: 1rem 1.2rem; border-left: 3px solid var(--amber); background: rgba(255, 208, 113, 0.08); color: #e9edf5; }
+
+      footer { padding: 2.4rem 0 3rem; color: var(--muted); font-size: 0.9rem; }
+      footer p { margin: 0.35rem 0; }
+
+      @media (max-width: 800px) {
+        .topbar nav { display: none; }
+        .hero, .release { grid-template-columns: 1fr; }
+        .hero { padding-top: 3.6rem; }
+        .grid { grid-template-columns: repeat(2, 1fr); }
+      }
+
+      @media (max-width: 520px) {
+        .shell { width: min(100% - 1.5rem, 1120px); }
+        .grid, .principles { grid-template-columns: 1fr; }
+        .unit { grid-template-columns: 2.6rem 1fr; }
+        .unit strong { grid-column: 2; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="shell topbar">
+      <a class="brand" href="#inicio" aria-label="Início">
+        <span class="mark">C/</span><span>ChatGPT &amp; Codex</span>
+      </a>
+      <nav aria-label="Navegação principal">
+        <a href="#percurso">Percurso</a>
+        <a href="#liberacao">Liberação</a>
+        <a href="#principios">Princípios</a>
+      </nav>
+    </header>
+
+    <main id="inicio">
+      <section class="shell hero" aria-labelledby="titulo">
+        <div>
+          <p class="eyebrow">CURSO PRÁTICO // VERSÃO PÚBLICA PARCIAL</p>
+          <h1 id="titulo">Do primeiro prompt ao projeto com IA.</h1>
+          <p class="hero-copy">
+            Uma formação para usar ChatGPT, Codex e APIs com contexto,
+            critérios de qualidade, segurança e revisão humana.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="#liberacao">Ver o que já está liberado</a>
+            <a class="button" href="https://github.com/junior-aguiar-eng/ChatGPT-Codex-Do-Basico-ao-Ancado">Abrir repositório</a>
+          </div>
+          <div class="status" aria-label="Estado da publicação">
+            <span class="chip live">site institucional publicado</span>
+            <span class="chip">conteúdo em construção por módulos</span>
+          </div>
+        </div>
+        <aside class="terminal" aria-label="Prévia do percurso">
+          <div class="terminal-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>curso@codex:~/percurso</div>
+          <div class="terminal-body">
+            <p><span class="prompt">~ $</span> iniciar --objetivo autonomia</p>
+            <p class="terminal-title">◈ COURSE SYSTEM</p>
+            <p>01. situar o ponto de partida</p>
+            <p>02. preparar um ambiente seguro</p>
+            <p>03. aprender, construir e revisar</p>
+            <p class="ok">✓ percurso canônico carregado</p>
+            <p class="ok">✓ evidência e supervisão habilitadas</p>
+          </div>
+        </aside>
+      </section>
+
+      <section id="percurso">
+        <div class="shell">
+          <p class="section-label">O PERCURSO</p>
+          <h2>Aprender a decidir antes de automatizar.</h2>
+          <p class="lead">
+            O curso progride de fundamentos aplicados a projetos auditáveis.
+            Cada etapa combina conceito, prática guiada, evidência verificável e
+            um critério explícito de conclusão.
+          </p>
+          <div class="grid">
+            <article class="card"><span class="card-number">01</span><h3>Fundamentos</h3><p>Ecossistema, interação, qualidade e segurança para começar com discernimento.</p></article>
+            <article class="card"><span class="card-number">02</span><h3>Workflows e Codex</h3><p>Organização, Git, projetos, testes e engenharia assistida por IA.</p></article>
+            <article class="card"><span class="card-number">03</span><h3>Especializações</h3><p>ChatGPT, Codex, APIs, agentes e apps em trilhas independentes.</p></article>
+            <article class="card"><span class="card-number">04</span><h3>Projeto integrado</h3><p>Uma entrega final com avaliação de risco, qualidade e manutenção.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="liberacao">
+        <div class="shell release">
+          <div>
+            <p class="section-label">PRIMEIRA LIBERAÇÃO</p>
+            <h2>Já existe uma base para começar.</h2>
+            <p class="lead">A página apresenta o curso. Os laboratórios interativos permanecem no aplicativo Streamlit enquanto o serviço com backend é preparado.</p>
+            <div class="notice">Recursos da OpenAI podem variar por conta, plano, região, plataforma, permissões e rollout. O curso trata essas condições como parte da prática.</div>
+          </div>
+          <div class="timeline" aria-label="Unidades já publicadas">
+            <div class="unit"><code>00.1</code><span>Diagnóstico inicial</span><strong>Disponível</strong></div>
+            <div class="unit"><code>00.2</code><span>Preparação do ambiente</span><strong>Disponível</strong></div>
+            <div class="unit"><code>B1</code><span>Ecossistema OpenAI</span><strong>Disponível</strong></div>
+            <div class="unit"><code>B2</code><span>Fundamentos de interação</span><strong>Disponível</strong></div>
+            <div class="unit"><code>B3</code><span>ChatGPT essencial</span><strong>Disponível</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="principios">
+        <div class="shell">
+          <p class="section-label">MÉTODO</p>
+          <h2>IA útil exige fronteiras claras.</h2>
+          <div class="principles">
+            <article class="principle"><h3>Fontes e evidências</h3><p>Uma resposta fluente não substitui a checagem do material de origem, das datas e das condições aplicáveis.</p></article>
+            <article class="principle"><h3>Segurança e privacidade</h3><p>Não inclua segredos, dados pessoais de terceiros ou conteúdo sigiloso nos exercícios e fluxos de trabalho.</p></article>
+            <article class="principle"><h3>Revisão humana</h3><p>Automação não transfere responsabilidade. Ação com impacto deve ter critério, evidência e supervisão proporcionais ao risco.</p></article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="shell">
+      <p><strong>ChatGPT e Codex — do Básico ao Avançado</strong></p>
+      <p>Conteúdo versionado no GitHub e publicado progressivamente.</p>
+    </footer>
+  </body>
+</html>
