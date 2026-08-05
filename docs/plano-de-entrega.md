@@ -1,41 +1,47 @@
-# Plano de entrega
+# Plano de entrega fiel à arquitetura canônica
 
-## Fase 0 — Fundação
+Este plano é uma ordem de produção editorial e técnica. Ele não altera a
+arquitetura do [mapa canônico](mapa-do-curso.mmd).
 
-- [x] Definir proposta, princípios editoriais e mapa de aprendizagem.
-- [x] Criar repositório canônico e documentação inicial.
-- [ ] Validar identidade visual, público prioritário e formato de publicação.
+## Marco 0 — Controle de arquitetura
 
-## Fase 1 — Núcleo mínimo publicável
+- [x] Versionar o mapa canônico sem compactação.
+- [x] Registrar a regra de autorização expressa para mudanças estruturais.
+- [x] Modelar dados da interface para todas as unidades B, I, A, C, P e M.
+- [ ] Criar índice de fontes oficiais datadas por unidade.
 
-- [ ] Diagnóstico inicial.
-- [ ] Módulo 1 — Ecossistema OpenAI.
-- [ ] Módulo 2 — Fundamentos de interação.
-- [ ] Módulo 3 — ChatGPT essencial.
-- [ ] Módulo 4 — Qualidade e segurança.
-- [ ] Laboratório básico e rubrica de avaliação.
+## Marco 1 — Início do curso
 
-## Fase 2 — Workflow profissional
+- [ ] Diagnóstico inicial: objetivos, repertório, ambiente e projetos.
+- [ ] Preparação: conta, plano, workspace, aplicativos e controles de dados.
+- [ ] B1: ecossistema OpenAI completo.
+- [ ] B2: fundamentos de interação.
+- [ ] B3: ChatGPT essencial.
+- [ ] B4: qualidade e segurança.
+- [ ] Laboratório básico e checkpoint de retorno a B2.
 
-- [ ] Organização persistente, pesquisa e produção de artefatos.
-- [ ] Fundamentos técnicos de Git e Codex.
-- [ ] Laboratório intermediário versionado.
+## Marco 2 — Núcleo intermediário
 
-## Fase 3 — Especializações
+- [ ] I1 a I6: organização, workflows, pesquisa, artefatos, personalização e recorrência.
+- [ ] I7 a I9: fundamentos técnicos, primeiros passos e permissões do Codex.
+- [ ] Laboratório intermediário e checkpoint de retorno a I2.
 
-- [ ] Trilha ChatGPT e conhecimento conectado.
-- [ ] Trilha Codex e engenharia.
-- [ ] Trilha API, agentes e apps.
-- [ ] Projetos avançados por trilha.
+## Marco 3 — Trilhas avançadas
 
-## Fase 4 — Integração e manutenção
+- [ ] 3A: A1 a A4 e projeto avançado ChatGPT.
+- [ ] 3B: C1 a C7 e projeto avançado Codex.
+- [ ] 3C: P1 a P6 e projeto avançado API, agentes e apps.
 
-- [ ] Projeto final integrado e banca de validação.
-- [ ] Política de atualização e revisão periódica de fontes.
-- [ ] Critérios de contribuição e publicação.
+## Marco 4 — Integração
 
-## Critério para avançar de fase
+- [ ] M1: arquitetura do sistema completo.
+- [ ] Projeto final nas modalidades previstas no mapa.
+- [ ] Banca de validação e ciclo de atualização contínua.
 
-Cada fase só avança quando seu conteúdo possui objetivo verificável,
-pré-requisitos explícitos, material rastreável, atividade prática, critérios de
-avaliação e revisão editorial.
+## Contrato de publicação de cada unidade
+
+Cada unidade publicada precisa conter objetivo, pré-requisitos, conteúdo,
+demonstração, atividade guiada, entrega verificável, critério de conclusão,
+limites, risco, fontes oficiais datadas e conexão explícita com a próxima
+unidade. Nenhuma publicação pode antecipar ou absorver conteúdo que o mapa
+reservou a outra unidade sem autorização expressa.

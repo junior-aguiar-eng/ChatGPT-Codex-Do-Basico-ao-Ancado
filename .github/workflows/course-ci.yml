@@ -1,0 +1,27 @@
+name: curso-ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python 3.14
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Validate course outline
+        run: uv run --with-requirements requirements-dev.txt python scripts/validate_course.py
+
+      - name: Syntax check
+        run: uv run --with-requirements requirements-dev.txt python -m compileall app scripts

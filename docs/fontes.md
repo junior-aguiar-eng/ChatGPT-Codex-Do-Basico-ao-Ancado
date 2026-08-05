@@ -4,13 +4,13 @@ Este registro evita que o curso apresente recursos de produto como verdades
 perenes. Cada aula deve apontar as fontes específicas usadas e registrar a
 data de conferência.
 
-## Fontes-base
+## Fontes-base verificadas em 05-08-2026
 
 | Tema | Fonte oficial | Uso no curso |
 | --- | --- | --- |
-| ChatGPT | https://help.openai.com/ | Recursos, contas, privacidade e uso do produto. |
-| Codex | https://developers.openai.com/codex/ | Fluxos, configuração e desenvolvimento assistido. |
-| API Platform | https://platform.openai.com/docs | APIs, autenticação, ferramentas e limites técnicos. |
+| ChatGPT e Codex | https://learn.chatgpt.com/docs | Superfícies, fluxos, configuração, permissões e segurança. |
+| API Platform | https://developers.openai.com/api/docs | APIs, autenticação, ferramentas e limites técnicos. |
+| Ferramentas da API | https://developers.openai.com/api/docs/guides/tools | Web, arquivos, funções, MCP e ferramentas hospedadas. |
 | OpenAI Developers | https://developers.openai.com/ | Guias de desenvolvimento, SDKs e referências atuais. |
 
 ## Regra de atualização

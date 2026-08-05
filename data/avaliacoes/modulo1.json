@@ -1,0 +1,27 @@
+{
+  "module_id": "basic-b1",
+  "module_title": "B1 · Ecossistema OpenAI",
+  "status": "em_andamento",
+  "start_date": "2026-08-05",
+  "learning_outcomes": [
+    "Diferenciar ChatGPT, Codex, API Platform e processo manual",
+    "Selecionar superfície com critério de risco e revisão humana",
+    "Produzir decisão rastreável no template da unidade"
+  ],
+  "artifacts_expected": [
+    "docs/modulos/01-ecossistema-e-limites/01-guia-do-modulo-1.md",
+    "docs/modulos/01-ecossistema-e-limites/02-laboratorio-ecossistema-e-limites.md",
+    "docs/modulos/01-ecossistema-e-limites/03-rubrica-avaliacao-modulo-1.md",
+    "docs/entregas/01-ecossistema-e-limites/template-entrega-modulo-1.md"
+  ],
+  "assessment_rules": {
+    "minimum_points": 18,
+    "max_points": 30,
+    "required_passports": [
+      "decisao_argumentada",
+      "risco_por_cenario",
+      "evidencia_de_revisao_humana"
+    ]
+  },
+  "created_at": "2026-08-05T00:00:00-03:00"
+}

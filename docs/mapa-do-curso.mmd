@@ -1,32 +1,388 @@
-%% Mapa editorial resumido — escopo consolidado em 04-08-2026.
-%% Recursos variam por plano, workspace, sistema operacional, região e permissões.
+%% Curso completo de ChatGPT e Codex — do básico ao avançado
+%% Escopo consolidado em 04-08-2026 com base na documentação oficial da OpenAI.
+%% Recursos podem variar por plano, workspace, sistema operacional, região e permissões.
+
+%%{init: {
+  "theme": "base",
+  "flowchart": {
+    "curve": "basis",
+    "htmlLabels": true,
+    "nodeSpacing": 28,
+    "rankSpacing": 42,
+    "useMaxWidth": true
+  },
+  "themeVariables": {
+    "fontFamily": "Inter, Arial, sans-serif",
+    "fontSize": "15px",
+    "primaryTextColor": "#17212b",
+    "lineColor": "#667085",
+    "clusterBkg": "#ffffff",
+    "clusterBorder": "#98a2b3"
+  }
+}}%%
+
 flowchart TB
-    START([Início]) --> DIAG[Diagnóstico inicial]
-    DIAG --> SETUP[Preparação do ambiente]
-    SETUP --> BASIC
 
-    subgraph BASIC[Nível 1 — Fundamentos]
-      B1[Ecossistema OpenAI] --> B2[Fundamentos de interação]
-      B2 --> B3[ChatGPT essencial]
-      B3 --> B4[Qualidade e segurança]
-      B4 --> LB[Laboratório básico]
+    START([Início do curso]) --> DIAG[Diagnóstico inicial<br/>objetivos, repertório, ambiente e projetos]
+    DIAG --> SETUP[Preparação do ambiente<br/>conta, plano, workspace, aplicativos e controles de dados]
+    SETUP --> MAPA{Qual é o objetivo principal?}
+    MAPA -->|Trabalho intelectual| OBJ1[Usar ChatGPT com método]
+    MAPA -->|Criar e modificar projetos| OBJ2[Usar Codex com segurança]
+    MAPA -->|Construir produtos de IA| OBJ3[Desenvolver com APIs e SDKs]
+    OBJ1 --> BASE
+    OBJ2 --> BASE
+    OBJ3 --> BASE
+
+    subgraph BASIC["NÍVEL 1 — BÁSICO | Fundamentos e operação segura"]
+      direction TB
+
+      BASE[B1 · Ecossistema OpenAI]
+      BASE --> B11[ChatGPT<br/>interface conversacional e ferramentas]
+      BASE --> B12[Codex<br/>agente para executar trabalho em projetos]
+      BASE --> B13[API Platform<br/>modelos e ferramentas integrados a aplicações]
+      BASE --> B14[Diferenças entre<br/>modelo, produto, ferramenta, agente e app]
+
+      B14 --> B2[B2 · Fundamentos de interação]
+      B2 --> B21[Objetivo e contexto]
+      B2 --> B22[Instruções, restrições e critérios]
+      B2 --> B23[Formato de saída e exemplos]
+      B2 --> B24[Iteração, crítica e refinamento]
+      B2 --> B25[Janela de contexto<br/>histórico, anexos e perda de informação]
+
+      B25 --> B3[B3 · ChatGPT essencial]
+      B3 --> B31[Conversação e raciocínio]
+      B3 --> B32[Pesquisa na web<br/>fontes, citações e atualidade]
+      B3 --> B33[Upload e leitura de arquivos]
+      B3 --> B34[Análise de dados<br/>tabelas, cálculos e gráficos]
+      B3 --> B35[Canvas e edição iterativa]
+      B3 --> B36[Geração e edição de imagens]
+      B3 --> B37[Voz, ditado e multimodalidade]
+
+      B37 --> B4[B4 · Qualidade e segurança]
+      B4 --> B41[Verificação factual e documental]
+      B4 --> B42[Separar fatos, inferências e hipóteses]
+      B4 --> B43[Privacidade, dados sensíveis e compartilhamento]
+      B4 --> B44[Limites, erros e alucinações]
+      B4 --> B45[Revisão humana antes de agir ou publicar]
+
+      B45 --> LABB[[Laboratório básico<br/>pesquisar, analisar arquivo e produzir entrega verificável]]
+      LABB --> CHECKB{Competências básicas consolidadas?}
+      CHECKB -->|Não| B2
+      CHECKB -->|Sim| INTER
     end
 
-    LB --> INTER
-    subgraph INTER[Nível 2 — Workflows e Codex]
-      I1[Organização persistente] --> I2[Arquitetura de workflows]
-      I2 --> I3[Pesquisa e fontes]
-      I3 --> I4[Produção de artefatos]
-      I4 --> I5[Git e fundamentos técnicos]
-      I5 --> I6[Primeiros passos no Codex]
-      I6 --> LI[Laboratório intermediário]
+    subgraph INTERMEDIATE["NÍVEL 2 — INTERMEDIÁRIO | Organização, workflows e introdução ao Codex"]
+      direction TB
+
+      INTER[I1 · Organização persistente]
+      INTER --> I11[Projects<br/>chats, arquivos, instruções e objetivo comum]
+      INTER --> I12[Memória e personalização]
+      INTER --> I13[Library e reutilização de arquivos]
+      INTER --> I14[Instruções de projeto<br/>escopo, padrões e critérios]
+      INTER --> I15[Gestão de contexto<br/>resumos, referências e versionamento]
+
+      I15 --> I2[I2 · Arquitetura de workflows]
+      I2 --> I21[Decompor o problema em etapas]
+      I2 --> I22[Escolher a ferramenta adequada]
+      I2 --> I23[Definir entradas, saídas e validações]
+      I2 --> I24[Executar, revisar e corrigir]
+      I2 --> I25[Registrar decisões e versões]
+
+      I25 --> I3[I3 · Pesquisa e fontes]
+      I3 --> I31[Busca rápida na web]
+      I3 --> I32[Deep Research<br/>planejamento, investigação e relatório citado]
+      I3 --> I33[Pesquisa em arquivos e fontes conectadas]
+      I3 --> I34[Comparação de fontes e controle de atualidade]
+      I3 --> I35[Síntese sem perder rastreabilidade]
+
+      I35 --> I4[I4 · Produção de artefatos]
+      I4 --> I41[Documentos e relatórios]
+      I4 --> I42[Planilhas, modelos e análises]
+      I4 --> I43[Apresentações e materiais visuais]
+      I4 --> I44[Sites e ferramentas leves]
+      I4 --> I45[Revisão de forma, conteúdo e consistência]
+
+      I45 --> I5[I5 · Personalização funcional]
+      I5 --> I51[GPTs personalizados]
+      I51 --> I511[Instruções e iniciadores]
+      I51 --> I512[Conhecimento por arquivos]
+      I51 --> I513[Capacidades habilitadas]
+      I51 --> I514[Apps ou Actions]
+      I51 --> I515[Testes, versões e compartilhamento]
+
+      I515 --> I6[I6 · Tarefas e recorrência]
+      I6 --> I61[Tarefas pontuais agendadas]
+      I6 --> I62[Rotinas recorrentes]
+      I6 --> I63[Monitoramento condicionado]
+      I6 --> I64[Cadência, escopo e critério de notificação]
+      I6 --> I65[Revisão de resultados e ajuste do prompt]
+
+      I65 --> I7[I7 · Fundamentos técnicos para Codex]
+      I7 --> I71[Terminal e sistema de arquivos]
+      I7 --> I72[Git<br/>repositório, branch, commit, diff e pull request]
+      I7 --> I73[Estrutura de projeto e dependências]
+      I7 --> I74[Leitura básica de código, logs e testes]
+      I7 --> I75[Variáveis de ambiente e segredos]
+
+      I75 --> I8[I8 · Primeiros passos no Codex]
+      I8 --> I81[Escolher superfície]
+      I81 --> I811[Aplicativo desktop]
+      I81 --> I812[Extensão para IDE]
+      I81 --> I813[Codex CLI]
+      I81 --> I814[Codex Cloud ou Web]
+      I8 --> I82[Abrir projeto e fornecer contexto]
+      I82 --> I83[Inspecionar → planejar → editar → testar → revisar]
+      I83 --> I84[Revisar diff e validar resultado]
+      I84 --> I85[Registrar alterações no Git]
+
+      I85 --> I9[I9 · Permissões e segurança do Codex]
+      I9 --> I91[Sandbox<br/>limites técnicos de arquivos e rede]
+      I9 --> I92[Approval policy<br/>quando o agente deve pedir autorização]
+      I9 --> I93[Modo somente leitura]
+      I9 --> I94[Workspace write]
+      I9 --> I95[Acesso ampliado somente quando necessário]
+      I9 --> I96[Regras, allowlists e caminhos protegidos]
+
+      I96 --> LABI[[Laboratório intermediário<br/>workflow documental + projeto versionado + tarefa recorrente]]
+      LABI --> CHECKI{Workflow reproduzível e seguro?}
+      CHECKI -->|Não| I2
+      CHECKI -->|Sim| TRACKS
     end
 
-    LI --> TRACKS{Especialização}
-    TRACKS --> A[3A — ChatGPT e conhecimento conectado]
-    TRACKS --> C[3B — Codex e engenharia]
-    TRACKS --> P[3C — API, agentes e apps]
-    A --> FINAL[Projeto final integrado]
-    C --> FINAL
-    P --> FINAL
-    FINAL --> REVIEW[Banca: qualidade, rastreabilidade, segurança, reprodutibilidade e manutenção]
+    TRACKS{Escolha uma especialização<br/>ou percorra as três}
+    TRACKS -->|Produtividade e conhecimento| CHATADV
+    TRACKS -->|Engenharia e automação| CODEXADV
+    TRACKS -->|Aplicações e agentes| APIADV
+
+    subgraph CHATGPT_ADV["NÍVEL 3A — AVANÇADO | ChatGPT, Work e conhecimento conectado"]
+      direction TB
+
+      CHATADV[A1 · Workflows profissionais no ChatGPT]
+      CHATADV --> A11[Combinar web, arquivos, apps e ferramentas]
+      A11 --> A12[Planejamento de tarefas longas]
+      A12 --> A13[Execução com checkpoints e revisão]
+      A13 --> A14[Produção de entregas finais em múltiplos formatos]
+
+      A14 --> A2[A2 · ChatGPT Work]
+      A2 --> A21[Trabalho com arquivos e projetos locais ou hospedados]
+      A2 --> A22[Atividade do agente e acompanhamento da execução]
+      A2 --> A23[Subagentes para tarefas paralelizáveis]
+      A2 --> A24[Integração entre pesquisa, análise e produção]
+      A2 --> A25[Supervisão humana de ações e alterações]
+
+      A25 --> A3[A3 · Conhecimento conectado]
+      A3 --> A31[Apps e conectores]
+      A31 --> A32[Busca e leitura em fontes privadas]
+      A32 --> A33[Ações de escrita com confirmação]
+      A33 --> A34[Permissões por conta e workspace]
+      A34 --> A35[Mitigação de prompt injection e exposição de dados]
+
+      A35 --> A4[A4 · GPTs em produção]
+      A4 --> A41[Arquitetura de instruções]
+      A4 --> A42[Curadoria de conhecimento]
+      A4 --> A43[Apps versus Actions]
+      A4 --> A44[Autenticação e esquema OpenAPI para Actions]
+      A4 --> A45[Avaliação, compartilhamento e publicação]
+
+      A45 --> LABA[[Projeto avançado ChatGPT<br/>workspace especializado com pesquisa, fontes e entregas]]
+      LABA --> MERGE
+    end
+
+    subgraph CODEX_ADVANCED["NÍVEL 3B — AVANÇADO | Codex, agentes de execução e engenharia"]
+      direction TB
+
+      CODEXADV[C1 · Contexto e configuração do projeto]
+      CODEXADV --> C11[AGENTS.md<br/>comandos, convenções, testes e limites]
+      C11 --> C12[config.toml e camadas de configuração]
+      C12 --> C13[Perfis, modelos e esforço de raciocínio]
+      C13 --> C14[Regras de comandos e permissões]
+      C14 --> C15[MCP servers e ferramentas externas]
+
+      C15 --> C2[C2 · Fluxo completo de engenharia]
+      C2 --> C21[Explorar repositório]
+      C21 --> C22[Formular plano de implementação]
+      C22 --> C23[Editar múltiplos arquivos]
+      C23 --> C24[Executar lint, testes e build]
+      C24 --> C25[Diagnosticar falhas e regressões]
+      C25 --> C26[Revisar diff, riscos e compatibilidade]
+      C26 --> C27[Commit, branch, pull request e revisão]
+
+      C27 --> C3[C3 · Superfícies e handoffs]
+      C3 --> C31[IDE<br/>seleções, arquivos abertos e revisão in-place]
+      C3 --> C32[CLI<br/>interação, execução e modo não interativo]
+      C3 --> C33[Desktop<br/>threads, projetos e múltiplos agentes]
+      C3 --> C34[Cloud<br/>ambientes isolados e tarefas remotas]
+      C3 --> C35[Remote control<br/>acompanhar e aprovar por outro dispositivo]
+
+      C35 --> C4[C4 · Paralelismo e isolamento]
+      C4 --> C41[Git worktrees]
+      C41 --> C42[Subagentes integrados]
+      C42 --> C43[Agentes personalizados em TOML]
+      C43 --> C44[Explorador, executor e revisor]
+      C44 --> C45[Fan-out paralelo e síntese pelo agente principal]
+      C45 --> C46[Controle de custo e consumo de contexto]
+
+      C46 --> C5[C5 · Automação no Codex]
+      C5 --> C51[Tarefas agendadas não assistidas]
+      C51 --> C52[Execução local ou worktree dedicado]
+      C52 --> C53[Triagem de issues e manutenção]
+      C53 --> C54[Revisões, testes e relatórios recorrentes]
+      C54 --> C55[Integração com CI e GitHub]
+      C55 --> C56[Observação inicial e ajuste de permissões]
+
+      C56 --> C6[C6 · Segurança avançada]
+      C6 --> C61[Filesystem e network sandbox]
+      C61 --> C62[Políticas granulares de aprovação]
+      C62 --> C63[Auto-review por agente revisor]
+      C63 --> C64[Segredos somente na fase autorizada]
+      C64 --> C65[Proteção contra exfiltração e ações destrutivas]
+      C65 --> C66[Codex Security e revisão de repositórios]
+
+      C66 --> C7[C7 · Codex programável]
+      C7 --> C71[Codex SDK]
+      C7 --> C72[App Server]
+      C7 --> C73[Codex como MCP server]
+      C7 --> C74[GitHub Action]
+      C7 --> C75[Execução não interativa e scripts]
+
+      C75 --> LABC[[Projeto avançado Codex<br/>feature ponta a ponta com testes, PR e automação segura]]
+      LABC --> MERGE
+    end
+
+    subgraph API_ADVANCED["NÍVEL 3C — AVANÇADO | API Platform, agentes e apps"]
+      direction TB
+
+      APIADV[P1 · Fundamentos da API]
+      APIADV --> P11[Projeto, chave, autenticação e ambiente]
+      P11 --> P12[Modelos, tokens, contexto e custos]
+      P12 --> P13[Prompts versionados e saídas estruturadas]
+      P13 --> P14[Streaming, estado e tratamento de erros]
+      P14 --> P15[Rate limits, retries e idempotência]
+
+      P15 --> P2[P2 · Responses API]
+      P2 --> P21[Entrada multimodal e geração]
+      P21 --> P22[Function calling]
+      P22 --> P23[Web search]
+      P23 --> P24[File search e recuperação]
+      P24 --> P25[Code Interpreter]
+      P25 --> P26[Computer use e shell quando disponíveis]
+      P26 --> P27[Remote MCP tools]
+      P27 --> P28[Estado por conversation ou previous response]
+
+      P28 --> P3[P3 · Agents SDK]
+      P3 --> P31[Agent<br/>modelo, instruções, ferramentas e output]
+      P31 --> P32[Runner e agent loop]
+      P32 --> P33[Agents as tools]
+      P33 --> P34[Handoffs entre especialistas]
+      P34 --> P35[Guardrails de entrada, saída e ferramentas]
+      P35 --> P36[Sessões, memória e estado]
+      P36 --> P37[Human in the loop e aprovações]
+      P37 --> P38[Tracing e observabilidade]
+      P38 --> P39[Streaming e agentes em tempo real]
+
+      P39 --> P4[P4 · Plugins, Skills e MCP]
+      P4 --> P41[Skill<br/>instruções, scripts e recursos reutilizáveis]
+      P41 --> P42[Descoberta progressiva e gatilhos]
+      P42 --> P43[Plugin<br/>pacote de skills, conectores e MCP]
+      P43 --> P44[MCP server<br/>tools, resources e contexto]
+      P44 --> P45[Autenticação, autorização e escopo]
+      P45 --> P46[Testes, versionamento e distribuição]
+
+      P46 --> P5[P5 · Apps SDK e interfaces no ChatGPT]
+      P5 --> P51[Definir caso de uso e ferramentas]
+      P51 --> P52[Construir MCP server]
+      P52 --> P53[Adicionar componente UI opcional]
+      P53 --> P54[MCP Apps bridge e estado]
+      P54 --> P55[Autenticar usuários]
+      P55 --> P56[Metadados, descoberta e UX]
+      P56 --> P57[Segurança, privacidade e confirmação]
+      P57 --> P58[Testar, submeter e publicar]
+
+      P58 --> P6[P6 · Produção e confiabilidade]
+      P6 --> P61[Evals e casos de teste]
+      P61 --> P62[Tracing, logs e métricas]
+      P62 --> P63[Red teaming e prompt injection]
+      P63 --> P64[Fallbacks e recuperação de falhas]
+      P64 --> P65[Controle de custo e latência]
+      P65 --> P66[Deploy, monitoramento e ciclo de versões]
+
+      P66 --> LABP[[Projeto avançado API<br/>agente com ferramentas, guardrails, tracing e interface]]
+      LABP --> MERGE
+    end
+
+    subgraph SHARED["CAPACIDADES TRANSVERSAIS — aplicadas aos três percursos"]
+      direction LR
+      S1[Engenharia de contexto]
+      S2[Skills reutilizáveis]
+      S3[MCP e integrações]
+      S4[Subagentes e delegação]
+      S5[Segurança e permissões]
+      S6[Avaliações e observabilidade]
+      S7[Custos, limites e desempenho]
+      S8[Documentação e versionamento]
+      S1 --- S2 --- S3 --- S4 --- S5 --- S6 --- S7 --- S8
+    end
+
+    CHATADV -. aplica .-> S1
+    CODEXADV -. aplica .-> S1
+    APIADV -. aplica .-> S1
+
+    MERGE{Integração das especializações}
+    MERGE --> M1[M1 · Arquitetar o sistema completo]
+    M1 --> M11[Escolher ChatGPT, Codex, API ou combinação]
+    M11 --> M12[Definir dados, ferramentas e fronteiras]
+    M12 --> M13[Definir supervisão humana e permissões]
+    M13 --> M14[Definir métricas de qualidade, custo e risco]
+    M14 --> M15[Documentar, testar e versionar]
+
+    M15 --> CAPSTONE[[Projeto final integrado]]
+    CAPSTONE --> CP1[Sistema de estudo e pesquisa especializada]
+    CAPSTONE --> CP2[Esteira de documentos e jurisprudência]
+    CAPSTONE --> CP3[Aplicação ou dashboard com agente]
+    CAPSTONE --> CP4[Plugin próprio com skills, MCP e UI]
+    CAPSTONE --> CP5[Automação segura de manutenção ou análise]
+
+    CP1 --> REVIEW
+    CP2 --> REVIEW
+    CP3 --> REVIEW
+    CP4 --> REVIEW
+    CP5 --> REVIEW
+
+    REVIEW{Banca de validação}
+    REVIEW --> R1[Correção e completude]
+    REVIEW --> R2[Rastreabilidade e evidências]
+    REVIEW --> R3[Segurança e privacidade]
+    REVIEW --> R4[Reprodutibilidade]
+    REVIEW --> R5[Manutenibilidade]
+    REVIEW --> R6[Viabilidade de custo e operação]
+
+    R1 --> FINAL
+    R2 --> FINAL
+    R3 --> FINAL
+    R4 --> FINAL
+    R5 --> FINAL
+    R6 --> FINAL
+
+    FINAL([Conclusão<br/>autonomia para operar, supervisionar e construir com ChatGPT e Codex])
+    FINAL --> CONT[Atualização contínua<br/>release notes, documentação, código oficial e revisão periódica]
+    CONT -. novas versões .-> DIAG
+
+    classDef start fill:#101828,color:#ffffff,stroke:#101828,stroke-width:2px;
+    classDef basic fill:#eaf2ff,color:#173b6c,stroke:#5b8def,stroke-width:1.5px;
+    classDef inter fill:#ecfdf3,color:#14532d,stroke:#47b881,stroke-width:1.5px;
+    classDef chat fill:#fff7e6,color:#7a4100,stroke:#e7a23b,stroke-width:1.5px;
+    classDef codex fill:#f4efff,color:#4c1d95,stroke:#8b5cf6,stroke-width:1.5px;
+    classDef api fill:#fff0f3,color:#881337,stroke:#e45b7a,stroke-width:1.5px;
+    classDef shared fill:#f2f4f7,color:#344054,stroke:#98a2b3,stroke-width:1.5px;
+    classDef lab fill:#ffffff,color:#101828,stroke:#344054,stroke-width:2px,stroke-dasharray:5 3;
+    classDef decision fill:#fffbea,color:#713f12,stroke:#d4a72c,stroke-width:2px;
+
+    class START,FINAL,CONT start;
+    class BASE,B11,B12,B13,B14,B2,B21,B22,B23,B24,B25,B3,B31,B32,B33,B34,B35,B36,B37,B4,B41,B42,B43,B44,B45 basic;
+    class INTER,I11,I12,I13,I14,I15,I2,I21,I22,I23,I24,I25,I3,I31,I32,I33,I34,I35,I4,I41,I42,I43,I44,I45,I5,I51,I511,I512,I513,I514,I515,I6,I61,I62,I63,I64,I65,I7,I71,I72,I73,I74,I75,I8,I81,I811,I812,I813,I814,I82,I83,I84,I85,I9,I91,I92,I93,I94,I95,I96 inter;
+    class CHATADV,A11,A12,A13,A14,A2,A21,A22,A23,A24,A25,A3,A31,A32,A33,A34,A35,A4,A41,A42,A43,A44,A45 chat;
+    class CODEXADV,C11,C12,C13,C14,C15,C2,C21,C22,C23,C24,C25,C26,C27,C3,C31,C32,C33,C34,C35,C4,C41,C42,C43,C44,C45,C46,C5,C51,C52,C53,C54,C55,C56,C6,C61,C62,C63,C64,C65,C66,C7,C71,C72,C73,C74,C75 codex;
+    class APIADV,P11,P12,P13,P14,P15,P2,P21,P22,P23,P24,P25,P26,P27,P28,P3,P31,P32,P33,P34,P35,P36,P37,P38,P39,P4,P41,P42,P43,P44,P45,P46,P5,P51,P52,P53,P54,P55,P56,P57,P58,P6,P61,P62,P63,P64,P65,P66 api;
+    class S1,S2,S3,S4,S5,S6,S7,S8,M1,M11,M12,M13,M14,M15 shared;
+    class LABB,LABI,LABA,LABC,LABP,CAPSTONE,CP1,CP2,CP3,CP4,CP5 lab;
+    class MAPA,CHECKB,CHECKI,TRACKS,MERGE,REVIEW decision;

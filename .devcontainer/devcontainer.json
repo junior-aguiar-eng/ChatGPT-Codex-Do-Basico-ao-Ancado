@@ -1,0 +1,38 @@
+{
+  "name": "codex-course-workspace",
+  "image": "mcr.microsoft.com/devcontainers/base:debian",
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.14"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "24",
+      "nodeGypDependencies": true
+    }
+  },
+  "forwardPorts": [8501],
+  "portsAttributes": {
+    "8501": {
+      "label": "Curso Interativo (Streamlit)",
+      "onAutoForward": "openBrowser",
+      "visibility": "private"
+    }
+  },
+  "postCreateCommand": "python -m pip install --upgrade pip uv && uv venv --python 3.14 && uv pip install -r requirements-dev.txt && npm install -g npm@12",
+  "postAttachCommand": "if [ -f app/main.py ]; then echo 'Para iniciar: uv run --with-requirements requirements.txt streamlit run app/main.py --server.port 8501 --server.address 0.0.0.0'; fi",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+        "yzhang.markdown-all-in-one"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "python",
+        "terminal.integrated.shell.linux": "/bin/bash"
+      }
+    }
+  },
+  "remoteUser": "vscode"
+}

@@ -5,8 +5,8 @@ Curso completo para iniciantes, do básico ao avançado.
 Repositório canônico de um curso prático para operar, supervisionar e construir
 com ChatGPT, Codex e a plataforma de APIs da OpenAI.
 
-> Status: fundação do projeto. O currículo será transformado em módulos,
-> laboratórios, materiais e critérios de avaliação versionados.
+> Status: arquitetura canônica versionada. O curso será publicado por unidade,
+> laboratório e trilha, preservando integralmente o mapa aprovado.
 
 ## Objetivo
 
@@ -27,10 +27,17 @@ auditáveis, segurança, privacidade, supervisão humana e fontes rastreáveis.
 ## Organização
 
 - [Visão do produto](docs/visao-do-produto.md)
+- [Como começar](docs/inicio-do-curso.md)
 - [Currículo e mapa de aprendizagem](docs/curriculo.md)
 - [Mapa visual](docs/mapa-do-curso.mmd)
 - [Plano de entrega](docs/plano-de-entrega.md)
 - [Fontes canônicas](docs/fontes.md)
+
+## Regra de arquitetura
+
+O [mapa canônico](docs/mapa-do-curso.mmd) define toda a engenharia pedagógica.
+Não compactamos, fundimos, removemos ou reorganizamos unidades e trilhas sem
+autorização expressa do responsável pelo curso.
 
 ## Princípios editoriais
 
@@ -45,5 +52,29 @@ auditáveis, segurança, privacidade, supervisão humana e fontes rastreáveis.
 
 ## Próximo marco
 
-Publicar o **Módulo 1 — Ecossistema OpenAI**, junto ao diagnóstico inicial e
-ao primeiro laboratório verificável.
+Publicar em ordem modular:
+
+1. Diagnóstico inicial e preparação do ambiente.
+2. Nível 1 completo: B1 a B4 e laboratório básico.
+3. Nível 2 completo: I1 a I9 e laboratório intermediário.
+4. Trilhas avançadas independentes: 3A, 3B e 3C.
+5. Integração, projeto final e banca de validação.
+
+## Como o curso estara sendo forjado
+
+Este projeto sera construído como um produto GitHub-first:
+
+- Conteudo editorial em Markdown (`docs/`) e dados em arquivos versionados (`data/`).
+- Aplicacao interativa em Python 3.14 com Streamlit (`app/main.py`).
+- Ambiente padrao no GitHub Codespaces via `.devcontainer/devcontainer.json`.
+- Gerenciamento de ambientes Python com `uv` (e `requirements*.txt`).
+- Automacao de qualidade em GitHub Actions (`.github/workflows/course-ci.yml`).
+- Node + npm mantidos no Codespace para ferramentas auxiliares quando preciso (`node` 24 e `npm` 12).
+
+Comando rapido local no Codespace:
+
+```bash
+uv run --with-requirements requirements.txt streamlit run app/main.py --server.port 8501 --server.address 0.0.0.0
+```
+
+Requisito de base: o projeto e interativo, versionado e com validacao automatica.
