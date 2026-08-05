@@ -5,7 +5,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-
 REQUIRED_OUTLINE_KEYS = {
     "id",
     "title",
@@ -276,6 +275,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 

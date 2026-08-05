@@ -69,7 +69,8 @@ Este projeto sera construído como um produto GitHub-first:
 - Conteudo editorial em Markdown (`docs/`) e dados em arquivos versionados (`data/`).
 - Aplicacao interativa em Python 3.14 com Streamlit (`app/main.py`).
 - Ambiente padrao no GitHub Codespaces via `.devcontainer/devcontainer.json`.
-- Gerenciamento de ambientes Python com `uv` (e `requirements*.txt`).
+- Gerenciamento de ambientes Python com `uv` e dependências diretas pinadas em
+  `requirements*.txt`, atualizadas para a versão estável verificada.
 - Automacao de qualidade em GitHub Actions (`.github/workflows/course-ci.yml`)
   com validação do catálogo, compilação e lint.
 - Node + npm mantidos no Codespace para ferramentas auxiliares quando preciso (`node` 24 e `npm` 12).
@@ -81,6 +82,7 @@ uv run --with-requirements requirements.txt streamlit run app/main.py --server.p
 ```
 
 Requisito de base: o projeto e interativo, versionado e com validacao automatica.
+
 
 
 
