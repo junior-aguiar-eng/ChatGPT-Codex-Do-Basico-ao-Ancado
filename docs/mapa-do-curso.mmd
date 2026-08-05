@@ -1,0 +1,32 @@
+%% Mapa editorial resumido — escopo consolidado em 04-08-2026.
+%% Recursos variam por plano, workspace, sistema operacional, região e permissões.
+flowchart TB
+    START([Início]) --> DIAG[Diagnóstico inicial]
+    DIAG --> SETUP[Preparação do ambiente]
+    SETUP --> BASIC
+
+    subgraph BASIC[Nível 1 — Fundamentos]
+      B1[Ecossistema OpenAI] --> B2[Fundamentos de interação]
+      B2 --> B3[ChatGPT essencial]
+      B3 --> B4[Qualidade e segurança]
+      B4 --> LB[Laboratório básico]
+    end
+
+    LB --> INTER
+    subgraph INTER[Nível 2 — Workflows e Codex]
+      I1[Organização persistente] --> I2[Arquitetura de workflows]
+      I2 --> I3[Pesquisa e fontes]
+      I3 --> I4[Produção de artefatos]
+      I4 --> I5[Git e fundamentos técnicos]
+      I5 --> I6[Primeiros passos no Codex]
+      I6 --> LI[Laboratório intermediário]
+    end
+
+    LI --> TRACKS{Especialização}
+    TRACKS --> A[3A — ChatGPT e conhecimento conectado]
+    TRACKS --> C[3B — Codex e engenharia]
+    TRACKS --> P[3C — API, agentes e apps]
+    A --> FINAL[Projeto final integrado]
+    C --> FINAL
+    P --> FINAL
+    FINAL --> REVIEW[Banca: qualidade, rastreabilidade, segurança, reprodutibilidade e manutenção]
