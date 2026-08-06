@@ -80,6 +80,27 @@ REQUIRED_B3_WORKFLOW_KEYS = {
     "evidence_label",
     "risk_hint",
 }
+REQUIRED_B4_LAB_KEYS = {
+    "module_id",
+    "title",
+    "instructions",
+    "official_sources",
+    "verified_on",
+    "safety_note",
+    "quality_cards",
+    "classification_options",
+    "cases",
+    "completion_fields",
+}
+REQUIRED_B4_CARD_KEYS = {"name", "question", "action", "boundary"}
+REQUIRED_B4_CASE_KEYS = {
+    "id",
+    "title",
+    "scenario",
+    "risk_hint",
+    "claim_label",
+    "claim_placeholder",
+}
 
 
 def validate_module1_lab() -> int:
@@ -265,6 +286,36 @@ def validate_b3_lab() -> int:
     return len(lab["workflows"])
 
 
+def validate_b4_lab() -> int:
+    lab_path = Path("data/qualidade-seguranca-b4.json")
+    if not lab_path.exists():
+        raise SystemExit("B4 lab data not found.")
+
+    lab = json.loads(lab_path.read_text(encoding="utf-8"))
+    missing = REQUIRED_B4_LAB_KEYS - set(lab.keys())
+    if missing:
+        raise SystemExit(f"B4 lab missing required keys: {sorted(missing)}")
+    if lab["module_id"] != "basic-b4":
+        raise SystemExit("B4 lab must have module_id='basic-b4'.")
+    if len(lab["quality_cards"]) != 4:
+        raise SystemExit("B4 must contain the four quality and safety cards.")
+    if len(lab["cases"]) != 3:
+        raise SystemExit("B4 must contain the three review cases.")
+    for idx, card in enumerate(lab["quality_cards"], start=1):
+        missing = REQUIRED_B4_CARD_KEYS - set(card.keys())
+        if missing:
+            raise SystemExit(f"B4 quality card #{idx} missing keys: {sorted(missing)}")
+    for idx, case in enumerate(lab["cases"], start=1):
+        missing = REQUIRED_B4_CASE_KEYS - set(case.keys())
+        if missing:
+            raise SystemExit(f"B4 case #{idx} missing keys: {sorted(missing)}")
+
+    required_fields = {"afirmacao", "classificacao", "evidencia", "dados", "decisao"}
+    if set(lab["completion_fields"]) != required_fields:
+        raise SystemExit("B4 completion_fields do not match the required fields.")
+    return len(lab["cases"])
+
+
 def main() -> None:
     outline = Path("data/course_outline.json")
     if not outline.exists():
@@ -318,13 +369,15 @@ def main() -> None:
     preparation_field_count = validate_preparation()
     b2_scenario_count = validate_b2_lab()
     b3_workflow_count = validate_b3_lab()
+    b4_case_count = validate_b4_lab()
     print(
         f"Course outline OK: {len(modules)} modules loaded; "
         f"Module 1 lab OK: {scenario_count} scenarios loaded; "
         f"Diagnostic OK: {diagnostic_field_count} required fields loaded; "
         f"Preparation OK: {preparation_field_count} required fields loaded; "
         f"B2 lab OK: {b2_scenario_count} scenarios loaded; "
-        f"B3 lab OK: {b3_workflow_count} workflows loaded."
+        f"B3 lab OK: {b3_workflow_count} workflows loaded; "
+        f"B4 lab OK: {b4_case_count} review cases loaded."
     )
 
 

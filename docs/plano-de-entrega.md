@@ -17,7 +17,7 @@ arquitetura do [mapa canônico](mapa-do-curso.mmd).
 - [x] B1: ecossistema OpenAI completo.
 - [x] B2: fundamentos de interação.
 - [x] B3: ChatGPT essencial.
-- [ ] B4: qualidade e segurança.
+- [x] B4: qualidade e segurança.
 - [ ] Laboratório básico e checkpoint de retorno a B2.
 
 ## Marco 2 — Núcleo intermediário
