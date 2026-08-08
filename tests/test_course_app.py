@@ -167,3 +167,15 @@ def test_basic_checkpoint_routes_to_b2_when_a_criterion_is_incomplete() -> None:
     assert any("Retornar a B2" in item.value for item in app.warning)
     assert len(app.get("download_button")) == 1
 
+
+def test_i1_completion_exports_recoverable_workspace() -> None:
+    app = run_app("inter-i1")
+    assert len(app.text_area) == 10
+
+    for field in app.text_area:
+        field.set_value("Registro durável, autorizado, versionado e recuperável.")
+    app.checkbox[0].set_value(True)
+    app.run(timeout=APP_TIMEOUT_SECONDS)
+
+    assert_download_available(app, "Workspace recuperável concluído")
+

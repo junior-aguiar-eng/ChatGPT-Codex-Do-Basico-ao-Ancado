@@ -24,6 +24,8 @@ data de conferência.
 | B3 — Canvas e dados | https://help.openai.com/en/articles/9930697-what-is-the-canvas-feature-in-chatgpt-and-how-do-i-use-it e https://help.openai.com/pt-br/articles/8437071-an%C3%A1lise-de-dados-com-o-chatgpt — verificados em 05-08-2026. | Edição iterativa em Canvas, análise de arquivos e dados; revisar versões, valores e materiais de origem. |
 | B4 — Qualidade e segurança | https://platform.openai.com/docs/guides/safety-best-practices — verificado em 05-08-2026. | Revisão humana para saídas de baixa confiança, alto risco ou decisões críticas; avaliação de limitações, dados e cenários adversos. |
 | Laboratório básico — pesquisa e arquivos | https://learn.chatgpt.com/use-cases e https://learn.chatgpt.com/docs — verificados em 08-08-2026. | Integração pedagógica de pesquisa, análise de material de origem e produção de entrega revisável; disponibilidade deve ser confirmada na conta e no workspace usados. |
+| I1 — Projects e contexto compartilhado | https://learn.chatgpt.com/docs/projects — verificado em 08-08-2026. | Projects reúnem chats, arquivos, fontes e instruções; acesso a pastas locais não é presumido. |
+| I1 — Personalização e memória | https://learn.chatgpt.com/docs/personalize e https://learn.chatgpt.com/docs/customization/memories — verificados em 08-08-2026. | Memória como camada auxiliar e controlável; orientação obrigatória permanece em instruções ou documentação durável. |
 
 ## Regra de atualização
 
