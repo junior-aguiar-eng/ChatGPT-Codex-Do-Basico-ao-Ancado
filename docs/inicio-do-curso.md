@@ -20,6 +20,10 @@
 8. [Laboratório básico](modulos/05-laboratorio-basico/01-laboratorio-basico.md),
    com [template](entregas/05-laboratorio-basico/template-entrega-laboratorio-basico.md)
    e [checkpoint de avanço ou retorno a B2](modulos/05-laboratorio-basico/02-checkpoint-basico.md).
+9. [I1 · Organização persistente](modulos/06-organizacao-persistente/01-guia-i1.md),
+   com [laboratório](modulos/06-organizacao-persistente/02-laboratorio-i1.md),
+   [template](entregas/06-organizacao-persistente/template-entrega-i1.md) e
+   [rubrica](modulos/06-organizacao-persistente/03-rubrica-i1.md).
 
 A ordem é deliberada: antes de formular bons pedidos ou executar uma mudança,
 o participante precisa conhecer objetivo, ambiente, dados, superfícies e

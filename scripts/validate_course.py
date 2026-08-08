@@ -114,6 +114,18 @@ REQUIRED_BASIC_CHECKPOINT_KEYS = {
     "completion_fields",
 }
 REQUIRED_CHECKPOINT_CRITERION_KEYS = {"id", "title", "question"}
+REQUIRED_I1_LAB_KEYS = {
+    "module_id",
+    "title",
+    "instructions",
+    "official_sources",
+    "verified_on",
+    "availability_note",
+    "privacy_note",
+    "workspace_cards",
+    "completion_fields",
+}
+REQUIRED_I1_CARD_KEYS = {"name", "purpose", "boundary"}
 
 
 def validate_module1_lab() -> int:
@@ -350,6 +362,27 @@ def validate_basic_checkpoint() -> int:
     return len(lab["checkpoint_criteria"])
 
 
+def validate_i1_lab() -> int:
+    lab_path = Path("data/organizacao-persistente-i1.json")
+    if not lab_path.exists():
+        raise SystemExit("I1 lab data not found.")
+    lab = json.loads(lab_path.read_text(encoding="utf-8"))
+    missing = REQUIRED_I1_LAB_KEYS - set(lab.keys())
+    if missing:
+        raise SystemExit(f"I1 lab missing required keys: {sorted(missing)}")
+    if lab["module_id"] != "inter-i1":
+        raise SystemExit("I1 lab must have module_id='inter-i1'.")
+    if len(lab["workspace_cards"]) != 5:
+        raise SystemExit("I1 must contain the five workspace layers.")
+    for idx, card in enumerate(lab["workspace_cards"], start=1):
+        missing = REQUIRED_I1_CARD_KEYS - set(card.keys())
+        if missing:
+            raise SystemExit(f"I1 workspace card #{idx} missing keys: {sorted(missing)}")
+    if len(lab["completion_fields"]) != 10:
+        raise SystemExit("I1 must contain ten workspace completion fields.")
+    return len(lab["workspace_cards"])
+
+
 def main() -> None:
     outline = Path("data/course_outline.json")
     if not outline.exists():
@@ -406,6 +439,7 @@ def main() -> None:
     b3_workflow_count = validate_b3_lab()
     b4_case_count = validate_b4_lab()
     basic_checkpoint_count = validate_basic_checkpoint()
+    i1_card_count = validate_i1_lab()
     print(
         f"Course outline OK: {len(modules)} modules loaded; "
         f"Module 1 lab OK: {scenario_count} scenarios loaded; "
@@ -414,7 +448,8 @@ def main() -> None:
         f"B2 lab OK: {b2_scenario_count} scenarios loaded; "
         f"B3 lab OK: {b3_workflow_count} workflows loaded; "
         f"B4 lab OK: {b4_case_count} review cases loaded; "
-        f"Basic checkpoint OK: {basic_checkpoint_count} criteria loaded."
+        f"Basic checkpoint OK: {basic_checkpoint_count} criteria loaded; "
+        f"I1 lab OK: {i1_card_count} workspace layers loaded."
     )
 
 

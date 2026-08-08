@@ -14,6 +14,7 @@ B2_LAB_PATH = BASE_DIR / "data" / "fundamentos-interacao-b2.json"
 B3_LAB_PATH = BASE_DIR / "data" / "chatgpt-essencial-b3.json"
 B4_LAB_PATH = BASE_DIR / "data" / "qualidade-seguranca-b4.json"
 BASIC_CHECKPOINT_PATH = BASE_DIR / "data" / "laboratorio-basico-checkpoint.json"
+I1_LAB_PATH = BASE_DIR / "data" / "organizacao-persistente-i1.json"
 
 
 @st.cache_data
@@ -54,6 +55,11 @@ def load_b4_lab() -> dict[str, Any]:
 @st.cache_data
 def load_basic_checkpoint() -> dict[str, Any]:
     return json.loads(BASIC_CHECKPOINT_PATH.read_text(encoding="utf-8"))
+
+
+@st.cache_data
+def load_i1_lab() -> dict[str, Any]:
+    return json.loads(I1_LAB_PATH.read_text(encoding="utf-8"))
 
 
 def progress_state(modules: list[dict[str, Any]]) -> dict[str, str]:
@@ -967,6 +973,100 @@ def render_basic_checkpoint() -> None:
         st.warning("Complete os quatro estados do checkpoint e a evidência de cada critério.")
 
 
+def build_i1_delivery(answers: dict[str, str]) -> str:
+    return f"""# Entrega — I1: Organização persistente
+
+## Objetivo e fronteira
+
+- **Objetivo e resultado:** {answers['objetivo']}
+- **Fora do escopo:** {answers['fronteira']}
+
+## Fontes e arquivos
+
+{answers['fontes']}
+
+## Instruções obrigatórias
+
+{answers['instrucoes']}
+
+## Memória auxiliar
+
+{answers['memoria']}
+
+## Estrutura do workspace
+
+- **Chats, pastas, arquivos e resumos:** {answers['estrutura']}
+- **Nomenclatura:** {answers['nomenclatura']}
+
+## Versionamento
+
+{answers['versionamento']}
+
+## Checkpoint de recuperação
+
+{answers['recuperacao']}
+
+## Teste de retomada
+
+{answers['evidencia']}
+"""
+
+
+def render_i1_lab() -> None:
+    lab = load_i1_lab()
+    st.markdown("<div class='section-kicker'>WORKSPACE ATIVO // I1</div>", unsafe_allow_html=True)
+    st.subheader(str(lab["title"]))
+    st.caption(str(lab["instructions"]))
+    st.warning(str(lab["availability_note"]))
+    st.info(str(lab["privacy_note"]))
+
+    st.markdown("**Camadas do workspace recuperável**")
+    card_columns = st.columns(2, gap="small")
+    for index, card in enumerate(lab["workspace_cards"]):
+        with card_columns[index % 2]:
+            st.markdown(
+                f"<div class='surface-card'><strong>{escape(card['name'])}</strong>"
+                f"<p>{escape(card['purpose'])}</p>"
+                f"<small>Limite: {escape(card['boundary'])}</small></div>",
+                unsafe_allow_html=True,
+            )
+
+    labels = {
+        "objetivo": "Objetivo e resultado esperado do workspace",
+        "fronteira": "Fora do escopo e limites de uso",
+        "fontes": "Inventário de fontes: origem, versão, autorização e finalidade",
+        "instrucoes": "Instruções obrigatórias e critérios de qualidade",
+        "memoria": "O que pode ser memória auxiliar e o que deve ficar documentado",
+        "estrutura": "Estrutura de chats, pastas, arquivos e resumos",
+        "nomenclatura": "Convenção de nomes e localização da fonte de verdade",
+        "versionamento": "Regra para versões, substituições e decisões revogadas",
+        "recuperacao": "Checkpoint: estado, decisões, pendências e próxima ação",
+        "evidencia": "Evidência do teste de retomada e correções realizadas",
+    }
+    answers: dict[str, str] = {}
+    for key in lab["completion_fields"]:
+        answers[key] = st.text_area(labels[key], key=f"i1-{key}").strip()
+
+    completed_count = sum(bool(value) for value in answers.values())
+    st.progress(completed_count / len(answers))
+    st.caption(f"{completed_count}/{len(answers)} componentes do workspace registrados")
+    safe_context_confirmed = st.checkbox(
+        "Confirmo que usei apenas materiais autorizados, mantive regras obrigatórias fora da dependência exclusiva de memória e executei o teste de retomada.",
+        key="i1-safe-context",
+    )
+    if completed_count == len(answers):
+        if safe_context_confirmed:
+            st.success("Workspace recuperável concluído. Revise a rubrica antes de avançar a I2.")
+            st.download_button(
+                "Baixar entrega I1 em Markdown",
+                data=build_i1_delivery(answers),
+                file_name="entrega-i1-organizacao-persistente.md",
+                mime="text/markdown",
+            )
+        else:
+            st.warning("Confirme autorização dos materiais, orientação durável e teste de retomada.")
+
+
 st.set_page_config(
     page_title="Codex // Curso Completo",
     page_icon="◈",
@@ -1191,6 +1291,10 @@ if selected_id == "basic-b4":
 if selected_id == "basic-checkpoint":
     st.divider()
     render_basic_checkpoint()
+
+if selected_id == "inter-i1":
+    st.divider()
+    render_i1_lab()
 
 with st.expander("Log de navegação", expanded=False):
     log_lines = "\n".join(st.session_state.get("course_events", [])) or "Nenhum evento nesta sessão."

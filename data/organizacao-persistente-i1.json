@@ -1,0 +1,52 @@
+{
+  "module_id": "inter-i1",
+  "title": "Laboratório de workspace: I1 · Organização persistente",
+  "instructions": "Projete um workspace recuperável para um trabalho que continuará em vários chats. Separe contexto compartilhado, instruções obrigatórias, memória auxiliar, fontes e registro de versões.",
+  "official_sources": [
+    "https://learn.chatgpt.com/docs/projects",
+    "https://learn.chatgpt.com/docs/personalize",
+    "https://learn.chatgpt.com/docs/customization/memories"
+  ],
+  "verified_on": "2026-08-08",
+  "availability_note": "Projects, memória, fontes conectadas e inventários de arquivos podem variar conforme plano, conta, workspace, plataforma, região, permissões e rollout. O laboratório aceita uma estrutura manual equivalente, desde que seja recuperável e verificável.",
+  "privacy_note": "Não use memória nem fontes compartilhadas como depósito de segredos. Dados sensíveis, pessoais ou institucionais exigem autorização, minimização e controles adequados.",
+  "workspace_cards": [
+    {
+      "name": "Project ou estrutura equivalente",
+      "purpose": "Reunir chats, arquivos, fontes e instruções relacionados ao mesmo objetivo.",
+      "boundary": "Um chat isolado não substitui um workspace durável; um Project do ChatGPT não acessa automaticamente pastas locais."
+    },
+    {
+      "name": "Instruções obrigatórias",
+      "purpose": "Registrar escopo, padrões, critérios e limites que devem valer em toda execução.",
+      "boundary": "Regras obrigatórias pertencem às instruções do projeto ou documentação versionada, não apenas à memória."
+    },
+    {
+      "name": "Memória auxiliar",
+      "purpose": "Reaproveitar preferências estáveis e contexto útil sem repeti-los em todo chat.",
+      "boundary": "Memória pode estar desativada, incompleta ou atrasada e nunca deve ser a única fonte de uma regra crítica."
+    },
+    {
+      "name": "Fontes e arquivos",
+      "purpose": "Manter inventário com origem, finalidade, versão, autorização e estado de cada material.",
+      "boundary": "Disponibilidade na Library ou em fontes conectadas não prova atualidade, autorização ou adequação ao novo uso."
+    },
+    {
+      "name": "Resumo e versão",
+      "purpose": "Permitir que outra pessoa retome o trabalho a partir do estado, decisões, pendências e evidências.",
+      "boundary": "Histórico de chat sem resumo canônico pode ocultar mudanças, versões substituídas e decisões revogadas."
+    }
+  ],
+  "completion_fields": [
+    "objetivo",
+    "fronteira",
+    "fontes",
+    "instrucoes",
+    "memoria",
+    "estrutura",
+    "nomenclatura",
+    "versionamento",
+    "recuperacao",
+    "evidencia"
+  ]
+}
