@@ -18,6 +18,7 @@ I1_LAB_PATH = BASE_DIR / "data" / "organizacao-persistente-i1.json"
 I2_LAB_PATH = BASE_DIR / "data" / "arquitetura-workflows-i2.json"
 I3_LAB_PATH = BASE_DIR / "data" / "pesquisa-fontes-i3.json"
 I4_LAB_PATH = BASE_DIR / "data" / "producao-artefatos-i4.json"
+I5_LAB_PATH = BASE_DIR / "data" / "personalizacao-funcional-i5.json"
 
 
 @st.cache_data
@@ -78,6 +79,11 @@ def load_i3_lab() -> dict[str, Any]:
 @st.cache_data
 def load_i4_lab() -> dict[str, Any]:
     return json.loads(I4_LAB_PATH.read_text(encoding="utf-8"))
+
+
+@st.cache_data
+def load_i5_lab() -> dict[str, Any]:
+    return json.loads(I5_LAB_PATH.read_text(encoding="utf-8"))
 
 
 def progress_state(modules: list[dict[str, Any]]) -> dict[str, str]:
@@ -1371,6 +1377,100 @@ def render_i4_lab() -> None:
             st.warning("Finalize a revisão e a validação de risco antes de concluir I4.")
 
 
+def build_i5_delivery(answers: dict[str, str]) -> str:
+    return f"""# Entrega â€” I5: Personalização funcional
+
+## Objetivo e escopo
+
+- Objetivo: {answers['objetivo']}
+- Público: {answers['publico']}
+- Escopo e limite: {answers['escopo']}
+- Critério de sucesso: {answers['aceite']}
+
+## Prompt e conhecimento
+
+- Prompt base: {answers['prompt_fundamental']}
+- Perfil de resposta: {answers['perfil_resposta']}
+- Mecanismo de início: {answers['mecanismo_inicio']}
+- Arquivos/entrada: {answers['arquivos_entrada']}
+- Restrições: {answers['restricoes']}
+- Conhecimento por arquivos: {answers['conhecimentos']}
+
+## Capacidades e integração
+
+- Capacidades habilitadas: {answers['capacidades']}
+- Integrações: {answers['integracoes']}
+
+## Testes e operação
+
+- Testes realizados: {answers['testes']}
+- Falha e correções: {answers['falhas_e_correcoes']}
+- Versionamento: {answers['versionamento']}
+- Compartilhamento: {answers['compartilhamento']}
+"""
+
+
+def render_i5_lab() -> None:
+    lab = load_i5_lab()
+    st.markdown("<div class='section-kicker'>PERSONALIZAÇÃO FUNCIONAL // I5</div>", unsafe_allow_html=True)
+    st.subheader(str(lab["title"]))
+    st.caption(str(lab["instructions"]))
+    st.warning(str(lab["availability_note"]))
+    st.info(str(lab["safety_note"]))
+
+    columns = st.columns(2, gap="small")
+    for index, card in enumerate(lab["customization_cards"]):
+        with columns[index % 2]:
+            st.markdown(
+                f"<div class='surface-card'><strong>{escape(card['name'])}</strong>"
+                f"<p>{escape(card['description'])}</p>"
+                f"<small>Limite: {escape(card['boundary'])}</small></div>",
+                unsafe_allow_html=True,
+            )
+
+    labels = {
+        "objetivo": "Objetivo funcional e valor esperado",
+        "publico": "Público e superfície de uso",
+        "escopo": "Escopo funcional, contexto e fronteiras",
+        "prompt_fundamental": "Prompt-base e comportamento central",
+        "perfil_resposta": "Perfil de resposta: tom, evidência e estrutura",
+        "mecanismo_inicio": "Início, gatilho e entrada esperada",
+        "arquivos_entrada": "Arquivos, fontes e critérios de atualização",
+        "restricoes": "Restrições e riscos declarados",
+        "conhecimentos": "Conhecimentos persistentes e controle de validade",
+        "capacidades": "Capacidades habilitadas e justificativa de uso",
+        "integracoes": "Integrações/Apps: escopo e pré-condições",
+        "testes": "Plano e resultados de testes (caso feliz e falha)",
+        "falhas_e_correcoes": "Falhas, impacto e plano de correção",
+        "versionamento": "Versão, rollback e trilha de decisão",
+        "compartilhamento": "Critérios de compartilhamento e retenção",
+        "aceite": "Critério objetivo de aceite",
+    }
+    answers = {
+        key: st.text_area(labels[key], key=f"i5-{key}").strip()
+        for key in lab["completion_fields"]
+    }
+    completed_count = sum(bool(value) for value in answers.values())
+    st.progress(completed_count / len(answers))
+    st.caption(f"{completed_count}/{len(answers)} componentes da personalização registrados")
+
+    review_confirmed = st.checkbox(
+        "Confirmo que testei o comportamento em cenário feliz e falha, revisei controle de risco e registrei rollback quando necessário.",
+        key="i5-review",
+    )
+    if completed_count == len(answers):
+        if review_confirmed:
+            st.success("Personalização testada e registrada. Revise a rubrica antes de avançar a I6.")
+            st.download_button(
+                "Baixar entrega I5 em Markdown",
+                data=build_i5_delivery(answers),
+                file_name="entrega-i5-personalizacao-funcional.md",
+                mime="text/markdown",
+            )
+        else:
+            st.warning("Conclua testes, risco e rollback antes de finalizar I5.")
+
+
 st.set_page_config(
     page_title="Codex // Curso Completo",
     page_icon="◈",
@@ -1611,6 +1711,10 @@ if selected_id == "inter-i3":
 if selected_id == "inter-i4":
     st.divider()
     render_i4_lab()
+
+if selected_id == "inter-i5":
+    st.divider()
+    render_i5_lab()
 
 with st.expander("Log de navegação", expanded=False):
     log_lines = "\n".join(st.session_state.get("course_events", [])) or "Nenhum evento nesta sessão."

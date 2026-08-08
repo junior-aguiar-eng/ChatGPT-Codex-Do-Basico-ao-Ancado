@@ -23,65 +23,65 @@ def assert_download_available(app: AppTest, success_message: str) -> None:
 def test_diagnostic_completion_exports_markdown() -> None:
     app = run_app("diagnostico")
     app.text_area[0].set_value("Aprender a operar o curso com autonomia.")
-    app.selectbox[1].set_value("Trabalho intelectual: usar ChatGPT com método")
-    app.selectbox[2].set_value("Estou começando agora")
+    app.selectbox[1].set_value("Trabalho intelectual: usar ChatGPT com mÃ©todo")
+    app.selectbox[2].set_value("Estou comeÃ§ando agora")
     app.multiselect[0].set_value(["Ambiente em nuvem"])
-    app.text_area[1].set_value("Uma rotina de estudos verificável.")
+    app.text_area[1].set_value("Uma rotina de estudos verificÃ¡vel.")
     app.multiselect[1].set_value(["Prazo ou impacto operacional"])
     app.text_area[2].set_value("Revisar antes de compartilhar.")
     app.text_area[3].set_value("Entregar uma atividade revisada.")
     app.checkbox[0].set_value(True)
     app.run()
 
-    assert_download_available(app, "Diagnóstico concluído")
+    assert_download_available(app, "DiagnÃ³stico concluÃ­do")
 
 
 def test_preparation_completion_exports_markdown() -> None:
     app = run_app("preparacao")
     app.selectbox[1].set_value("Conta pessoal, com acesso confirmado")
-    app.text_area[0].set_value("Página da conta e configurações do workspace.")
+    app.text_area[0].set_value("PÃ¡gina da conta e configuraÃ§Ãµes do workspace.")
     app.multiselect[0].set_value(["GitHub Codespaces"])
-    app.text_area[1].set_value("Repositório GitHub do curso com pull requests.")
-    app.text_area[2].set_value("Exemplos públicos e dados anonimizados.")
+    app.text_area[1].set_value("RepositÃ³rio GitHub do curso com pull requests.")
+    app.text_area[2].set_value("Exemplos pÃºblicos e dados anonimizados.")
     app.text_area[3].set_value("Segredos, tokens e dados pessoais de terceiros.")
-    app.multiselect[1].set_value(["Não compartilhar senhas, chaves de API ou tokens"])
+    app.multiselect[1].set_value(["NÃ£o compartilhar senhas, chaves de API ou tokens"])
     app.text_area[4].set_value("Revisar o diff e os testes antes do merge.")
     app.text_input[0].set_value("docs/entregas/00-entrada/preparacao-do-ambiente.md")
     app.checkbox[0].set_value(True)
     app.run()
 
-    assert_download_available(app, "Preparação concluída")
+    assert_download_available(app, "PreparaÃ§Ã£o concluÃ­da")
 
 
 def test_b1_completion_exports_markdown() -> None:
     app = run_app("basic-b1")
     tools = [
         "ChatGPT (interface)",
-        "Codex (projeto ou repositório)",
+        "Codex (projeto ou repositÃ³rio)",
         "Sem LLM / processo manual",
         "Sem LLM / processo manual",
-        "API Platform (aplicação)",
+        "API Platform (aplicaÃ§Ã£o)",
     ]
     task_types = [
-        "síntese",
-        "edição local",
-        "decisão operacional",
-        "decisão operacional",
-        "integração de aplicação",
+        "sÃ­ntese",
+        "ediÃ§Ã£o local",
+        "decisÃ£o operacional",
+        "decisÃ£o operacional",
+        "integraÃ§Ã£o de aplicaÃ§Ã£o",
     ]
 
     for index, task_type in enumerate(task_types):
         app.selectbox[1 + index * 2].set_value(task_type)
         app.selectbox[2 + index * 2].set_value(tools[index])
         alternative = (
-            "Codex (projeto ou repositório)"
+            "Codex (projeto ou repositÃ³rio)"
             if tools[index] == "ChatGPT (interface)"
             else "ChatGPT (interface)"
         )
         app.multiselect[index].set_value([alternative])
         app.text_area[index].set_value("Escolha alinhada ao objetivo e ao contexto.")
-        app.text_input[index].set_value("Evitar impacto sem validação.")
-        app.text_input[5 + index].set_value("Revisão humana antes da conclusão.")
+        app.text_input[index].set_value("Evitar impacto sem validaÃ§Ã£o.")
+        app.text_input[5 + index].set_value("RevisÃ£o humana antes da conclusÃ£o.")
     app.run()
 
     assert_download_available(app, "Checkpoint preenchido")
@@ -93,9 +93,9 @@ def test_b2_completion_exports_markdown() -> None:
     assert len(app.text_input) == 3
 
     for field in app.text_area:
-        field.set_value("Componente explícito e revisável.")
+        field.set_value("Componente explÃ­cito e revisÃ¡vel.")
     for field in app.text_input:
-        field.set_value("Tabela concisa em português.")
+        field.set_value("Tabela concisa em portuguÃªs.")
     app.run()
 
     assert_download_available(app, "Briefings completos")
@@ -107,9 +107,9 @@ def test_b3_completion_exports_markdown() -> None:
     assert len(app.text_input) == 3
 
     for field in app.text_area:
-        field.set_value("Registro autorizado, rastreável e revisado.")
+        field.set_value("Registro autorizado, rastreÃ¡vel e revisado.")
     for field in app.text_input:
-        field.set_value("Disponível nesta plataforma; alternativa registrada.")
+        field.set_value("DisponÃ­vel nesta plataforma; alternativa registrada.")
     app.checkbox[0].set_value(True)
     app.run(timeout=APP_TIMEOUT_SECONDS)
 
@@ -124,13 +124,13 @@ def test_b4_completion_exports_markdown() -> None:
     for index in range(3):
         app.selectbox[1 + index].set_value("Fato documentado")
     for field in app.text_area:
-        field.set_value("Registro verificável, sem dados sensíveis e com limite explícito.")
+        field.set_value("Registro verificÃ¡vel, sem dados sensÃ­veis e com limite explÃ­cito.")
     for field in app.text_input:
-        field.set_value("Revisar fonte primária antes de usar ou publicar.")
+        field.set_value("Revisar fonte primÃ¡ria antes de usar ou publicar.")
     app.checkbox[0].set_value(True)
     app.run(timeout=APP_TIMEOUT_SECONDS)
 
-    assert_download_available(app, "Relatório de qualidade e segurança concluído")
+    assert_download_available(app, "RelatÃ³rio de qualidade e seguranÃ§a concluÃ­do")
 
 
 def test_basic_checkpoint_advances_when_all_criteria_are_consolidated() -> None:
@@ -139,25 +139,25 @@ def test_basic_checkpoint_advances_when_all_criteria_are_consolidated() -> None:
     assert len(app.text_input) == 4
 
     for field in app.text_area:
-        field.set_value("Evidência específica, autorizada e verificável.")
+        field.set_value("EvidÃªncia especÃ­fica, autorizada e verificÃ¡vel.")
     for index in range(4):
-        app.selectbox[1 + index].set_value("Consolidada — demonstrei com evidência")
+        app.selectbox[1 + index].set_value("Consolidada â€” demonstrei com evidÃªncia")
     for field in app.text_input:
         field.set_value("Campo e fonte identificados na entrega.")
     app.run(timeout=APP_TIMEOUT_SECONDS)
 
-    assert_download_available(app, "Avançar a I1")
+    assert_download_available(app, "AvanÃ§ar a I1")
 
 
 def test_basic_checkpoint_routes_to_b2_when_a_criterion_is_incomplete() -> None:
     app = run_app("basic-checkpoint")
     for field in app.text_area:
-        field.set_value("Evidência específica, autorizada e verificável.")
+        field.set_value("EvidÃªncia especÃ­fica, autorizada e verificÃ¡vel.")
     for index in range(4):
         status = (
-            "Em desenvolvimento — a evidência ficou incompleta"
+            "Em desenvolvimento â€” a evidÃªncia ficou incompleta"
             if index == 0
-            else "Consolidada — demonstrei com evidência"
+            else "Consolidada â€” demonstrei com evidÃªncia"
         )
         app.selectbox[1 + index].set_value(status)
     for field in app.text_input:
@@ -173,11 +173,11 @@ def test_i1_completion_exports_recoverable_workspace() -> None:
     assert len(app.text_area) == 10
 
     for field in app.text_area:
-        field.set_value("Registro durável, autorizado, versionado e recuperável.")
+        field.set_value("Registro durÃ¡vel, autorizado, versionado e recuperÃ¡vel.")
     app.checkbox[0].set_value(True)
     app.run(timeout=APP_TIMEOUT_SECONDS)
 
-    assert_download_available(app, "Workspace recuperável concluído")
+    assert_download_available(app, "Workspace recuperÃ¡vel concluÃ­do")
 
 
 def test_i2_completion_exports_documented_workflow() -> None:
@@ -185,7 +185,7 @@ def test_i2_completion_exports_documented_workflow() -> None:
     assert len(app.text_area) == 12
 
     for field in app.text_area:
-        field.set_value("Contrato explícito, autorizado, verificável e corrigível.")
+        field.set_value("Contrato explÃ­cito, autorizado, verificÃ¡vel e corrigÃ­vel.")
     app.checkbox[0].set_value(True)
     app.run(timeout=APP_TIMEOUT_SECONDS)
 
@@ -196,10 +196,10 @@ def test_i3_completion_exports_cited_report() -> None:
     app = run_app("inter-i3")
     assert len(app.text_area) == 12
     for field in app.text_area:
-        field.set_value("Evidência lida, datada, comparada e rastreável.")
+        field.set_value("EvidÃªncia lida, datada, comparada e rastreÃ¡vel.")
     app.checkbox[0].set_value(True)
     app.run(timeout=APP_TIMEOUT_SECONDS)
-    assert_download_available(app, "Relatório citado concluído")
+    assert_download_available(app, "RelatÃ³rio citado concluÃ­do")
 
 
 
@@ -207,7 +207,17 @@ def test_i4_completion_exports_artifact_output() -> None:
     app = run_app("inter-i4")
     assert len(app.text_area) == 15
     for field in app.text_area:
-        field.set_value("Rastreabilidade, consistência e revisão humana concluídas antes da publicação.")
+        field.set_value("Rastreabilidade, consistÃªncia e revisÃ£o humana concluÃ­das antes da publicaÃ§Ã£o.")
     app.checkbox[0].set_value(True)
     app.run(timeout=APP_TIMEOUT_SECONDS)
-    assert_download_available(app, "Artefato revisado e rastreável")
+    assert_download_available(app, "Artefato revisado e rastreÃ¡vel")
+
+
+def test_i5_completion_exports_functional_customization() -> None:
+    app = run_app("inter-i5")
+    assert len(app.text_area) == 16
+    for field in app.text_area:
+        field.set_value("Objetivo e contexto, restriÃ§Ãµes, plano de testes e rollback registrados.")
+    app.checkbox[0].set_value(True)
+    app.run(timeout=APP_TIMEOUT_SECONDS)
+    assert_download_available(app, "PersonalizaÃ§Ã£o testada e registrada")

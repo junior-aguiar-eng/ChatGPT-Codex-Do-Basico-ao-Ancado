@@ -152,6 +152,18 @@ REQUIRED_I4_LAB_KEYS = {
     "completion_fields",
 }
 REQUIRED_I4_CARD_KEYS = {"name", "description", "boundary"}
+REQUIRED_I5_LAB_KEYS = {
+    "module_id",
+    "title",
+    "instructions",
+    "official_sources",
+    "verified_on",
+    "availability_note",
+    "safety_note",
+    "customization_cards",
+    "completion_fields",
+}
+REQUIRED_I5_CARD_KEYS = {"name", "description", "boundary"}
 
 
 def validate_module1_lab() -> int:
@@ -464,6 +476,25 @@ def validate_i4_lab() -> int:
     return len(lab["artifact_cards"])
 
 
+def validate_i5_lab() -> int:
+    path = Path("data/personalizacao-funcional-i5.json")
+    if not path.exists():
+        raise SystemExit("I5 lab data not found.")
+    lab = json.loads(path.read_text(encoding="utf-8"))
+    missing = REQUIRED_I5_LAB_KEYS - set(lab)
+    if missing or lab["module_id"] != "inter-i5":
+        raise SystemExit(f"I5 lab invalid or missing keys: {sorted(missing)}")
+    if len(lab["customization_cards"]) != 5 or len(lab["completion_fields"]) != 16:
+        raise SystemExit(
+            "I5 must contain five customization cards and sixteen completion fields."
+        )
+    for idx, card in enumerate(lab["customization_cards"], start=1):
+        missing = REQUIRED_I5_CARD_KEYS - set(card)
+        if missing:
+            raise SystemExit(f"I5 customization card #{idx} missing keys: {sorted(missing)}")
+    return len(lab["customization_cards"])
+
+
 def main() -> None:
     outline = Path("data/course_outline.json")
     if not outline.exists():
@@ -494,6 +525,7 @@ def main() -> None:
         "inter-i2",
         "inter-i3",
         "inter-i4",
+        "inter-i5",
         "inter-i9",
         "chat-a1",
         "chat-a4",
@@ -527,6 +559,7 @@ def main() -> None:
     i2_card_count = validate_i2_lab()
     i3_card_count = validate_i3_lab()
     i4_card_count = validate_i4_lab()
+    i5_card_count = validate_i5_lab()
     print(
         f"Course outline OK: {len(modules)} modules loaded; "
         f"Module 1 lab OK: {scenario_count} scenarios loaded; "
@@ -539,7 +572,8 @@ def main() -> None:
         f"I1 lab OK: {i1_card_count} workspace layers loaded; "
         f"I2 lab OK: {i2_card_count} workflow decisions loaded; "
         f"I3 lab OK: {i3_card_count} research modes loaded; "
-        f"I4 lab OK: {i4_card_count} artifact modes loaded."
+        f"I4 lab OK: {i4_card_count} artifact modes loaded; "
+        f"I5 lab OK: {i5_card_count} customization cards loaded."
     )
 
 

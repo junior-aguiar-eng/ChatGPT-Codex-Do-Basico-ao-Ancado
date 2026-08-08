@@ -1,0 +1,58 @@
+{
+  "module_id": "inter-i5",
+  "title": "Laboratório de personalização: I5 \u2014 Personalização funcional",
+  "instructions": "Converta uma necessidade recorrente em um gabarito funcional e testável. Defina objetivo, limitações, instruções, capacidades, arquivo base, plano de testes e critério de aceite.",
+  "official_sources": [
+    "https://learn.chatgpt.com/docs/customize",
+    "https://learn.chatgpt.com/docs/custom-gpts",
+    "https://developers.openai.com/apps/"
+  ],
+  "verified_on": "2026-08-08",
+  "availability_note": "Personalização, conhecimento por arquivo, instruções personalizadas e integrações podem variar por plano, workspace, região e rollout. O laboratório admite solução equivalente com o mesmo rigor quando uma funcionalidade estiver indisponível.",
+  "safety_note": "Personalizações não substituem validação humana. Se houver dados sensíveis, decisões jurídicas ou operações com impacto, registre limites de uso, trilha de revisão e controles de compartilhamento.",
+  "customization_cards": [
+    {
+      "name": "Início e contexto",
+      "description": "Define objetivo funcional, público, limites e critérios de sucesso da personalização.",
+      "boundary": "Sem objetivo e critério claros, qualquer artefato funcional vira assistência sem garantias."
+    },
+    {
+      "name": "Memória e prompts",
+      "description": "Cria instruções, tom, padrões e regras de retenção por camada de contexto.",
+      "boundary": "Instruções persistentes não podem carregar segredos nem substituir validação externa."
+    },
+    {
+      "name": "Conhecimento por arquivos",
+      "description": "Especifica quais materiais alimentam a personalização e quais confirmações de origem são obrigatórias.",
+      "boundary": "Não assumir atualidade, vigência ou propriedade sem metadados e checagem."
+    },
+    {
+      "name": "Capacidades habilitadas e limitações",
+      "description": "Define quais recursos são usados e por que cada recurso está autorizado.",
+      "boundary": "Use apenas capacidades compatíveis com a conta, plano e controles institucionais aplicáveis."
+    },
+    {
+      "name": "Teste, versão e compartilhamento",
+      "description": "Estabelece cenário de teste humano, trilha de falha, versionamento e condição de compartilhamento.",
+      "boundary": "Sem plano de teste e rollback, a personalização não deve ser considerada concluída."
+    }
+  ],
+  "completion_fields": [
+    "objetivo",
+    "publico",
+    "escopo",
+    "prompt_fundamental",
+    "perfil_resposta",
+    "mecanismo_inicio",
+    "arquivos_entrada",
+    "restricoes",
+    "conhecimentos",
+    "capacidades",
+    "integracoes",
+    "testes",
+    "falhas_e_correcoes",
+    "versionamento",
+    "compartilhamento",
+    "aceite"
+  ]
+}

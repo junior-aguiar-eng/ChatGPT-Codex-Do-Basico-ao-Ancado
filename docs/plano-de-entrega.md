@@ -26,8 +26,8 @@ arquitetura do [mapa canônico](mapa-do-curso.mmd).
 - [x] I2: arquitetura de workflows reproduzíveis e verificáveis.
 - [x] I3: pesquisa, fontes e síntese rastreável.
 - [x] I4: produção de artefatos (documentos, planilhas, apresentações e sites).
-- [ ] I5 a I6: personalização e recorrência.
-- [ ] I7 a I9: fundamentos técnicos, primeiros passos e permissões do Codex.
+- [x] I5: personalização funcional.
+- [ ] I6 a I9: tarefas, recorrência, Codex inicial e segurança.
 - [ ] Laboratório intermediário e checkpoint de retorno a I2.
 
 ## Marco 3 — Trilhas avançadas
@@ -49,7 +49,5 @@ demonstração, atividade guiada, entrega verificável, critério de conclusão,
 limites, risco, fontes oficiais datadas e conexão explícita com a próxima
 unidade. Nenhuma publicação pode antecipar ou absorver conteúdo que o mapa
 reservou a outra unidade sem autorização expressa.
-
-
 
 

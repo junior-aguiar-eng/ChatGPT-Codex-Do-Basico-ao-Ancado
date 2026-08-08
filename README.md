@@ -6,18 +6,16 @@ Repositório canônico de um curso prático para operar, supervisionar e constru
 com ChatGPT, Codex e a plataforma de APIs da OpenAI.
 
 > Status: arquitetura canônica versionada, Diagnóstico inicial e Preparação do
-> ambiente, Nível 1 completo e I1 a I4 publicados; o checkpoint básico determina
+> ambiente, Nível 1 completo e I1 a I5 publicados; o checkpoint básico determina
 > avanço a I1 ou retorno a B2. O curso seguirá por unidade,
-> laboratório e trilha,
-> preservando integralmente o mapa aprovado.
+> laboratório e trilha, preservando integralmente o mapa aprovado.
 
 ## Página pública parcial
 
 A página institucional estática é publicada no GitHub Pages em
 [junior-aguiar-eng.github.io/ChatGPT-Codex-Do-Basico-ao-Ancado/](https://junior-aguiar-eng.github.io/ChatGPT-Codex-Do-Basico-ao-Ancado/).
-Ela apresenta o percurso, o caráter gratuito do curso e as unidades já liberadas. Os laboratórios interativos
-continuam no aplicativo Streamlit e serão disponibilizados em uma hospedagem
-com backend Python em etapa posterior.
+Ela apresenta o percurso, o caráter gratuito do curso e as unidades já liberadas.
+Os laboratórios interativos continuam no aplicativo Streamlit e serão disponibilizados em uma hospedagem com backend Python em etapa posterior.
 
 O workflow `.github/workflows/deploy-pages.yml` publica apenas a pasta `site/`
 quando alterações chegam à `main`; o workflow de qualidade permanece separado.
@@ -37,8 +35,8 @@ auditáveis, segurança, privacidade, supervisão humana e fontes rastreáveis.
 1. **Fundamentos** — ecossistema OpenAI, interação, qualidade e segurança.
 2. **Workflows e Codex** — organização, pesquisa, artefatos, Git e engenharia.
 3. **Especializações avançadas** — ChatGPT, Codex, API Platform, agentes e apps.
-4. **Projeto final integrado** — avaliação de qualidade, rastreabilidade,
-   segurança, reprodutibilidade, manutenção e viabilidade.
+4. **Projeto final integrado** — avaliação de qualidade, rastreabilidade, segurança,
+   reprodutibilidade, manutenção e viabilidade.
 
 ## Organização
 
@@ -73,32 +71,28 @@ Publicar em ordem modular:
 
 1. B1 · Ecossistema OpenAI.
 2. Nível 1 completo: B1 a B4 e laboratório básico.
-3. Nível 2 completo: I1 a I9 e laboratório intermediário.
+3. Nível 2: I1 a I9 e laboratório intermediário.
 4. Trilhas avançadas independentes: 3A, 3B e 3C.
 5. Integração, projeto final e banca de validação.
 
-## Como o curso estara sendo forjado
+## Como o curso está sendo forjado
 
-Este projeto sera construído como um produto GitHub-first:
+Este projeto será construído como um produto GitHub-first:
 
-- Conteudo editorial em Markdown (`docs/`) e dados em arquivos versionados (`data/`).
-- Aplicacao interativa em Python 3.14 com Streamlit (`app/main.py`).
-- Ambiente padrao no GitHub Codespaces via `.devcontainer/devcontainer.json`.
+- Conteúdo editorial em Markdown (`docs/`) e dados em arquivos versionados (`data/`).
+- Aplicação interativa em Python 3.14 com Streamlit (`app/main.py`).
+- Ambiente padrão no GitHub Codespaces via `.devcontainer/devcontainer.json`.
 - Gerenciamento de ambientes Python com `uv` e dependências diretas pinadas em
   `requirements*.txt`, atualizadas para a versão estável verificada.
-- Automacao de qualidade em GitHub Actions (`.github/workflows/course-ci.yml`)
+- Automação de qualidade em GitHub Actions (`.github/workflows/course-ci.yml`)
   com validação do catálogo, compilação, lint e testes dos fluxos do painel.
 - Node + npm mantidos no Codespace para ferramentas auxiliares quando preciso (`node` 24 e `npm` 12).
 
-Comando rapido local no Codespace:
+Comando rápido local no Codespace:
 
 ```bash
 uv run --with-requirements requirements.txt streamlit run app/main.py --server.port 8501 --server.address 0.0.0.0
 ```
 
-Requisito de base: o projeto e interativo, versionado e com validacao automatica.
-
-
-
-
+Requisito de base: o projeto é interativo, versionado e com validação automatica.
 

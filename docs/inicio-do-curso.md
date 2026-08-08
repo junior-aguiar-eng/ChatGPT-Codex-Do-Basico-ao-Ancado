@@ -32,11 +32,14 @@
     com [laboratório](modulos/08-pesquisa-e-fontes/02-laboratorio-i3.md),
     [template](entregas/08-pesquisa-e-fontes/template-entrega-i3.md) e
     [rubrica](modulos/08-pesquisa-e-fontes/03-rubrica-i3.md).
-
 12. [I4 · Produção de artefatos](modulos/09-producao-de-artefatos/01-guia-i4.md),
     com [laboratório](modulos/09-producao-de-artefatos/02-laboratorio-i4.md),
     [template](entregas/09-producao-de-artefatos/template-entrega-i4.md) e
     [rubrica](modulos/09-producao-de-artefatos/03-rubrica-i4.md).
+13. [I5 · Personalização funcional](modulos/10-personalizacao-funcional/01-guia-i5.md),
+    com [laboratório](modulos/10-personalizacao-funcional/02-laboratorio-i5.md),
+    [template](entregas/10-personalizacao-funcional/template-entrega-i5.md) e
+    [rubrica](modulos/10-personalizacao-funcional/03-rubrica-i5.md).
 
 A ordem é deliberada: antes de formular bons pedidos ou executar uma mudança,
 o participante precisa conhecer objetivo, ambiente, dados, superfícies e
@@ -48,7 +51,6 @@ Execute o painel com `uv run --with-requirements requirements.txt streamlit run
 app/main.py --server.port 8501 --server.address 0.0.0.0`. O painel permite
 navegar por todas as unidades da arquitetura; ele não substitui a leitura do
 mapa canônico nem os critérios de evidência de cada unidade.
-
 
 
 
