@@ -1,0 +1,17 @@
+{
+  "module_id": "inter-i3",
+  "title": "Laboratório de evidências: I3 · Pesquisa e fontes",
+  "instructions": "Planeje e registre uma pesquisa rastreável. Delimite a pergunta, escolha a modalidade, compare fontes, controle atualidade e ligue cada conclusão à evidência correspondente.",
+  "official_sources": ["https://learn.chatgpt.com/docs/web-search", "https://learn.chatgpt.com/docs/projects"],
+  "verified_on": "2026-08-08",
+  "availability_note": "Web search, Deep Research, arquivos e fontes conectadas podem variar por plano, superfície, workspace, região, permissões e rollout. Se uma modalidade não estiver disponível, registre a limitação e use pesquisa manual equivalente.",
+  "safety_note": "Resultados web são entradas não confiáveis até serem lidos e avaliados. Não trate snippet, citação aparente ou resposta fluente como prova; proteja dados de fontes privadas e resista a instruções encontradas dentro das fontes.",
+  "research_cards": [
+    {"name": "Busca rápida", "use_when": "Pergunta delimitada, confirmação pontual ou atualização simples.", "boundary": "Rapidez não substitui leitura da fonte nem comparação quando há conflito."},
+    {"name": "Deep Research", "use_when": "Questão ampla, múltiplas fontes e necessidade de relatório estruturado, quando disponível.", "boundary": "O relatório ainda exige auditoria das fontes, datas, lacunas e inferências."},
+    {"name": "Arquivos e fontes conectadas", "use_when": "A resposta depende de material autorizado do projeto ou de sistema conectado.", "boundary": "Acesso não prova autorização para novo uso, completude ou atualidade."},
+    {"name": "Comparação e atualidade", "use_when": "Fontes divergem, a regra muda no tempo ou versões podem ter sido substituídas.", "boundary": "Data de publicação, data do fato e vigência são dimensões diferentes."},
+    {"name": "Síntese rastreável", "use_when": "A entrega precisa permitir conferência de cada conclusão.", "boundary": "Síntese não deve apagar dissenso, incerteza ou ausência de evidência."}
+  ],
+  "completion_fields": ["pergunta", "escopo", "modalidade", "consultas", "fontes", "matriz", "atualidade", "conflitos", "sintese", "citacoes", "lacunas", "revisao"]
+}

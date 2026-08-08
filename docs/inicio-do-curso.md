@@ -28,6 +28,10 @@
     com [laboratório](modulos/07-arquitetura-de-workflows/02-laboratorio-i2.md),
     [template](entregas/07-arquitetura-de-workflows/template-entrega-i2.md) e
     [rubrica](modulos/07-arquitetura-de-workflows/03-rubrica-i2.md).
+11. [I3 · Pesquisa e fontes](modulos/08-pesquisa-e-fontes/01-guia-i3.md),
+    com [laboratório](modulos/08-pesquisa-e-fontes/02-laboratorio-i3.md),
+    [template](entregas/08-pesquisa-e-fontes/template-entrega-i3.md) e
+    [rubrica](modulos/08-pesquisa-e-fontes/03-rubrica-i3.md).
 
 A ordem é deliberada: antes de formular bons pedidos ou executar uma mudança,
 o participante precisa conhecer objetivo, ambiente, dados, superfícies e

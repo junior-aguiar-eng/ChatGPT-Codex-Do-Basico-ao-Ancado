@@ -28,6 +28,8 @@ data de conferência.
 | I1 — Personalização e memória | https://learn.chatgpt.com/docs/personalize e https://learn.chatgpt.com/docs/customization/memories — verificados em 08-08-2026. | Memória como camada auxiliar e controlável; orientação obrigatória permanece em instruções ou documentação durável. |
 | I2 — Trabalho prolongado e critérios | https://learn.chatgpt.com/docs/long-running-work — verificado em 08-08-2026. | Resultado, restrições, verificação, definição de pronto, planejamento e separação de tarefas independentes. |
 | I2 — Work e prompting | https://learn.chatgpt.com/docs/get-started-with-work e https://learn.chatgpt.com/docs/prompting — verificados em 08-08-2026. | Contexto, critérios de revisão e instruções explícitas aplicados à arquitetura pedagógica de workflows. |
+| I3 — Busca web | https://learn.chatgpt.com/docs/web-search — verificado em 08-08-2026. | Busca com registro e citações; resultados tratados como entrada não confiável e disponibilidade condicionada ao workspace. |
+| I3 — Arquivos e fontes conectadas | https://learn.chatgpt.com/docs/projects — verificado em 08-08-2026. | Fontes compartilhadas em Projects e necessidade de envio ou conexão explícita do material. |
 
 ## Regra de atualização
 
