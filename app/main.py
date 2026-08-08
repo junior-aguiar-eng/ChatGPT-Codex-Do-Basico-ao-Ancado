@@ -13,6 +13,7 @@ PREPARATION_PATH = BASE_DIR / "data" / "preparacao-do-ambiente.json"
 B2_LAB_PATH = BASE_DIR / "data" / "fundamentos-interacao-b2.json"
 B3_LAB_PATH = BASE_DIR / "data" / "chatgpt-essencial-b3.json"
 B4_LAB_PATH = BASE_DIR / "data" / "qualidade-seguranca-b4.json"
+BASIC_CHECKPOINT_PATH = BASE_DIR / "data" / "laboratorio-basico-checkpoint.json"
 
 
 @st.cache_data
@@ -48,6 +49,11 @@ def load_b3_lab() -> dict[str, Any]:
 @st.cache_data
 def load_b4_lab() -> dict[str, Any]:
     return json.loads(B4_LAB_PATH.read_text(encoding="utf-8"))
+
+
+@st.cache_data
+def load_basic_checkpoint() -> dict[str, Any]:
+    return json.loads(BASIC_CHECKPOINT_PATH.read_text(encoding="utf-8"))
 
 
 def progress_state(modules: list[dict[str, Any]]) -> dict[str, str]:
@@ -99,8 +105,8 @@ def build_pet_svg(pet: str, color: str, glow: str, index: int) -> str:
     """
 
 
-def build_terminal_preview() -> str:
-    return """
+def build_terminal_preview(module_count: int) -> str:
+    return f"""
     <div class="terminal-shell">
       <div class="terminal-bar"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span><code>course@codex:~/trilha</code></div>
       <div class="terminal-body">
@@ -111,7 +117,7 @@ def build_terminal_preview() -> str:
         <p>03. explorar o ecossistema</p>
         <p>04. construir com evidência</p>
         <p class="terminal-ok">✓ mapa canônico carregado</p>
-        <p class="terminal-ok">✓ 33 unidades disponíveis</p>
+        <p class="terminal-ok">✓ {module_count} unidades disponíveis</p>
         <p><span class="prompt">~ $</span><span class="cursor">_</span></p>
       </div>
     </div>
@@ -838,6 +844,129 @@ def render_b4_lab() -> None:
             st.warning("Antes de gerar a entrega, confirme os limites de dados e a revisão humana.")
 
 
+def build_basic_checkpoint_delivery(
+    answers: dict[str, str], assessments: list[dict[str, str]], decision: str
+) -> str:
+    checkpoint_rows = "\n".join(
+        f"| {item['title']} | {item['status']} | {item['evidence']} |"
+        for item in assessments
+    )
+    return f"""# Entrega — Laboratório básico
+
+## Pergunta e briefing
+
+{answers['pergunta']}
+
+## Arquivo analisado
+
+- **Identificação e autorização:** {answers['arquivo']}
+- **Extrato relevante:** {answers['extrato']}
+- **Limites do material:** {answers['limites']}
+
+## Pesquisa externa
+
+- **Estratégia de pesquisa:** {answers['pesquisa']}
+- **Fontes consultadas:** {answers['fontes']}
+
+## Síntese verificável
+
+{answers['sintese']}
+
+## Classificação das conclusões
+
+{answers['classificacao']}
+
+## Revisão final
+
+{answers['verificacao']}
+
+## Entrega final
+
+{answers['entrega']}
+
+## Checkpoint
+
+| Critério | Estado | Evidência |
+| --- | --- | --- |
+{checkpoint_rows}
+
+**Decisão:** {decision}
+"""
+
+
+def render_basic_checkpoint() -> None:
+    lab = load_basic_checkpoint()
+    st.markdown("<div class='section-kicker'>MARCO DE NÍVEL // CHECKPOINT BÁSICO</div>", unsafe_allow_html=True)
+    st.subheader(str(lab["title"]))
+    st.caption(str(lab["instructions"]))
+    st.warning(str(lab["availability_note"]))
+    st.info(str(lab["privacy_note"]))
+
+    labels = {
+        "pergunta": "Pergunta e briefing completo",
+        "arquivo": "Identificação do arquivo e autorização de uso",
+        "extrato": "Trecho, dado ou estrutura extraída do arquivo",
+        "limites": "Data, autoria, escopo e limites do arquivo",
+        "pesquisa": "Estratégia e termos da pesquisa externa",
+        "fontes": "Fontes consultadas, com título, responsável, data e endereço",
+        "sintese": "Síntese que liga conclusões às evidências",
+        "classificacao": "Fatos documentados, inferências e hipóteses ou lacunas",
+        "verificacao": "Revisão de atualidade, consistência, privacidade e impacto",
+        "entrega": "Entrega final pronta para conferência por outra pessoa",
+    }
+    answers: dict[str, str] = {}
+    for key in lab["completion_fields"]:
+        answers[key] = st.text_area(labels[key], key=f"basic-lab-{key}").strip()
+
+    st.markdown("**Autoavaliação baseada na evidência produzida**")
+    assessments: list[dict[str, str]] = []
+    consolidated_label = str(lab["checkpoint_options"][0])
+    for criterion in lab["checkpoint_criteria"]:
+        criterion_id = criterion["id"]
+        with st.expander(str(criterion["title"]), expanded=True):
+            st.caption(str(criterion["question"]))
+            status = st.selectbox(
+                "Estado demonstrado",
+                options=["Selecione..."] + list(lab["checkpoint_options"]),
+                key=f"basic-checkpoint-status-{criterion_id}",
+            )
+            evidence = st.text_input(
+                "Evidência específica na entrega",
+                key=f"basic-checkpoint-evidence-{criterion_id}",
+                placeholder="Aponte o campo, a fonte ou o trecho que demonstra o critério.",
+            ).strip()
+            assessments.append(
+                {
+                    "title": str(criterion["title"]),
+                    "status": "" if status == "Selecione..." else status,
+                    "evidence": evidence,
+                }
+            )
+
+    fields_complete = all(answers.values())
+    checkpoint_complete = all(item["status"] and item["evidence"] for item in assessments)
+    completed_count = sum(bool(value) for value in answers.values())
+    st.progress(completed_count / len(answers))
+    st.caption(f"{completed_count}/{len(answers)} campos da entrega completos")
+
+    if fields_complete and checkpoint_complete:
+        consolidated = all(item["status"] == consolidated_label for item in assessments)
+        if consolidated:
+            decision = "Avançar a I1 — quatro competências básicas consolidadas."
+            st.success(decision)
+        else:
+            decision = "Retornar a B2 — ao menos uma competência precisa ser reconstruída e reaplicada."
+            st.warning(decision)
+        st.download_button(
+            "Baixar laboratório e checkpoint em Markdown",
+            data=build_basic_checkpoint_delivery(answers, assessments, decision),
+            file_name="entrega-laboratorio-basico-checkpoint.md",
+            mime="text/markdown",
+        )
+    elif fields_complete:
+        st.warning("Complete os quatro estados do checkpoint e a evidência de cada critério.")
+
+
 st.set_page_config(
     page_title="Codex // Curso Completo",
     page_icon="◈",
@@ -927,12 +1056,12 @@ done_count = sum(status == "done" for status in progress.values())
 hero_left, hero_right = st.columns([1.03, 0.97], gap="large")
 with hero_left:
     st.markdown(
-        """
+        f"""
         <section class="hero-copy">
           <div class="eyebrow">CODEX // CURSO COMPLETO</div>
           <h1>Da primeira pergunta à <span class="neon">arquitetura</span> de sistemas com IA.</h1>
           <p>Uma trilha prática, profunda e verificável para operar ChatGPT, Codex, APIs, agentes e integrações — com autonomia, método e segurança.</p>
-          <div class="route-line"><span>33 unidades</span><span>3 trilhas avançadas</span><span>projeto final integrado</span></div>
+          <div class="route-line"><span>{len(modules)} unidades</span><span>3 trilhas avançadas</span><span>projeto final integrado</span></div>
         </section>
         """,
         unsafe_allow_html=True,
@@ -943,11 +1072,11 @@ with hero_left:
         st.rerun()
     st.markdown("<div class='hero-note'>Comece pelo seu contexto. A tecnologia entra depois, com propósito.</div>", unsafe_allow_html=True)
 with hero_right:
-    st.markdown(build_terminal_preview(), unsafe_allow_html=True)
+    st.markdown(build_terminal_preview(len(modules)), unsafe_allow_html=True)
 
 stats = st.columns(3, gap="medium")
 stats_data = [
-    ("33", "unidades explícitas", "do diagnóstico ao projeto final"),
+    (f"{len(modules):02d}", "unidades explícitas", "do diagnóstico ao projeto final"),
     ("03", "trilhas avançadas", "ChatGPT, Codex e API Platform"),
     ("06", "critérios de banca", "qualidade, risco, custo e manutenção"),
 ]
@@ -1058,6 +1187,10 @@ if selected_id == "basic-b3":
 if selected_id == "basic-b4":
     st.divider()
     render_b4_lab()
+
+if selected_id == "basic-checkpoint":
+    st.divider()
+    render_basic_checkpoint()
 
 with st.expander("Log de navegação", expanded=False):
     log_lines = "\n".join(st.session_state.get("course_events", [])) or "Nenhum evento nesta sessão."

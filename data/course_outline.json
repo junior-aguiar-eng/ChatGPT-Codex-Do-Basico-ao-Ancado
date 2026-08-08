@@ -90,6 +90,18 @@
       "deliverable": "Relatório de qualidade e segurança de uma entrega"
     },
     {
+      "id": "basic-checkpoint",
+      "title": "Laboratório básico e checkpoint",
+      "stage": "Nível 1 — Básico",
+      "track": "Fundamentos",
+      "pet": "Gate",
+      "accent": "#64e2a7",
+      "glow": "#2fbf83",
+      "outcomes": ["Integrar pesquisa, análise de arquivo e revisão em uma entrega verificável"],
+      "topics": ["briefing verificável", "pesquisa com fontes", "análise de arquivo", "fatos, inferências e hipóteses", "checkpoint de avanço a I1 ou retorno a B2"],
+      "deliverable": "Relatório integrado com decisão fundamentada de avanço ou retorno a B2"
+    },
+    {
       "id": "inter-i1",
       "title": "I1 · Organização persistente",
       "stage": "Nível 2 — Intermediário",

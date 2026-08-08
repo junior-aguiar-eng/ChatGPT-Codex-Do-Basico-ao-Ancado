@@ -1,0 +1,51 @@
+{
+  "module_id": "basic-checkpoint",
+  "title": "Laboratório básico · Pesquisa, arquivo e entrega verificável",
+  "instructions": "Execute um único caso ponta a ponta: formule a pergunta, examine um arquivo autorizado, pesquise fontes atuais, separe evidência de interpretação e produza uma entrega que outra pessoa possa conferir.",
+  "official_sources": [
+    "https://learn.chatgpt.com/use-cases",
+    "https://learn.chatgpt.com/docs"
+  ],
+  "verified_on": "2026-08-08",
+  "availability_note": "Pesquisa, upload e análise de arquivos podem variar por plano, plataforma, região, permissões, limites e configuração do workspace. Se um recurso não estiver disponível, registre a limitação e use uma alternativa manual rastreável.",
+  "privacy_note": "Use somente arquivo autorizado e dados públicos, próprios ou anonimizados. Não envie segredos, credenciais nem dados de terceiros sem base legítima.",
+  "checkpoint_options": [
+    "Consolidada — demonstrei com evidência",
+    "Em desenvolvimento — a evidência ficou incompleta",
+    "Não demonstrada — preciso refazer a base"
+  ],
+  "checkpoint_criteria": [
+    {
+      "id": "briefing",
+      "title": "B2 · Briefing verificável",
+      "question": "Objetivo, contexto, restrições, critérios e formato ficaram explícitos?"
+    },
+    {
+      "id": "pesquisa",
+      "title": "B3 · Pesquisa rastreável",
+      "question": "As fontes estão identificadas, atuais para o caso e ligadas às afirmações?"
+    },
+    {
+      "id": "arquivo",
+      "title": "B3 · Análise do arquivo",
+      "question": "O material de origem, o trecho relevante e seus limites podem ser conferidos?"
+    },
+    {
+      "id": "qualidade",
+      "title": "B4 · Qualidade e segurança",
+      "question": "Fatos, inferências, hipóteses, dados e revisão humana foram tratados adequadamente?"
+    }
+  ],
+  "completion_fields": [
+    "pergunta",
+    "arquivo",
+    "extrato",
+    "limites",
+    "pesquisa",
+    "fontes",
+    "sintese",
+    "classificacao",
+    "verificacao",
+    "entrega"
+  ]
+}

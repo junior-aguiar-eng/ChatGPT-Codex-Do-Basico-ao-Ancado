@@ -101,6 +101,19 @@ REQUIRED_B4_CASE_KEYS = {
     "claim_label",
     "claim_placeholder",
 }
+REQUIRED_BASIC_CHECKPOINT_KEYS = {
+    "module_id",
+    "title",
+    "instructions",
+    "official_sources",
+    "verified_on",
+    "availability_note",
+    "privacy_note",
+    "checkpoint_options",
+    "checkpoint_criteria",
+    "completion_fields",
+}
+REQUIRED_CHECKPOINT_CRITERION_KEYS = {"id", "title", "question"}
 
 
 def validate_module1_lab() -> int:
@@ -316,6 +329,27 @@ def validate_b4_lab() -> int:
     return len(lab["cases"])
 
 
+def validate_basic_checkpoint() -> int:
+    lab_path = Path("data/laboratorio-basico-checkpoint.json")
+    if not lab_path.exists():
+        raise SystemExit("Basic checkpoint data not found.")
+    lab = json.loads(lab_path.read_text(encoding="utf-8"))
+    missing = REQUIRED_BASIC_CHECKPOINT_KEYS - set(lab.keys())
+    if missing:
+        raise SystemExit(f"Basic checkpoint missing required keys: {sorted(missing)}")
+    if lab["module_id"] != "basic-checkpoint":
+        raise SystemExit("Basic checkpoint must have module_id='basic-checkpoint'.")
+    if len(lab["checkpoint_criteria"]) != 4:
+        raise SystemExit("Basic checkpoint must contain four canonical criteria.")
+    for idx, criterion in enumerate(lab["checkpoint_criteria"], start=1):
+        missing = REQUIRED_CHECKPOINT_CRITERION_KEYS - set(criterion.keys())
+        if missing:
+            raise SystemExit(f"Basic checkpoint criterion #{idx} missing keys: {sorted(missing)}")
+    if len(lab["completion_fields"]) != 10:
+        raise SystemExit("Basic checkpoint must contain ten delivery fields.")
+    return len(lab["checkpoint_criteria"])
+
+
 def main() -> None:
     outline = Path("data/course_outline.json")
     if not outline.exists():
@@ -341,6 +375,7 @@ def main() -> None:
         "basic-b2",
         "basic-b3",
         "basic-b4",
+        "basic-checkpoint",
         "inter-i1",
         "inter-i9",
         "chat-a1",
@@ -370,6 +405,7 @@ def main() -> None:
     b2_scenario_count = validate_b2_lab()
     b3_workflow_count = validate_b3_lab()
     b4_case_count = validate_b4_lab()
+    basic_checkpoint_count = validate_basic_checkpoint()
     print(
         f"Course outline OK: {len(modules)} modules loaded; "
         f"Module 1 lab OK: {scenario_count} scenarios loaded; "
@@ -377,7 +413,8 @@ def main() -> None:
         f"Preparation OK: {preparation_field_count} required fields loaded; "
         f"B2 lab OK: {b2_scenario_count} scenarios loaded; "
         f"B3 lab OK: {b3_workflow_count} workflows loaded; "
-        f"B4 lab OK: {b4_case_count} review cases loaded."
+        f"B4 lab OK: {b4_case_count} review cases loaded; "
+        f"Basic checkpoint OK: {basic_checkpoint_count} criteria loaded."
     )
 
 

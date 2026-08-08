@@ -16,6 +16,10 @@
    [laboratório](modulos/02-fundamentos-de-interacao/02-laboratorio-b2.md),
    [template](entregas/02-fundamentos-de-interacao/template-entrega-b2.md) e
    [rubrica](modulos/02-fundamentos-de-interacao/03-rubrica-b2.md)
+7. B3 · ChatGPT essencial e B4 · Qualidade e segurança, na ordem do mapa.
+8. [Laboratório básico](modulos/05-laboratorio-basico/01-laboratorio-basico.md),
+   com [template](entregas/05-laboratorio-basico/template-entrega-laboratorio-basico.md)
+   e [checkpoint de avanço ou retorno a B2](modulos/05-laboratorio-basico/02-checkpoint-basico.md).
 
 A ordem é deliberada: antes de formular bons pedidos ou executar uma mudança,
 o participante precisa conhecer objetivo, ambiente, dados, superfícies e
