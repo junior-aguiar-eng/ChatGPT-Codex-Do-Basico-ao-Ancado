@@ -18,4 +18,3 @@
 
 
 ## Lacunas, inferências e revisão
-
