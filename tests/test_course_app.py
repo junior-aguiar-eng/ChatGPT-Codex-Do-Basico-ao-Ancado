@@ -191,3 +191,13 @@ def test_i2_completion_exports_documented_workflow() -> None:
 
     assert_download_available(app, "Workflow documentado e simulado")
 
+
+def test_i3_completion_exports_cited_report() -> None:
+    app = run_app("inter-i3")
+    assert len(app.text_area) == 12
+    for field in app.text_area:
+        field.set_value("Evidência lida, datada, comparada e rastreável.")
+    app.checkbox[0].set_value(True)
+    app.run(timeout=APP_TIMEOUT_SECONDS)
+    assert_download_available(app, "Relatório citado concluído")
+

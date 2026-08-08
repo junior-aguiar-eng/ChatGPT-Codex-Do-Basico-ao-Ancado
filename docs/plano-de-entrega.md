@@ -24,7 +24,8 @@ arquitetura do [mapa canônico](mapa-do-curso.mmd).
 
 - [x] I1: organização persistente e workspace recuperável.
 - [x] I2: arquitetura de workflows reproduzíveis e verificáveis.
-- [ ] I3 a I6: pesquisa, artefatos, personalização e recorrência.
+- [x] I3: pesquisa, fontes e síntese rastreável.
+- [ ] I4 a I6: artefatos, personalização e recorrência.
 - [ ] I7 a I9: fundamentos técnicos, primeiros passos e permissões do Codex.
 - [ ] Laboratório intermediário e checkpoint de retorno a I2.
 

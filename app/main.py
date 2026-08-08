@@ -16,6 +16,7 @@ B4_LAB_PATH = BASE_DIR / "data" / "qualidade-seguranca-b4.json"
 BASIC_CHECKPOINT_PATH = BASE_DIR / "data" / "laboratorio-basico-checkpoint.json"
 I1_LAB_PATH = BASE_DIR / "data" / "organizacao-persistente-i1.json"
 I2_LAB_PATH = BASE_DIR / "data" / "arquitetura-workflows-i2.json"
+I3_LAB_PATH = BASE_DIR / "data" / "pesquisa-fontes-i3.json"
 
 
 @st.cache_data
@@ -66,6 +67,11 @@ def load_i1_lab() -> dict[str, Any]:
 @st.cache_data
 def load_i2_lab() -> dict[str, Any]:
     return json.loads(I2_LAB_PATH.read_text(encoding="utf-8"))
+
+
+@st.cache_data
+def load_i3_lab() -> dict[str, Any]:
+    return json.loads(I3_LAB_PATH.read_text(encoding="utf-8"))
 
 
 def progress_state(modules: list[dict[str, Any]]) -> dict[str, str]:
@@ -1174,6 +1180,96 @@ def render_i2_lab() -> None:
             st.warning("Execute a simulação de caso normal e falha antes de concluir I2.")
 
 
+def build_i3_delivery(answers: dict[str, str]) -> str:
+    return f"""# Entrega — I3: Pesquisa e fontes
+
+## Pergunta, escopo e modalidade
+
+- **Pergunta:** {answers['pergunta']}
+- **Escopo:** {answers['escopo']}
+- **Modalidade:** {answers['modalidade']}
+
+## Consultas e fontes
+
+- **Consultas e critérios:** {answers['consultas']}
+- **Fontes consultadas:** {answers['fontes']}
+
+## Matriz de fontes
+
+{answers['matriz']}
+
+## Atualidade e conflitos
+
+- **Controle de atualidade:** {answers['atualidade']}
+- **Conflitos:** {answers['conflitos']}
+
+## Síntese e citações
+
+{answers['sintese']}
+
+{answers['citacoes']}
+
+## Lacunas e revisão
+
+- **Lacunas e inferências:** {answers['lacunas']}
+- **Revisão final:** {answers['revisao']}
+"""
+
+
+def render_i3_lab() -> None:
+    lab = load_i3_lab()
+    st.markdown("<div class='section-kicker'>PESQUISA ATIVA // I3</div>", unsafe_allow_html=True)
+    st.subheader(str(lab["title"]))
+    st.caption(str(lab["instructions"]))
+    st.warning(str(lab["availability_note"]))
+    st.info(str(lab["safety_note"]))
+    columns = st.columns(2, gap="small")
+    for index, card in enumerate(lab["research_cards"]):
+        with columns[index % 2]:
+            st.markdown(
+                f"<div class='surface-card'><strong>{escape(card['name'])}</strong>"
+                f"<p>{escape(card['use_when'])}</p>"
+                f"<small>Limite: {escape(card['boundary'])}</small></div>",
+                unsafe_allow_html=True,
+            )
+    labels = {
+        "pergunta": "Pergunta pesquisável",
+        "escopo": "Escopo, período e exclusões",
+        "modalidade": "Modalidade escolhida e justificativa",
+        "consultas": "Consultas e critérios de inclusão ou exclusão",
+        "fontes": "Fontes: título, responsável, endereço, tipo e datas",
+        "matriz": "Matriz: tese, versão, autoridade, limites e conflito",
+        "atualidade": "Controle de publicação, fato, consulta e vigência",
+        "conflitos": "Divergências e resolução ou pendência",
+        "sintese": "Síntese com fatos, inferências e dissensos",
+        "citacoes": "Mapa de afirmações e respectivas citações",
+        "lacunas": "Lacunas, hipóteses e confirmações pendentes",
+        "revisao": "Revisão de rastreabilidade, privacidade e segurança",
+    }
+    answers = {
+        key: st.text_area(labels[key], key=f"i3-{key}").strip()
+        for key in lab["completion_fields"]
+    }
+    completed_count = sum(bool(value) for value in answers.values())
+    st.progress(completed_count / len(answers))
+    st.caption(f"{completed_count}/{len(answers)} componentes da pesquisa registrados")
+    review_confirmed = st.checkbox(
+        "Confirmo que li as fontes usadas, tratei resultados web como não confiáveis e revisei atualidade, conflitos, dados e citações.",
+        key="i3-review",
+    )
+    if completed_count == len(answers):
+        if review_confirmed:
+            st.success("Relatório citado concluído. Revise a rubrica antes de avançar a I4.")
+            st.download_button(
+                "Baixar entrega I3 em Markdown",
+                data=build_i3_delivery(answers),
+                file_name="entrega-i3-pesquisa-fontes.md",
+                mime="text/markdown",
+            )
+        else:
+            st.warning("Confirme a leitura e a revisão das fontes antes de concluir I3.")
+
+
 st.set_page_config(
     page_title="Codex // Curso Completo",
     page_icon="◈",
@@ -1406,6 +1502,10 @@ if selected_id == "inter-i1":
 if selected_id == "inter-i2":
     st.divider()
     render_i2_lab()
+
+if selected_id == "inter-i3":
+    st.divider()
+    render_i3_lab()
 
 with st.expander("Log de navegação", expanded=False):
     log_lines = "\n".join(st.session_state.get("course_events", [])) or "Nenhum evento nesta sessão."
