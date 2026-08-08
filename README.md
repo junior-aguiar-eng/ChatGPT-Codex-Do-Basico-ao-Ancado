@@ -6,7 +6,7 @@ Repositório canônico de um curso prático para operar, supervisionar e constru
 com ChatGPT, Codex e a plataforma de APIs da OpenAI.
 
 > Status: arquitetura canônica versionada, Diagnóstico inicial e Preparação do
-> ambiente, Nível 1 completo e I1 publicados; o checkpoint básico determina
+> ambiente, Nível 1 completo, I1 e I2 publicados; o checkpoint básico determina
 > avanço a I1 ou retorno a B2. O curso seguirá por unidade,
 > laboratório e trilha,
 > preservando integralmente o mapa aprovado.

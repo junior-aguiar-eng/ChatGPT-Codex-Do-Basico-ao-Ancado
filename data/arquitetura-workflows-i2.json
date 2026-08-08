@@ -1,0 +1,54 @@
+{
+  "module_id": "inter-i2",
+  "title": "Laboratório de fluxo: I2 · Arquitetura de workflows",
+  "instructions": "Transforme uma atividade recorrente em um fluxo reproduzível. Defina resultado, entradas, etapas, ferramenta, saída, gate de validação, correção e registro de versão antes de executar.",
+  "official_sources": [
+    "https://learn.chatgpt.com/docs/long-running-work",
+    "https://learn.chatgpt.com/docs/get-started-with-work",
+    "https://learn.chatgpt.com/docs/prompting"
+  ],
+  "verified_on": "2026-08-08",
+  "availability_note": "Goal mode, ChatGPT Work e controles de execução podem variar por superfície, plano, workspace, região, permissões e rollout. A arquitetura do workflow continua aplicável com execução manual ou em outra ferramenta.",
+  "safety_note": "Planejar não autoriza executar ações externas. Identifique responsáveis, permissões, dados protegidos, pontos de parada e revisão humana antes de qualquer escrita, envio, publicação ou decisão de impacto.",
+  "workflow_cards": [
+    {
+      "name": "1 · Decomposição",
+      "question": "Quais etapas têm entrada, transformação e saída próprias?",
+      "failure": "Uma etapa ampla demais esconde dependências e torna a correção cara."
+    },
+    {
+      "name": "2 · Ferramenta adequada",
+      "question": "A ferramenta é necessária, autorizada e compatível com os dados e o resultado?",
+      "failure": "Escolher pela novidade, sem necessidade ou permissão, amplia risco e retrabalho."
+    },
+    {
+      "name": "3 · Contrato de etapa",
+      "question": "Entrada, saída, formato, responsável e critério de aceite estão explícitos?",
+      "failure": "Sem contrato, uma saída plausível pode alimentar incorretamente a etapa seguinte."
+    },
+    {
+      "name": "4 · Gate e correção",
+      "question": "O que será verificado, como falhas serão tratadas e quando o fluxo deve parar?",
+      "failure": "Revisão apenas no final permite que erros se propaguem pelo workflow."
+    },
+    {
+      "name": "5 · Decisão e versão",
+      "question": "Quais decisões, evidências, mudanças e artefatos serão registrados?",
+      "failure": "Sem versão e log de decisão, não é possível reproduzir nem explicar o resultado."
+    }
+  ],
+  "completion_fields": [
+    "resultado",
+    "restricoes",
+    "entradas",
+    "etapas",
+    "ferramentas",
+    "saidas",
+    "validacoes",
+    "parada",
+    "correcao",
+    "responsaveis",
+    "decisoes",
+    "versao"
+  ]
+}

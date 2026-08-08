@@ -179,3 +179,15 @@ def test_i1_completion_exports_recoverable_workspace() -> None:
 
     assert_download_available(app, "Workspace recuperável concluído")
 
+
+def test_i2_completion_exports_documented_workflow() -> None:
+    app = run_app("inter-i2")
+    assert len(app.text_area) == 12
+
+    for field in app.text_area:
+        field.set_value("Contrato explícito, autorizado, verificável e corrigível.")
+    app.checkbox[0].set_value(True)
+    app.run(timeout=APP_TIMEOUT_SECONDS)
+
+    assert_download_available(app, "Workflow documentado e simulado")
+
