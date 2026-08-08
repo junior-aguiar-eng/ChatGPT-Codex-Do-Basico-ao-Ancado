@@ -17,6 +17,7 @@ BASIC_CHECKPOINT_PATH = BASE_DIR / "data" / "laboratorio-basico-checkpoint.json"
 I1_LAB_PATH = BASE_DIR / "data" / "organizacao-persistente-i1.json"
 I2_LAB_PATH = BASE_DIR / "data" / "arquitetura-workflows-i2.json"
 I3_LAB_PATH = BASE_DIR / "data" / "pesquisa-fontes-i3.json"
+I4_LAB_PATH = BASE_DIR / "data" / "producao-artefatos-i4.json"
 
 
 @st.cache_data
@@ -72,6 +73,11 @@ def load_i2_lab() -> dict[str, Any]:
 @st.cache_data
 def load_i3_lab() -> dict[str, Any]:
     return json.loads(I3_LAB_PATH.read_text(encoding="utf-8"))
+
+
+@st.cache_data
+def load_i4_lab() -> dict[str, Any]:
+    return json.loads(I4_LAB_PATH.read_text(encoding="utf-8"))
 
 
 def progress_state(modules: list[dict[str, Any]]) -> dict[str, str]:
@@ -1270,6 +1276,101 @@ def render_i3_lab() -> None:
             st.warning("Confirme a leitura e a revisão das fontes antes de concluir I3.")
 
 
+def build_i4_delivery(answers: dict[str, str]) -> str:
+    return f"""# Entrega â€” I4: Produção de artefatos
+
+## Objetivo, público e formato
+
+- Objetivo: {answers['objetivo']}
+- Público: {answers['publico']}
+- Formato escolhido: {answers['formato']}
+- Ferramenta e local: {answers['ferramenta']}
+
+## Conteúdo e estrutura
+
+- Mensagem principal: {answers['resumo']}
+- Estrutura e nomenclatura: {answers['estrutura']}
+- Fontes, inputs e rastreabilidade: {answers['fontes']}
+
+## Qualidade e consistência
+
+- Forma e linguagem: {answers['forma']}
+- Consistência texto-dado-visual: {answers['consistencia']}
+
+## Revisão e risco
+
+- Revisão humana e controles: {answers['revisao']}
+- Riscos e limites: {answers['riscos']}
+- Correção e nova versão: {answers['correcao']}
+
+## Publicação e fechamento
+
+- Armazenamento e acesso: {answers['armazenamento']}
+- Critério de aceitação: {answers['aceitacao']}
+- Próximo passo: {answers['proximo']}
+"""
+
+
+def render_i4_lab() -> None:
+    lab = load_i4_lab()
+    st.markdown("<div class='section-kicker'>ARTEFATOS DIGITAIS // I4</div>", unsafe_allow_html=True)
+    st.subheader(str(lab["title"]))
+    st.caption(str(lab["instructions"]))
+    st.warning(str(lab["availability_note"]))
+    st.info(str(lab["safety_note"]))
+
+    columns = st.columns(2, gap="small")
+    for index, card in enumerate(lab["artifact_cards"]):
+        with columns[index % 2]:
+            st.markdown(
+                f"<div class='surface-card'><strong>{escape(card['name'])}</strong>"
+                f"<p>{escape(card['description'])}</p>"
+                f"<small>Limite: {escape(card['boundary'])}</small></div>",
+                unsafe_allow_html=True,
+            )
+
+    labels = {
+        "objetivo": "Objetivo e decisão de produção",
+        "publico": "Público, contexto e impacto do artefato",
+        "formato": "Formato, extensão e padrão de entrega",
+        "ferramenta": "Ferramenta escolhida e justificativa",
+        "resumo": "Mensagem principal e resumo executivo",
+        "estrutura": "Seções, nomenclatura e organização interna",
+        "fontes": "Fontes/inputs: origem, autorização, validade e limites",
+        "forma": "Critérios de forma, linguagem e consistência visual",
+        "consistencia": "Conferência entre texto, dado, cálculo e anexo",
+        "revisao": "Revisão humana e evidência de aceite",
+        "riscos": "Riscos de erro, distorção, dados sensíveis ou ambiguidade",
+        "correcao": "Plano de correção, log e responsável",
+        "armazenamento": "Local, controle de versão e método de compartilhamento",
+        "aceitacao": "Critério objetivo para concluir a unidade",
+        "proximo": "Próximo passo e ponto de continuidade",
+    }
+    answers = {
+        key: st.text_area(labels[key], key=f"i4-{key}").strip()
+        for key in lab["completion_fields"]
+    }
+    completed_count = sum(bool(value) for value in answers.values())
+    st.progress(completed_count / len(answers))
+    st.caption(f"{completed_count}/{len(answers)} componentes do artefato registrados")
+
+    review_confirmed = st.checkbox(
+        "Confirmo que revisei o artefato em ciclo humano e alinhei risco, consistência e forma antes da conclusão.",
+        key="i4-review",
+    )
+    if completed_count == len(answers):
+        if review_confirmed:
+            st.success("Artefato revisado e rastreável. Revise a rubrica antes de avançar a I5.")
+            st.download_button(
+                "Baixar entrega I4 em Markdown",
+                data=build_i4_delivery(answers),
+                file_name="entrega-i4-producao-artefatos.md",
+                mime="text/markdown",
+            )
+        else:
+            st.warning("Finalize a revisão e a validação de risco antes de concluir I4.")
+
+
 st.set_page_config(
     page_title="Codex // Curso Completo",
     page_icon="◈",
@@ -1506,6 +1607,10 @@ if selected_id == "inter-i2":
 if selected_id == "inter-i3":
     st.divider()
     render_i3_lab()
+
+if selected_id == "inter-i4":
+    st.divider()
+    render_i4_lab()
 
 with st.expander("Log de navegação", expanded=False):
     log_lines = "\n".join(st.session_state.get("course_events", [])) or "Nenhum evento nesta sessão."

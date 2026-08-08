@@ -1,0 +1,57 @@
+{
+  "module_id": "inter-i4",
+  "title": "LaboratÃ³rio de artefatos: I4 Â· ProduÃ§Ã£o de artefatos",
+  "instructions": "Transforme uma entrega rastreÃ¡vel em documento, planilha, apresentaÃ§Ã£o, site ou material de suporte sem antecipar etapa de automaÃ§Ã£o.",
+  "official_sources": [
+    "https://help.openai.com/en/articles/20001345-creating-and-editing-documents-spreadsheets-and-presentations-with-chatgpt-work",
+    "https://help.openai.com/en/articles/9842798-manage-and-publish-sites-with-chatgpt-work",
+    "https://help.openai.com/en/articles/8437071-an%C3%A1lise-de-dados-com-o-chatgpt"
+  ],
+  "verified_on": "2026-08-08",
+  "availability_note": "Funcionalidades de documentaÃ§Ã£o, planilhas, apresentaÃ§Ãµes e Sites podem variar por plano, conta, workspace, regiÃ£o, permissÃµes e rollout. A entrega do mÃ³dulo continua operando com equivalentes manuais quando uma modalidade nÃ£o estiver ativa.",
+  "safety_note": "Arquivos e artefatos publicados devem ser revisados antes de compartilhar. NÃ£o trate texto ou dado sem fonte como prova e proteja informaÃ§Ãµes sensÃ­veis. Cada artefato precisa de critÃ©rio de aceite, rastreabilidade e bloqueio de publicaÃ§Ã£o se houver lacuna relevante.",
+  "artifact_cards": [
+    {
+      "name": "Documentos e relatÃ³rios",
+      "description": "Producione narrativas oficiais com estrutura, evidÃªncia e linguagem consistente.",
+      "boundary": "RelatÃ³rio nÃ£o substitui validaÃ§Ã£o jurÃ­dica, tÃ©cnica ou decisÃ£o humana."
+    },
+    {
+      "name": "Planilhas e modelos",
+      "description": "Monte tabelas, cÃ¡lculos e regras de validaÃ§Ã£o com controle de versÃ£o.",
+      "boundary": "Planilhas exigem confirmaÃ§Ã£o de fÃ³rmula, origem dos dados e periodicidade."
+    },
+    {
+      "name": "ApresentaÃ§Ãµes e materiais visuais",
+      "description": "Defina narrativas visuais com objetivo, dados-chave e trilha de leitura.",
+      "boundary": "Cada slide deve preservar fonte de evidÃªncia, limitaÃ§Ãµes e versÃ£o."
+    },
+    {
+      "name": "Sites e ferramentas leves",
+      "description": "Crie superfÃ­cie simples para consulta, rastreamento e apresentaÃ§Ã£o estruturada.",
+      "boundary": "Publique apenas com controle de acesso e sem vazamento de dados sensÃ­veis."
+    },
+    {
+      "name": "RevisÃ£o, consistÃªncia e risco",
+      "description": "Alinhe texto, dado, design e decisão final em um ciclo de revisÃ£o documentado.",
+      "boundary": "Sem revisÃ£o humana com evidÃªncia objetiva, o artefato nÃ£o pode ser concluÃ­do."
+    }
+  ],
+  "completion_fields": [
+    "objetivo",
+    "publico",
+    "formato",
+    "ferramenta",
+    "resumo",
+    "estrutura",
+    "fontes",
+    "forma",
+    "consistencia",
+    "revisao",
+    "riscos",
+    "correcao",
+    "armazenamento",
+    "aceitacao",
+    "proximo"
+  ]
+}

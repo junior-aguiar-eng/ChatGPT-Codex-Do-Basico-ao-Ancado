@@ -140,6 +140,18 @@ REQUIRED_I2_LAB_KEYS = {
 REQUIRED_I2_CARD_KEYS = {"name", "question", "failure"}
 REQUIRED_I3_LAB_KEYS = {"module_id", "title", "instructions", "official_sources", "verified_on", "availability_note", "safety_note", "research_cards", "completion_fields"}
 REQUIRED_I3_CARD_KEYS = {"name", "use_when", "boundary"}
+REQUIRED_I4_LAB_KEYS = {
+    "module_id",
+    "title",
+    "instructions",
+    "official_sources",
+    "verified_on",
+    "availability_note",
+    "safety_note",
+    "artifact_cards",
+    "completion_fields",
+}
+REQUIRED_I4_CARD_KEYS = {"name", "description", "boundary"}
 
 
 def validate_module1_lab() -> int:
@@ -435,6 +447,23 @@ def validate_i3_lab() -> int:
     return len(lab["research_cards"])
 
 
+def validate_i4_lab() -> int:
+    path = Path("data/producao-artefatos-i4.json")
+    if not path.exists():
+        raise SystemExit("I4 lab data not found.")
+    lab = json.loads(path.read_text(encoding="utf-8"))
+    missing = REQUIRED_I4_LAB_KEYS - set(lab)
+    if missing or lab["module_id"] != "inter-i4":
+        raise SystemExit(f"I4 lab invalid or missing keys: {sorted(missing)}")
+    if len(lab["artifact_cards"]) != 5 or len(lab["completion_fields"]) != 15:
+        raise SystemExit("I4 must contain five artifact modes and fifteen completion fields.")
+    for idx, card in enumerate(lab["artifact_cards"], start=1):
+        missing = REQUIRED_I4_CARD_KEYS - set(card)
+        if missing:
+            raise SystemExit(f"I4 artifact card #{idx} missing keys: {sorted(missing)}")
+    return len(lab["artifact_cards"])
+
+
 def main() -> None:
     outline = Path("data/course_outline.json")
     if not outline.exists():
@@ -462,6 +491,9 @@ def main() -> None:
         "basic-b4",
         "basic-checkpoint",
         "inter-i1",
+        "inter-i2",
+        "inter-i3",
+        "inter-i4",
         "inter-i9",
         "chat-a1",
         "chat-a4",
@@ -494,6 +526,7 @@ def main() -> None:
     i1_card_count = validate_i1_lab()
     i2_card_count = validate_i2_lab()
     i3_card_count = validate_i3_lab()
+    i4_card_count = validate_i4_lab()
     print(
         f"Course outline OK: {len(modules)} modules loaded; "
         f"Module 1 lab OK: {scenario_count} scenarios loaded; "
@@ -505,7 +538,8 @@ def main() -> None:
         f"Basic checkpoint OK: {basic_checkpoint_count} criteria loaded; "
         f"I1 lab OK: {i1_card_count} workspace layers loaded; "
         f"I2 lab OK: {i2_card_count} workflow decisions loaded; "
-        f"I3 lab OK: {i3_card_count} research modes loaded."
+        f"I3 lab OK: {i3_card_count} research modes loaded; "
+        f"I4 lab OK: {i4_card_count} artifact modes loaded."
     )
 
 

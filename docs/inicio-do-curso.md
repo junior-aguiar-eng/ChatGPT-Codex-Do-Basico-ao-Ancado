@@ -33,6 +33,11 @@
     [template](entregas/08-pesquisa-e-fontes/template-entrega-i3.md) e
     [rubrica](modulos/08-pesquisa-e-fontes/03-rubrica-i3.md).
 
+12. [I4 · Produção de artefatos](modulos/09-producao-de-artefatos/01-guia-i4.md),
+    com [laboratório](modulos/09-producao-de-artefatos/02-laboratorio-i4.md),
+    [template](entregas/09-producao-de-artefatos/template-entrega-i4.md) e
+    [rubrica](modulos/09-producao-de-artefatos/03-rubrica-i4.md).
+
 A ordem é deliberada: antes de formular bons pedidos ou executar uma mudança,
 o participante precisa conhecer objetivo, ambiente, dados, superfícies e
 limites de revisão.

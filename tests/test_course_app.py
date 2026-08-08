@@ -201,3 +201,13 @@ def test_i3_completion_exports_cited_report() -> None:
     app.run(timeout=APP_TIMEOUT_SECONDS)
     assert_download_available(app, "Relatório citado concluído")
 
+
+
+def test_i4_completion_exports_artifact_output() -> None:
+    app = run_app("inter-i4")
+    assert len(app.text_area) == 15
+    for field in app.text_area:
+        field.set_value("Rastreabilidade, consistência e revisão humana concluídas antes da publicação.")
+    app.checkbox[0].set_value(True)
+    app.run(timeout=APP_TIMEOUT_SECONDS)
+    assert_download_available(app, "Artefato revisado e rastreável")

@@ -30,6 +30,9 @@ data de conferência.
 | I2 — Work e prompting | https://learn.chatgpt.com/docs/get-started-with-work e https://learn.chatgpt.com/docs/prompting — verificados em 08-08-2026. | Contexto, critérios de revisão e instruções explícitas aplicados à arquitetura pedagógica de workflows. |
 | I3 — Busca web | https://learn.chatgpt.com/docs/web-search — verificado em 08-08-2026. | Busca com registro e citações; resultados tratados como entrada não confiável e disponibilidade condicionada ao workspace. |
 | I3 — Arquivos e fontes conectadas | https://learn.chatgpt.com/docs/projects — verificado em 08-08-2026. | Fontes compartilhadas em Projects e necessidade de envio ou conexão explícita do material. |
+| I4 — Criação e edição | https://help.openai.com/en/articles/20001345-creating-and-editing-documents-spreadsheets-and-presentations-with-chatgpt-work — verificado em 08-08-2026. | Produção de documentos, planilhas e apresentações com revisão, validação e dependência de conta/workspace. |
+| I4 — Publicação de sites | https://help.openai.com/en/articles/9842798-manage-and-publish-sites-with-chatgpt-work — verificado em 08-08-2026. | Criação e publicação de sites com controle de acesso e regras de publicação conforme plano e configuração. |
+| I4 — Análise com ChatGPT Work | https://help.openai.com/en/articles/8437071-an%C3%A1lise-de-dados-com-o-chatgpt — verificado em 08-08-2026. | Uso de análise para apoiar consistência e validação de material com limitações explícitas e validação humana. |
 
 ## Regra de atualização
 
