@@ -15,6 +15,7 @@ B3_LAB_PATH = BASE_DIR / "data" / "chatgpt-essencial-b3.json"
 B4_LAB_PATH = BASE_DIR / "data" / "qualidade-seguranca-b4.json"
 BASIC_CHECKPOINT_PATH = BASE_DIR / "data" / "laboratorio-basico-checkpoint.json"
 I1_LAB_PATH = BASE_DIR / "data" / "organizacao-persistente-i1.json"
+I2_LAB_PATH = BASE_DIR / "data" / "arquitetura-workflows-i2.json"
 
 
 @st.cache_data
@@ -60,6 +61,11 @@ def load_basic_checkpoint() -> dict[str, Any]:
 @st.cache_data
 def load_i1_lab() -> dict[str, Any]:
     return json.loads(I1_LAB_PATH.read_text(encoding="utf-8"))
+
+
+@st.cache_data
+def load_i2_lab() -> dict[str, Any]:
+    return json.loads(I2_LAB_PATH.read_text(encoding="utf-8"))
 
 
 def progress_state(modules: list[dict[str, Any]]) -> dict[str, str]:
@@ -1067,6 +1073,107 @@ def render_i1_lab() -> None:
             st.warning("Confirme autorização dos materiais, orientação durável e teste de retomada.")
 
 
+def build_i2_delivery(answers: dict[str, str]) -> str:
+    return f"""# Entrega — I2: Arquitetura de workflows
+
+## Resultado e definição de pronto
+
+- **Resultado:** {answers['resultado']}
+- **Restrições:** {answers['restricoes']}
+
+## Entradas
+
+{answers['entradas']}
+
+## Etapas
+
+{answers['etapas']}
+
+## Ferramentas e permissões
+
+{answers['ferramentas']}
+
+## Saídas e formatos
+
+{answers['saidas']}
+
+## Gates de validação
+
+{answers['validacoes']}
+
+## Parada, correção e retomada
+
+- **Pontos de parada:** {answers['parada']}
+- **Caminho de correção:** {answers['correcao']}
+
+## Responsáveis
+
+{answers['responsaveis']}
+
+## Registro
+
+- **Decisões e exceções:** {answers['decisoes']}
+- **Versão, artefatos e próxima ação:** {answers['versao']}
+"""
+
+
+def render_i2_lab() -> None:
+    lab = load_i2_lab()
+    st.markdown("<div class='section-kicker'>WORKFLOW ATIVO // I2</div>", unsafe_allow_html=True)
+    st.subheader(str(lab["title"]))
+    st.caption(str(lab["instructions"]))
+    st.warning(str(lab["availability_note"]))
+    st.info(str(lab["safety_note"]))
+
+    st.markdown("**Cinco decisões de arquitetura**")
+    card_columns = st.columns(2, gap="small")
+    for index, card in enumerate(lab["workflow_cards"]):
+        with card_columns[index % 2]:
+            st.markdown(
+                f"<div class='surface-card'><strong>{escape(card['name'])}</strong>"
+                f"<p>{escape(card['question'])}</p>"
+                f"<small>Falha típica: {escape(card['failure'])}</small></div>",
+                unsafe_allow_html=True,
+            )
+
+    labels = {
+        "resultado": "Resultado final e definição verificável de pronto",
+        "restricoes": "Restrições, permissões e fronteiras",
+        "entradas": "Entradas: origem, formato, autorização e qualidade mínima",
+        "etapas": "Etapas numeradas com entrada, transformação e dependências",
+        "ferramentas": "Ferramenta de cada etapa e justificativa",
+        "saidas": "Saídas, formato, localização e consumidor seguinte",
+        "validacoes": "Gates: evidência, resultado esperado, decisor e ação se falhar",
+        "parada": "Pontos de parada e condições de bloqueio",
+        "correcao": "Correção, repetição, escalonamento e retomada",
+        "responsaveis": "Responsáveis por executar, revisar e aprovar",
+        "decisoes": "Log de decisões, exceções e evidências",
+        "versao": "Versão do fluxo, artefatos gerados e próxima ação",
+    }
+    answers: dict[str, str] = {}
+    for key in lab["completion_fields"]:
+        answers[key] = st.text_area(labels[key], key=f"i2-{key}").strip()
+
+    completed_count = sum(bool(value) for value in answers.values())
+    st.progress(completed_count / len(answers))
+    st.caption(f"{completed_count}/{len(answers)} contratos do workflow registrados")
+    simulation_confirmed = st.checkbox(
+        "Confirmo que simulei um caso normal e uma falha, sem executar ação externa, e corrigi o fluxo quando uma etapa não pôde ser validada.",
+        key="i2-simulation",
+    )
+    if completed_count == len(answers):
+        if simulation_confirmed:
+            st.success("Workflow documentado e simulado. Revise a rubrica antes de avançar a I3.")
+            st.download_button(
+                "Baixar entrega I2 em Markdown",
+                data=build_i2_delivery(answers),
+                file_name="entrega-i2-arquitetura-workflows.md",
+                mime="text/markdown",
+            )
+        else:
+            st.warning("Execute a simulação de caso normal e falha antes de concluir I2.")
+
+
 st.set_page_config(
     page_title="Codex // Curso Completo",
     page_icon="◈",
@@ -1295,6 +1402,10 @@ if selected_id == "basic-checkpoint":
 if selected_id == "inter-i1":
     st.divider()
     render_i1_lab()
+
+if selected_id == "inter-i2":
+    st.divider()
+    render_i2_lab()
 
 with st.expander("Log de navegação", expanded=False):
     log_lines = "\n".join(st.session_state.get("course_events", [])) or "Nenhum evento nesta sessão."

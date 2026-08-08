@@ -26,6 +26,8 @@ data de conferência.
 | Laboratório básico — pesquisa e arquivos | https://learn.chatgpt.com/use-cases e https://learn.chatgpt.com/docs — verificados em 08-08-2026. | Integração pedagógica de pesquisa, análise de material de origem e produção de entrega revisável; disponibilidade deve ser confirmada na conta e no workspace usados. |
 | I1 — Projects e contexto compartilhado | https://learn.chatgpt.com/docs/projects — verificado em 08-08-2026. | Projects reúnem chats, arquivos, fontes e instruções; acesso a pastas locais não é presumido. |
 | I1 — Personalização e memória | https://learn.chatgpt.com/docs/personalize e https://learn.chatgpt.com/docs/customization/memories — verificados em 08-08-2026. | Memória como camada auxiliar e controlável; orientação obrigatória permanece em instruções ou documentação durável. |
+| I2 — Trabalho prolongado e critérios | https://learn.chatgpt.com/docs/long-running-work — verificado em 08-08-2026. | Resultado, restrições, verificação, definição de pronto, planejamento e separação de tarefas independentes. |
+| I2 — Work e prompting | https://learn.chatgpt.com/docs/get-started-with-work e https://learn.chatgpt.com/docs/prompting — verificados em 08-08-2026. | Contexto, critérios de revisão e instruções explícitas aplicados à arquitetura pedagógica de workflows. |
 
 ## Regra de atualização
 

@@ -126,6 +126,18 @@ REQUIRED_I1_LAB_KEYS = {
     "completion_fields",
 }
 REQUIRED_I1_CARD_KEYS = {"name", "purpose", "boundary"}
+REQUIRED_I2_LAB_KEYS = {
+    "module_id",
+    "title",
+    "instructions",
+    "official_sources",
+    "verified_on",
+    "availability_note",
+    "safety_note",
+    "workflow_cards",
+    "completion_fields",
+}
+REQUIRED_I2_CARD_KEYS = {"name", "question", "failure"}
 
 
 def validate_module1_lab() -> int:
@@ -383,6 +395,27 @@ def validate_i1_lab() -> int:
     return len(lab["workspace_cards"])
 
 
+def validate_i2_lab() -> int:
+    lab_path = Path("data/arquitetura-workflows-i2.json")
+    if not lab_path.exists():
+        raise SystemExit("I2 lab data not found.")
+    lab = json.loads(lab_path.read_text(encoding="utf-8"))
+    missing = REQUIRED_I2_LAB_KEYS - set(lab.keys())
+    if missing:
+        raise SystemExit(f"I2 lab missing required keys: {sorted(missing)}")
+    if lab["module_id"] != "inter-i2":
+        raise SystemExit("I2 lab must have module_id='inter-i2'.")
+    if len(lab["workflow_cards"]) != 5:
+        raise SystemExit("I2 must contain the five workflow decisions.")
+    for idx, card in enumerate(lab["workflow_cards"], start=1):
+        missing = REQUIRED_I2_CARD_KEYS - set(card.keys())
+        if missing:
+            raise SystemExit(f"I2 workflow card #{idx} missing keys: {sorted(missing)}")
+    if len(lab["completion_fields"]) != 12:
+        raise SystemExit("I2 must contain twelve workflow completion fields.")
+    return len(lab["workflow_cards"])
+
+
 def main() -> None:
     outline = Path("data/course_outline.json")
     if not outline.exists():
@@ -440,6 +473,7 @@ def main() -> None:
     b4_case_count = validate_b4_lab()
     basic_checkpoint_count = validate_basic_checkpoint()
     i1_card_count = validate_i1_lab()
+    i2_card_count = validate_i2_lab()
     print(
         f"Course outline OK: {len(modules)} modules loaded; "
         f"Module 1 lab OK: {scenario_count} scenarios loaded; "
@@ -449,7 +483,8 @@ def main() -> None:
         f"B3 lab OK: {b3_workflow_count} workflows loaded; "
         f"B4 lab OK: {b4_case_count} review cases loaded; "
         f"Basic checkpoint OK: {basic_checkpoint_count} criteria loaded; "
-        f"I1 lab OK: {i1_card_count} workspace layers loaded."
+        f"I1 lab OK: {i1_card_count} workspace layers loaded; "
+        f"I2 lab OK: {i2_card_count} workflow decisions loaded."
     )
 
 
