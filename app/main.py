@@ -12,6 +12,7 @@ DIAGNOSTIC_PATH = BASE_DIR / "data" / "diagnostico-inicial.json"
 PREPARATION_PATH = BASE_DIR / "data" / "preparacao-do-ambiente.json"
 B2_LAB_PATH = BASE_DIR / "data" / "fundamentos-interacao-b2.json"
 B3_LAB_PATH = BASE_DIR / "data" / "chatgpt-essencial-b3.json"
+B4_LAB_PATH = BASE_DIR / "data" / "qualidade-seguranca-b4.json"
 
 
 @st.cache_data
@@ -42,6 +43,11 @@ def load_b2_lab() -> dict[str, Any]:
 @st.cache_data
 def load_b3_lab() -> dict[str, Any]:
     return json.loads(B3_LAB_PATH.read_text(encoding="utf-8"))
+
+
+@st.cache_data
+def load_b4_lab() -> dict[str, Any]:
+    return json.loads(B4_LAB_PATH.read_text(encoding="utf-8"))
 
 
 def progress_state(modules: list[dict[str, Any]]) -> dict[str, str]:
@@ -735,6 +741,103 @@ def render_b3_lab() -> None:
             st.warning("Antes de gerar a entrega, confirme que os materiais e a revisão estão autorizados.")
 
 
+def build_b4_delivery(assessments: list[dict[str, str]]) -> str:
+    sections = []
+    for assessment in assessments:
+        sections.append(
+            f"""## {assessment['title']}
+
+- Afirmação, proposta ou saída: {assessment['afirmacao']}
+- Classificação: {assessment['classificacao']}
+- Evidência ou lacuna: {assessment['evidencia']}
+- Dados, privacidade e impacto: {assessment['dados']}
+- Decisão e revisão humana: {assessment['decisao']}"""
+        )
+    return "# Entrega — B4: Qualidade e segurança\n\n" + "\n\n".join(sections)
+
+
+def render_b4_lab() -> None:
+    lab = load_b4_lab()
+    st.markdown("<div class='section-kicker'>LABORATÓRIO ATIVO // B4</div>", unsafe_allow_html=True)
+    st.subheader(str(lab["title"]))
+    st.caption(str(lab["instructions"]))
+    st.warning(str(lab["safety_note"]))
+    st.caption(f"Fonte oficial verificada em {lab['verified_on']}: {lab['official_sources'][0]}")
+
+    st.markdown("**Checklist antes de usar, publicar ou executar**")
+    card_columns = st.columns(2, gap="small")
+    for column, control in zip(card_columns * 2, lab["quality_cards"]):
+        with column:
+            st.markdown(
+                f"<div class='surface-card'><strong>{escape(control['name'])}</strong>"
+                f"<p>{escape(control['question'])}</p>"
+                f"<small>Ação: {escape(control['action'])}<br>Limite: {escape(control['boundary'])}</small></div>",
+                unsafe_allow_html=True,
+            )
+
+    assessments: list[dict[str, str]] = []
+    for position, case in enumerate(lab["cases"], start=1):
+        case_id = case["id"]
+        with st.expander(f"{position:02d} · {case['title']}", expanded=position == 1):
+            st.markdown(f"**Cenário** — {case['scenario']}")
+            st.caption(f"Risco principal: {case['risk_hint']}")
+            claim = st.text_area(
+                str(case["claim_label"]),
+                key=f"b4-claim-{case_id}",
+                placeholder=str(case["claim_placeholder"]),
+            ).strip()
+            classification = st.selectbox(
+                "Classificação da afirmação ou proposta",
+                options=["Selecione..."] + list(lab["classification_options"]),
+                key=f"b4-classification-{case_id}",
+            )
+            evidence = st.text_area(
+                "Evidência, fonte primária ou lacuna de confirmação",
+                key=f"b4-evidence-{case_id}",
+                placeholder="Registre o que sustenta a conclusão ou o que ainda precisa ser conferido.",
+            ).strip()
+            data = st.text_area(
+                "Dados, privacidade e impacto de usar esta saída",
+                key=f"b4-data-{case_id}",
+                placeholder="Indique dados sensíveis, autorização, minimização ou por que não há dados envolvidos.",
+            ).strip()
+            decision = st.text_input(
+                "Decisão e revisão humana necessária",
+                key=f"b4-decision-{case_id}",
+                placeholder="Ex.: não publicar; conferir fonte primária; submeter à pessoa responsável.",
+            ).strip()
+            assessments.append(
+                {
+                    "title": str(case["title"]),
+                    "afirmacao": claim,
+                    "classificacao": "" if classification == "Selecione..." else classification,
+                    "evidencia": evidence,
+                    "dados": data,
+                    "decisao": decision,
+                }
+            )
+
+    required_keys = ("afirmacao", "classificacao", "evidencia", "dados", "decisao")
+    completed = sum(all(assessment[key] for key in required_keys) for assessment in assessments)
+    st.progress(completed / len(assessments))
+    st.caption(f"{completed}/{len(assessments)} decisões de qualidade e segurança completas")
+    safe_review_confirmed = st.checkbox(
+        "Confirmo que não usei dados sensíveis sem autorização e que nenhuma decisão de alto impacto será tomada sem revisão humana adequada.",
+        key="b4-safe-review",
+    )
+    if completed == len(assessments):
+        if safe_review_confirmed:
+            st.success("Relatório de qualidade e segurança concluído. Revise a rubrica antes de encerrar B4.")
+            st.download_button(
+                "Baixar relatório B4 em Markdown",
+                data=build_b4_delivery(assessments),
+                file_name="relatorio-b4-qualidade-seguranca.md",
+                mime="text/markdown",
+            )
+        else:
+            st.warning("Antes de gerar a entrega, confirme os limites de dados e a revisão humana.")
+
+
 st.set_page_config(
     page_title="Codex // Curso Completo",
     page_icon="◈",
@@ -951,6 +1054,10 @@ if selected_id == "basic-b2":
 if selected_id == "basic-b3":
     st.divider()
     render_b3_lab()
+
+if selected_id == "basic-b4":
+    st.divider()
+    render_b4_lab()
 
 with st.expander("Log de navegação", expanded=False):
     log_lines = "\n".join(st.session_state.get("course_events", [])) or "Nenhum evento nesta sessão."

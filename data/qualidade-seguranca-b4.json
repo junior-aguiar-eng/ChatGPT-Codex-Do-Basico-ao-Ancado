@@ -1,0 +1,75 @@
+{
+  "module_id": "basic-b4",
+  "title": "Laboratório de decisão: B4 · Qualidade e segurança",
+  "instructions": "Avalie três saídas ou propostas sem executar ação externa. Para cada caso, separe o que é fato documentado, inferência ou hipótese; registre a evidência, o limite de dados e a decisão de revisão.",
+  "official_sources": [
+    "https://platform.openai.com/docs/guides/safety-best-practices"
+  ],
+  "verified_on": "2026-08-05",
+  "safety_note": "Uma resposta plausível não é evidência suficiente. Em decisões críticas, baixa confiança, dados sensíveis ou possível impacto em terceiros, interrompa o fluxo e defina uma revisão humana proporcional ao risco.",
+  "quality_cards": [
+    {
+      "name": "Evidência e factualidade",
+      "question": "A afirmação pode ser conferida em fonte primária, material de origem ou cálculo reproduzível?",
+      "action": "Registrar a fonte, a data, o trecho ou declarar que a confirmação ainda falta.",
+      "boundary": "Fluência, confiança ou citação sem leitura não comprovam um fato."
+    },
+    {
+      "name": "Fato, inferência ou hipótese",
+      "question": "A saída descreve algo documentado, interpreta evidências ou supõe uma condição ainda não verificada?",
+      "action": "Classificar cada conclusão e não apresentar hipótese como certeza.",
+      "boundary": "Uma inferência útil continua dependente das premissas e dos limites das fontes."
+    },
+    {
+      "name": "Dados e privacidade",
+      "question": "Há dados pessoais, sigilo, segredo, autorização limitada ou risco de exposição desnecessária?",
+      "action": "Minimizar, anonimizar, retirar o material ou pedir autorização antes de continuar.",
+      "boundary": "Não inclua senhas, tokens, chaves de API ou dados de terceiros sem base legítima."
+    },
+    {
+      "name": "Decisão e revisão humana",
+      "question": "Qual é o impacto se esta saída estiver errada, incompleta ou for executada sem revisão?",
+      "action": "Definir se é possível usar, revisar, escalar ou não usar a saída.",
+      "boundary": "O laboratório não autoriza decisões médicas, jurídicas, financeiras, disciplinares ou outras de alto impacto."
+    }
+  ],
+  "classification_options": [
+    "Fato documentado",
+    "Inferência a partir de evidências",
+    "Hipótese que exige confirmação",
+    "Afirmação sem suporte suficiente"
+  ],
+  "cases": [
+    {
+      "id": "factualidade",
+      "title": "Afirmação atual sem fonte suficiente",
+      "scenario": "Um rascunho afirma que uma regra mudou recentemente, mas não traz ato, fonte primária, data nem trecho de referência.",
+      "risk_hint": "Não transforme uma alegação atual em fato antes de localizar e ler a fonte adequada.",
+      "claim_label": "Afirmação, conclusão ou trecho que você avaliaria",
+      "claim_placeholder": "Ex.: O rascunho afirma que a regra X mudou em determinada data."
+    },
+    {
+      "id": "dados",
+      "title": "Material com dados que não precisam entrar no fluxo",
+      "scenario": "Uma pessoa propõe enviar um arquivo com identificadores e informações de terceiros para obter uma síntese mais rápida.",
+      "risk_hint": "A utilidade pretendida não substitui autorização, minimização de dados e avaliação de necessidade.",
+      "claim_label": "Uso pretendido do material ou decisão proposta",
+      "claim_placeholder": "Ex.: Enviar o arquivo completo para resumir, sem remover identificadores."
+    },
+    {
+      "id": "impacto",
+      "title": "Saída convincente com ação de impacto",
+      "scenario": "Uma resposta sugere aprovar, recusar ou publicar algo que afeta outra pessoa, mas os critérios e a revisão responsável não foram definidos.",
+      "risk_hint": "Uma recomendação não deve virar ação crítica sem critérios, responsável e possibilidade de contestação ou correção.",
+      "claim_label": "Recomendação ou ação que seria tomada",
+      "claim_placeholder": "Ex.: Publicar a recomendação imediatamente porque a resposta parece completa."
+    }
+  ],
+  "completion_fields": [
+    "afirmacao",
+    "classificacao",
+    "evidencia",
+    "dados",
+    "decisao"
+  ]
+}

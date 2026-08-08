@@ -115,3 +115,20 @@ def test_b3_completion_exports_markdown() -> None:
 
     assert_download_available(app, "Entrega multimodal registrada")
 
+
+def test_b4_completion_exports_markdown() -> None:
+    app = run_app("basic-b4")
+    assert len(app.text_area) == 9
+    assert len(app.text_input) == 3
+
+    for index in range(3):
+        app.selectbox[1 + index].set_value("Fato documentado")
+    for field in app.text_area:
+        field.set_value("Registro verificável, sem dados sensíveis e com limite explícito.")
+    for field in app.text_input:
+        field.set_value("Revisar fonte primária antes de usar ou publicar.")
+    app.checkbox[0].set_value(True)
+    app.run(timeout=APP_TIMEOUT_SECONDS)
+
+    assert_download_available(app, "Relatório de qualidade e segurança concluído")
+
