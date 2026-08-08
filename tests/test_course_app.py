@@ -132,3 +132,38 @@ def test_b4_completion_exports_markdown() -> None:
 
     assert_download_available(app, "Relatório de qualidade e segurança concluído")
 
+
+def test_basic_checkpoint_advances_when_all_criteria_are_consolidated() -> None:
+    app = run_app("basic-checkpoint")
+    assert len(app.text_area) == 10
+    assert len(app.text_input) == 4
+
+    for field in app.text_area:
+        field.set_value("Evidência específica, autorizada e verificável.")
+    for index in range(4):
+        app.selectbox[1 + index].set_value("Consolidada — demonstrei com evidência")
+    for field in app.text_input:
+        field.set_value("Campo e fonte identificados na entrega.")
+    app.run(timeout=APP_TIMEOUT_SECONDS)
+
+    assert_download_available(app, "Avançar a I1")
+
+
+def test_basic_checkpoint_routes_to_b2_when_a_criterion_is_incomplete() -> None:
+    app = run_app("basic-checkpoint")
+    for field in app.text_area:
+        field.set_value("Evidência específica, autorizada e verificável.")
+    for index in range(4):
+        status = (
+            "Em desenvolvimento — a evidência ficou incompleta"
+            if index == 0
+            else "Consolidada — demonstrei com evidência"
+        )
+        app.selectbox[1 + index].set_value(status)
+    for field in app.text_input:
+        field.set_value("Campo e fonte identificados na entrega.")
+    app.run(timeout=APP_TIMEOUT_SECONDS)
+
+    assert any("Retornar a B2" in item.value for item in app.warning)
+    assert len(app.get("download_button")) == 1
+

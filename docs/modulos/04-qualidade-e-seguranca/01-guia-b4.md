@@ -62,6 +62,6 @@ Fonte: [Safety best practices](https://platform.openai.com/docs/guides/safety-be
 
 ## Conexão com a próxima etapa
 
-B4 encerra os fundamentos do Nível 1. O laboratório básico reunirá pesquisa,
+B4 encerra os fundamentos do Nível 1. O laboratório básico reúne pesquisa,
 arquivo e artefato em uma entrega verificável; quem não demonstrar contexto,
 evidência e revisão retornará a B2 antes de avançar.
